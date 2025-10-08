@@ -1,11 +1,25 @@
+/* Light theme */
 :root {
   --background: #ffffff;
+  --a-header-color: #555555;
+  --text-color: #333333;
+  --secondary-text-color: #8b5cf6;
+  --subtitle-text-color: #555555;
+  --card-background: #1f293780;
+  --icon-fill-color: #555555;
   --foreground: #171717;
 }
 
+/* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #10192280;
+    --a-header-color: #d1d5db;
+    --text-color: #ffffff;
+    --secondary-text-color: #1173d4;
+    --subtitle-text-color: #9ca3af;
+    --card-background: #ffffff;
+    --icon-fill-color: #e5e7eb;
     --foreground: #ededed;
   }
 }
