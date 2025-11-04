@@ -1,7 +1,7 @@
 .projects-list {
   display: grid;
-  gap: 2rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -14,6 +14,7 @@
 
   .project-item {
     --radius: 0.75rem;
+
     background-color: var(--card-background);
     border-radius: var(--radius);
 
@@ -23,8 +24,8 @@
 
     .project-image {
       width: 100%;
-      object-fit: cover;
       border-radius: var(--radius) var(--radius) 0 0;
+      object-fit: cover;
     }
 
     .project-info {
