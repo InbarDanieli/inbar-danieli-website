@@ -1,0 +1,13 @@
+.resume-wrapper {
+  .resume-download-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    background-color: var(--secondary-text-color);
+    padding: 10px 20px;
+    
+    color: white;
+  }
+}

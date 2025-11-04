@@ -1,0 +1,13 @@
+.stack-wrapper {
+  width: 100%;
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    .stack-item {
+      text-align: center;
+    }
+  }
+}
