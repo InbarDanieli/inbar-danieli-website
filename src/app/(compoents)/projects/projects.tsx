@@ -1,11 +1,12 @@
 import Image from "next/image";
 import styles from "./projects.module.scss";
 import { projects } from "@/app/(helpers)/projects";
+import SectionTitle from "../sectionTitle/sectionTitle";
 
 export default function Projects() {
   return (
     <div className={`${styles["projects-wrapper"]} wrapper have-padding`}>
-      <h2>Projects</h2>
+      <SectionTitle title="Projects" />
       <div className={styles["projects-list"]}>
         {projects.map((project, idx) => (
           <div className={styles["project-item"]} key={project.title + idx}>

@@ -1,5 +1,5 @@
 .hero-wrapper {
-  padding: 5rem 0;
+  padding-bottom: 5rem;
 
   .cover-image {
     margin-bottom: 3rem;
@@ -13,19 +13,24 @@
     gap: 1rem;
 
     margin-top: 0.8rem;
-    
+
     color: var(--icon-fill-color);
 
     .social-link {
       display: flex;
-    
+
       font-size: 1.5rem;
-    
+
       transition: all 0.2s ease;
 
       &:hover {
         color: var(--secondary-text-color);
       }
     }
+  }
+
+  h5 {
+    margin-top: 1rem;
+    max-width: 60%;
   }
 }

@@ -3,6 +3,7 @@ import Hero from "./(compoents)/hero/hero";
 import Projects from "./(compoents)/projects/projects";
 import TechnologyStack from "./(compoents)/stack/stack";
 import Resume from "./(compoents)/resume/resume";
+import Footer from "./(compoents)/footer/footer";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Projects />
       <TechnologyStack />
       <Resume/>
+      <Footer />
     </div>
   );
 }

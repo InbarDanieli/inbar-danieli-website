@@ -1,0 +1,32 @@
+.footer-wrapper {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 2rem 4rem;
+  border-top: 1px solid var(--subtitle-text-color);
+
+  .socials-list {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      
+    }
+
+    a:hover {
+      color: var(--secondary-text-color);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      
+      padding: 1.5rem;
+  }
+}
