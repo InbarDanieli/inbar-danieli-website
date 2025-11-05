@@ -1,5 +1,93 @@
 .hero-wrapper {
   padding-bottom: 5rem;
+  position: relative;
+
+  .about-me-icons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    color: var(--secondary-background);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    .about-me-icon {
+      position: absolute;
+      font-size: 2.5rem;
+      scale: 1.3;
+
+      &:nth-child(1) {
+        top: 10%;
+        left: 4%;
+      }
+      &:nth-child(2) {
+        top: 50%;
+        left: 70%;
+      }
+      &:nth-child(3) {
+        top: 80%;
+        left: 20%;
+      }
+      &:nth-child(4) {
+        top: 50%;
+        left: 30%;
+      }
+      &:nth-child(5) {
+        top: 10%;
+        left: 90%;
+      }
+      &:nth-child(6) {
+        top: 60%;
+        left: 4%;
+      }
+      &:nth-child(7) {
+        top: 30%;
+        left: 55%;
+      }
+      &:nth-child(8) {
+        top: 80%;
+        left: 95%;
+      }
+      &:nth-child(9) {
+        top: 5%;
+        left: 70%;
+      }
+      &:nth-child(10) {
+        top: 26%;
+        left: 20%;
+      }
+      &:nth-child(11) {
+        top: 90%;
+        left: 80%;
+      }
+      &:nth-child(12) {
+        top: 6%;
+        left: 34%;
+      }
+    }
+
+    .crochet-icon {
+      position: relative;
+      > img {
+        position: absolute;
+        top: 0;
+        right: 0px;
+        rotate: -12deg;
+        width: 0.5em;
+        height: 1.3em;
+        transform: translateY(-10%) translateX(70%);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+     .about-me-icon {
+      scale: 0.8;
+     }
+    }
+  }
 
   .cover-image {
     margin-bottom: 3rem;

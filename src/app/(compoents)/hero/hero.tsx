@@ -1,10 +1,53 @@
 import Image from "next/image";
 import { socials } from "@/app/(helpers)/socials";
 import styles from "./hero.module.scss";
+import { FaCat } from "react-icons/fa6";
+import { IoLogoOctocat } from "react-icons/io";
+import { IoLogoCss3 } from "react-icons/io";
+import { SiMongodb } from "react-icons/si";
+import { IoLogoFirebase } from "react-icons/io5";
+import { IoLogoGameControllerB } from "react-icons/io";
+import { GiBookshelf } from "react-icons/gi";
+import { FaReact } from "react-icons/fa";
+import { IoLogoJavascript } from "react-icons/io5";
+import { TbBrandTypescript } from "react-icons/tb";
+import { TbBrandFigma } from "react-icons/tb";
+import { PiYarn } from "react-icons/pi";
+import Hook from "../../(images)/hook.svg";
+
+const aboutMeIcons = [
+  { icon: <FaCat />, label: "Cat" },
+  { icon: <IoLogoOctocat />, label: "GitHub" },
+  { icon: <IoLogoCss3 />, label: "CSS" },
+  { icon: <SiMongodb />, label: "MongoDB" },
+  { icon: <IoLogoFirebase />, label: "Firebase" },
+  { icon: <IoLogoGameControllerB />, label: "Game Controller" },
+  { icon: <GiBookshelf />, label: "Bookshelf" },
+  { icon: <FaReact />, label: "React" },
+  { icon: <IoLogoJavascript />, label: "JavaScript" },
+  { icon: <TbBrandTypescript />, label: "TypeScript" },
+  { icon: <TbBrandFigma />, label: "Figma" },
+  {
+    icon: (
+      <div className={styles["crochet-icon"]}>
+        <Image src={Hook.src} alt="Hooks" width={3} height={20} />
+        <PiYarn />
+      </div>
+    ),
+    label: "Yarn",
+  },
+];
 
 export default function Hero() {
   return (
     <div className={`${styles["hero-wrapper"]} wrapper`}>
+      <div className={styles["about-me-icons"]}>
+        {aboutMeIcons.map((icon) => (
+          <div key={icon.label} className={styles["about-me-icon"]}>
+            {icon.icon}
+          </div>
+        ))}
+      </div>
       <Image
         className={styles["cover-image"]}
         alt=""
