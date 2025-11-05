@@ -71,14 +71,12 @@
 
     .crochet-icon {
       position: relative;
-      > img {
+      > svg:first-child {
         position: absolute;
         top: 0;
         right: 0px;
         rotate: -12deg;
-        width: 0.5em;
-        height: 1.3em;
-        transform: translateY(-10%) translateX(70%);
+        transform: translateY(-20%) translateX(100%);
       }
     }
 

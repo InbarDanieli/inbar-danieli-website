@@ -30,7 +30,7 @@ const aboutMeIcons = [
   {
     icon: (
       <div className={styles["crochet-icon"]}>
-        <Image src={Hook.src} alt="Hooks" width={3} height={20} />
+        <Hook className={styles["hook-icon"]}/>
         <PiYarn />
       </div>
     ),
