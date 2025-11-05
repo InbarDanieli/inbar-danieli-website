@@ -13,7 +13,7 @@ export default function Hero() {
         height={160}
       />
       <h1>Inbar Danieli</h1>
-      <h4 className="font-semibold">FrontEnd Developer</h4>
+      <h4 className="font-semibold">Software Developer</h4>
       <div className={styles.socials}>
         {socials.map((social) => (
           <a
@@ -29,7 +29,7 @@ export default function Hero() {
         ))}
       </div>
       <h5 className="text-center">
-        FrontEnd Developer and open source contributor. A self-learner, always
+        Software developer and open source contributor. A self-learner, always
         eager to explore new technologies, and continuously improve my skills.
         CSS enthusiast and responsible for developing the Reversim 2025 website.
       </h5>

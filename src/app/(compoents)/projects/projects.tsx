@@ -6,7 +6,7 @@ import SectionTitle from "../sectionTitle/sectionTitle";
 export default function Projects() {
   return (
     <div className={`${styles["projects-wrapper"]} wrapper have-padding`}>
-      <SectionTitle title="Projects" />
+      <SectionTitle title="My Projects" />
       <div className={styles["projects-list"]}>
         {projects.map((project, idx) => (
           <div className={styles["project-item"]} key={project.title + idx}>
@@ -18,18 +18,17 @@ export default function Projects() {
               height={200}
             />
             <div className={styles["project-info"]}>
-              <h4 className={styles["project-title"]}>{project.title}</h4>
-              <p className={styles["project-description"]}>
-                {project.description}
-              </p>
               <a
                 className={styles["project-link"]}
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View Project
+                <h4 className={styles["project-title"]}>{project.title}</h4>
               </a>
+              <p className={styles["project-description"]}>
+                {project.description}
+              </p>
             </div>
           </div>
         ))}
