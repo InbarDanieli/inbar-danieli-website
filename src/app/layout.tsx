@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Inbar Danieli",
+  title:  "Inbar Danieli",
   description: "Inbar Danieli's personal website",
   icons: {
     icon: [

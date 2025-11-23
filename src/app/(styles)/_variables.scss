@@ -1,6 +1,10 @@
-/* Light theme */
 :root {
-  --background: #ffffff;
+  // global variables
+  --card-radius: 0.75rem;
+  --cards-gap: 2rem;
+
+  /* Light theme */
+  --background: #faf7f5;
   --a-header-color: #555555;
   --text-color: #333333;
   --secondary-text-color: #8b5cf6;
@@ -9,6 +13,12 @@
   --subtitle-text-color: #555555;
   --icon-fill-color: #555555;
   --foreground: #171717;
+
+  // crochet page variables
+  --crochet-secondary-color: #89c2c7;
+  --header-link-color: #e5989b;
+  --crochet-card-background: #ffffff;
+  --crochet-card-border: #ebe6e3;
 }
 
 /* Dark theme */
@@ -23,5 +33,9 @@
     --secondary-background: #0b0b0b;
     --icon-fill-color: #e5e7eb;
     --foreground: #ededed;
+    
+    // crochet page variables
+    --crochet-card-background: #2c2a29;
+    --crochet-card-border: #444140;
   }
 }

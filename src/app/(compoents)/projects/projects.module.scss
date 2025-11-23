@@ -1,7 +1,7 @@
 .projects-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
+  gap: var(--cards-gap);
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -9,11 +9,10 @@
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
   }
 
   .project-item {
-    --radius: 0.75rem;
+    --radius: var(--card-radius);
 
     background-color: var(--card-background);
     border-radius: var(--radius);

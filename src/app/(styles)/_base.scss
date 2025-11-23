@@ -10,11 +10,31 @@ html {
 }
 
 body {
-  color: var(--foreground);
+  :has(.dashboard-page) & {
+    @media (prefers-color-scheme: dark) {
+      --background: #1a1817cc;
+    }
+
+    h4 {
+      color: var(--text-color);
+      line-height: 1;
+    }
+
+    .secondary-text {
+      color: var(--crochet-secondary-color);
+    }
+  }
+
   background: var(--background);
+  padding: 24px;
+  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+  }
 }
 
 * {

@@ -10,26 +10,26 @@ export default function Projects() {
       <div className={styles["projects-list"]}>
         {projects.map((project, idx) => (
           <div className={styles["project-item"]} key={project.title + idx}>
-            <Image
-              className={styles["project-image"]}
-              alt={project.title}
-              src={project.image}
-              width={300}
-              height={200}
-            />
-            <div className={styles["project-info"]}>
-              <a
-                className={styles["project-link"]}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+            <a
+              className={styles["project-link"]}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                className={styles["project-image"]}
+                alt={project.title}
+                src={project.image}
+                width={300}
+                height={200}
+              />
+              <div className={styles["project-info"]}>
                 <h4 className={styles["project-title"]}>{project.title}</h4>
-              </a>
-              <p className={styles["project-description"]}>
-                {project.description}
-              </p>
-            </div>
+                <p className={styles["project-description"]}>
+                  {project.description}
+                </p>
+              </div>
+            </a>
           </div>
         ))}
       </div>
