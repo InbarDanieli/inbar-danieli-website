@@ -26,6 +26,11 @@ h4 {
   color: var(--secondary-text-color);
   font-size: 1.125rem;
   line-height: 1.75rem;
+
+  &.crochet-h4 {
+    color: var(--text-color);
+    font-weight: 400;
+  }
 }
 
 h5 {
