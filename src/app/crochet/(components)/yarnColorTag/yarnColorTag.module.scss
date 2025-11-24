@@ -1,0 +1,11 @@
+.yarn-color-tag-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  .yarn-color {
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 4px;
+  }
+}

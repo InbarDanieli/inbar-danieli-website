@@ -1,0 +1,19 @@
+.grid-section {
+  grid-area: stats;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cards-gap);
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.card-wrapper {
+  background-color: var(--crochet-card-background);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--crochet-card-border);
+}

@@ -1,7 +1,7 @@
 import { IProgressPatternCard } from "../../(types)/dashbaord";
 import ProgressBar from "../progressBar/progressBar";
 import styles from "./progressPatternsSection.module.scss";
-import pageStyles from "../../dashboard/page.module.scss";
+import globalStyles from "../../(styles)/globals.module.scss";
 import { GiSpellBook } from "react-icons/gi";
 import EmptySection from "../emptySection/emptySection";
 
@@ -23,7 +23,7 @@ export default function ProgressPatternsSection({
 
   return (
     <div
-      className={`${styles["progress-pattern-card-section"]} ${pageStyles["grid-section"]}`}
+      className={`${styles["progress-pattern-card-section"]} ${globalStyles["grid-section"]}`}
     >
       {cards.map((card, idx) => (
         <a

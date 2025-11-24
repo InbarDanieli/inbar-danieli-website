@@ -1,0 +1,13 @@
+.yarn-materials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  .yarn-material {
+    width: 100%;
+    display: flex;
+    gap: 0.1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

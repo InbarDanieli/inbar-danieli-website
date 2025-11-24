@@ -1,0 +1,52 @@
+.yarn-card {
+  --info-color: var(--subtitle-text-color);
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  color: var(--info-color);
+
+  img {
+    width: 100px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--card-radius);
+  }
+
+  .yarn-card-content {
+    display: flex;
+    flex-direction: column;
+  }
+  h4 {
+    margin-bottom: 0.2rem;
+    color: var(--text-color);
+    line-height: 1;
+  }
+
+  .yarn-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: 0.8rem;
+    font-size: 0.8em;
+
+    .separator {
+      align-self: stretch;
+      width: 1px;
+      background-color: var(--info-color);
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      
+
+      .separator {
+       display: none;
+      }
+    }
+  }
+}
