@@ -7,6 +7,7 @@ import ProgressPatternsSection from "../(components)/progressPatternsSection/pro
 import { progressPatterns } from "../(demoData)/petterns";
 import YarnStashSection from "../(components)/yarnStashSection/yarnStashSection";
 import { yarns } from "../(demoData)/yarns";
+import { getDetailedTimeOfDay } from "../(helpers)/getTimeOfDay";
 
 // Define the metadata specifically for crochet/dashboard
 export const metadata: Metadata = {
@@ -15,11 +16,14 @@ export const metadata: Metadata = {
 };
 
 export default function Dashboard() {
+  const { timeCategory } = getDetailedTimeOfDay();
+  const userName = "Inbar";
+  
   return (
     <div className={`${styles.page} dashboard-page wrapper`}>
       <div className={styles.header}>
         <Title
-          content="Good Morning, Inbar!"
+          content={`Good ${timeCategory}, ${userName}!`}
           subtitle="Here's a look at your crochet world today"
         />
       </div>
