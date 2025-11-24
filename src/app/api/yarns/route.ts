@@ -3,7 +3,7 @@ import { connectToDb } from "../connectDb";
 import { Yarn } from "../(modules)/yarn";
 
 // Handle GET requests (e.g., fetching a list of users)
-export async function GET(request: NextRequest, response: Response) {
+export async function GET() {
   try {
     console.log("Getting yarns");
 

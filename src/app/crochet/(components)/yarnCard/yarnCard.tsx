@@ -5,11 +5,12 @@ import styles from "./yarnCard.module.scss";
 import globalStyles from "../../(styles)/globals.module.scss";
 import YarnMaterials from "../yarnMaterials/yarnMaterials";
 import YarnColorTag from "../yarnColorTag/yarnColorTag";
+import Image from "next/image";
 
 export default function YarnCard({ yarn }: { yarn: IYarnSchema }) {
   return (
     <div className={`${styles["yarn-card"]} ${globalStyles["card-wrapper"]}`}>
-      <img src={yarn.image} alt={yarn.name} />
+      <Image src={yarn.image} alt={yarn.name} width={100} height={100} />
 
       <div className={styles["yarn-card-content"]}>
         <h4>{yarn.name}</h4>
