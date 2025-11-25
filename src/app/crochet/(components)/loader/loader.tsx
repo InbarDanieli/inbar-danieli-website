@@ -14,10 +14,9 @@ export default function Loader() {
   if (!mounted) {
     return null;
   }
-
   return (
     <div className={styles["loader"]}>
-      <PiYarn size={40} />
+      <PiYarn size={50} />
     </div>
   );
 }

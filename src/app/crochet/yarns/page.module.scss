@@ -1,3 +1,17 @@
+.yarns-page{
+  display: flex;
+  flex-direction: column;
+  gap: var(--cards-gap);
+
+  .hero {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
 .yarns-section-wrapper {
   width: 100%;
   display: grid;

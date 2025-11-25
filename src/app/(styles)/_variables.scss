@@ -19,6 +19,9 @@
   --header-link-color: #e5989b;
   --crochet-card-background: #ffffff;
   --crochet-card-border: #ebe6e3;
+
+  --button-primary-background: #e67372;
+  --button-secondary-background: #f3d0d0;
 }
 
 /* Dark theme */
@@ -33,9 +36,11 @@
     --secondary-background: #0b0b0b;
     --icon-fill-color: #e5e7eb;
     --foreground: #ededed;
-    
+
     // crochet page variables
     --crochet-card-background: #2c2a29;
     --crochet-card-border: #444140;
+    --button-primary-background: #e5989b;
+    --button-secondary-background: #563e3f;
   }
 }

@@ -6,6 +6,9 @@ import { IYarnSchema } from "../(types)/yarn";
 import styles from "./page.module.scss";
 import EmptySection from "../(components)/emptySection/emptySection";
 import Loader from "../(components)/loader/loader";
+import Title from "../(components)/title/title";
+import { PiYarn } from "react-icons/pi";
+import Link from "../(components)/link/link";
 
 const getYarns = async () => {
   try {
@@ -42,46 +45,45 @@ export default function YarnSection() {
     fetchYarns();
   }, []);
 
-  if (loader) {
-    // return <Loader />; // TODO - fix loader issue with hydration
-  }
-  if (error) {
-    return <p>{error}</p>;
-  }
+  function renderBody() {
+    if (loader) {
+      return <Loader />;
+    }
 
-  // TODO - issue with hydration
-  // if (yarns.length <= 0 && !loader && !error) {
-  //   return (
-  //     <EmptySection
-  //       title="No yarns found"
-  //       description="Add your first yarn to start your yarn collection."
-  //       icon={<PiYarn size={50} />}
-  //       variant="yarn"
-  //     />
-  //   );
-  // }
+    if (error) {
+      return <p>{error}</p>;
+    }
 
-  // const devYarns = [
-  //   {
-  //     _id: '69242b4bd4c6058343665bcf',
-  //     name: 'test',
-  //     color: 'red',
-  //     colorTag: 'color tag',
-  //     company: 'company name',
-  //     materials: {
-  //       cotton: 50,
-  //       wool: 50,
-  //     },
-  //     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuATOCwoya_1g5dpZb9mQkw0f0vfpZQXAVutKLbWF2NQ_BK21d_DI2fBXhkjbUlemtjlev33B8DK4jhx2YzGIUeTHSvqB19WirKzCdTd6buEK5u2k9VQDlr806Uj0R2-CHiOoZNpc8m9d0dcWWXkT8dPAz75pJgrFvIO85pWOsXBEMdGtziJ8QWkKlwvvtoJOcCM0Af9QZ9lbIVoed4tlLOxAvQEa4YPl33gl-AL-puoIgVaYJv4EYIqhE62FAIt06ke_1ukiDOhIeBM',
-  //     id: '69247689f329f6f150d0a65f'
-  //   }
-  // ]
+    if (yarns.length <= 0 && !loader && !error) {
+      return (
+        <EmptySection
+          title="No yarns found"
+          description="Add your first yarn to start your yarn collection."
+          icon={<PiYarn size={50} />}
+          variant="yarn"
+        />
+      );
+    }
+  }
 
   return (
-    <div className={styles["yarns-section-wrapper"]}>
-      {yarns.map((yarn, idx) => (
-        <YarnCard key={yarn._id + idx} yarn={yarn} />
-      ))}
+    <div className={`${styles["yarns-page"]} wrapper`}>
+      <div className={styles.hero}>
+        <Title
+          content={`My Yarn Stash`}
+          subtitle="Your personal collection of yarns"
+        />
+
+        <Link variant="primary" href="/crochet/yarns/add-yarn">
+          Add Yarn
+        </Link>
+      </div>
+      {renderBody()}
+      <div className={styles["yarns-section-wrapper"]}>
+        {yarns.map((yarn, idx) => (
+          <YarnCard key={yarn._id + idx} yarn={yarn} />
+        ))}
+      </div>
     </div>
   );
 }
