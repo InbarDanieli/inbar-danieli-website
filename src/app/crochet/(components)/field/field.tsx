@@ -4,6 +4,10 @@ import React from "react";
 import styles from "./field.module.scss";
 import { FieldProps } from "../../(types)/field";
 import MaterialsField from "../materialsField/materialsField";
+import InputField from "../inputField/inputField";
+import SelectField from "../selectField/selectField";
+import TextareaField from "../textareaField/textareaField";
+import FileField from "../fileField/fileField";
 
 export default function Field({
   label,
@@ -32,87 +36,62 @@ export default function Field({
   };
 
   const renderInput = () => {
-    const commonProps = {
-      id: name,
-      name,
-      onBlur,
-      className: `${styles.input} ${error ? styles.error : ""}`,
-    };
-
     switch (type) {
       case "select":
         return (
-          <select
-            {...commonProps}
+          <SelectField
+            id={name}
+            name={name}
             value={value as string}
             onChange={handleInputChange}
+            onBlur={onBlur}
+            placeholder={placeholder}
             required={required}
-          >
-            <option value="" disabled>
-              {placeholder || `Select a ${label.toLowerCase()}...`}
-            </option>
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            error={!!error}
+            options={options}
+            label={label}
+          />
         );
 
       case "textarea":
         return (
-          <textarea
-            {...commonProps}
+          <TextareaField
+            id={name}
+            name={name}
             value={value as string}
             onChange={handleInputChange}
+            onBlur={onBlur}
             placeholder={placeholder}
             required={required}
+            error={!!error}
             rows={4}
           />
         );
 
       case "file":
         return (
-          <div className={styles["file-upload"]}>
-            <input
-              {...commonProps}
-              type="file"
-              onChange={handleInputChange}
-              accept={accept}
-              required={required}
-            />
-            <div className={styles["file-upload-content"]}>
-              <svg
-                className={styles["upload-icon"]}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
-              </svg>
-              <p>
-                <span className={styles.highlight}>Click to upload</span> or
-                drag and drop
-              </p>
-              <p className={styles["file-info"]}>
-                {accept || "PNG, JPG or GIF (MAX. 800x400px)"}
-              </p>
-            </div>
-          </div>
+          <FileField
+            id={name}
+            name={name}
+            onChange={handleInputChange}
+            onBlur={onBlur}
+            accept={accept}
+            required={required}
+          />
         );
 
       case "number":
         return (
-          <input
-            {...commonProps}
+          <InputField
+            id={name}
+            name={name}
             type="number"
             value={value as number}
             onChange={handleInputChange}
+            onBlur={onBlur}
             placeholder={placeholder}
             required={required}
+            error={!!error}
             min={0}
           />
         );
@@ -126,15 +105,19 @@ export default function Field({
             onBlur={onBlur}
           />
         );
+
       default:
         return (
-          <input
-            {...commonProps}
+          <InputField
+            id={name}
+            name={name}
             type="text"
             value={value as string}
             onChange={handleInputChange}
+            onBlur={onBlur}
             placeholder={placeholder}
             required={required}
+            error={!!error}
           />
         );
     }
