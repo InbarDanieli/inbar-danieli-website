@@ -34,20 +34,18 @@
     &:focus {
       outline: none;
       background-color: var(--card-background);
-      border-color: var(--button-primary-background);
-      box-shadow: 0 0 0 3px rgba(230, 115, 114, 0.1);
+      border-color: var(--button-secondary-background);
     }
 
     &:hover:not(:focus) {
-      border-color: var(--button-primary-background);
+      border-color: var(--button-secondary-background);
     }
 
     &.error {
       border-color: var(--error-color);
-      
+
       &:focus {
         border-color: var(--error-color);
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
       }
     }
   }
@@ -104,7 +102,7 @@
         color: var(--text-color);
 
         .highlight {
-          color: var(--button-primary-background);
+          color: var(--button-secondary-background);
           font-weight: 600;
           cursor: pointer;
         }
@@ -118,8 +116,7 @@
     }
 
     &:hover .file-upload-content {
-      border-color: var(--button-primary-background);
-      // background-color: var(--card-background);
+      border-color: var(--button-secondary-background);
     }
   }
 
@@ -129,4 +126,3 @@
     margin-top: -0.25rem;
   }
 }
-
