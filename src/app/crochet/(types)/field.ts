@@ -4,7 +4,8 @@ export type FieldType =
   | "number"
   | "file"
   | "textarea"
-  | "materials";
+  | "materials"
+  | "color";
 
 export interface FieldOption {
   label: string;
@@ -37,5 +38,16 @@ export interface MaterialsFieldProps {
   value?: Record<string, number>;
   error?: string;
   onChange?: (value: Record<string, number>) => void;
+  onBlur?: () => void;
+}
+
+// color picker field props
+export interface ColorPickerFieldProps {
+  id: string;
+  name: string;
+  value?: string;
+  required?: boolean;
+  error?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
 }

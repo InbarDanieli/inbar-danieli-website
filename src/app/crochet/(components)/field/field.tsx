@@ -8,6 +8,7 @@ import InputField from "../inputField/inputField";
 import SelectField from "../selectField/selectField";
 import TextareaField from "../textareaField/textareaField";
 import FileField from "../fileField/fileField";
+import ColorPickerField from "../colorPickerField/colorPickerField";
 
 export default function Field({
   label,
@@ -103,6 +104,19 @@ export default function Field({
             error={error}
             onChange={(val) => onChange?.(val)}
             onBlur={onBlur}
+          />
+        );
+
+      case "color":
+        return (
+          <ColorPickerField
+            id={name}
+            name={name}
+            value={value as string}
+            onChange={handleInputChange}
+            onBlur={onBlur}
+            required={required}
+            error={!!error}
           />
         );
 

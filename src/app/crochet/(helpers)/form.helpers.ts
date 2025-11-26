@@ -12,9 +12,8 @@ export const formFields: FormFieldConfig[] = [
   },
   {
     name: "color",
-    label: "Color / Dye Lot",
-    type: "text",
-    placeholder: "e.g., 'Paris Night' or '801'",
+    label: "Color",
+    type: "color",
     required: true,
     gridColumn: "half",
   },
