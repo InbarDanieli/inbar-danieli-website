@@ -1,0 +1,24 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  border: none;
+  outline: none;
+
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &.primary {
+    background-color: var(--button-primary-background);
+    color: var(--crochet-card-background);
+  }
+
+  &.secondary {
+    background-color: var(--button-secondary-background);
+    color: var(--button-primary-background);
+  }
+}

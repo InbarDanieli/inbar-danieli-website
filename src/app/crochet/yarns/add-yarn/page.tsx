@@ -1,56 +1,53 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { IYarnSchema } from "../../(types)/yarn";
+
+import Form from "../../(components)/form/form";
+import { AddYarnToDB, formFields } from "../../(helpers)/form.helpers";
+import { FormFieldValue } from "../../(types)/form";
 import styles from "./page.module.scss";
 
-async function AddYarnToDB(yarn: Omit<IYarnSchema, "_id">) {
-  try {
-    const response = await fetch("/api/yarns", {
-      method: "POST",
-      body: JSON.stringify(yarn),
-    });
-    const data = await response.json();
-    if (data.status !== 200) {
-      throw new Error(data.message);
-    }
-    window.location.href = "/crochet/yarns";
-    return data.data;
-  } catch (error) {
-    console.log({ error });
-    throw (error as { message: string }).message || "Error adding yarn to DB";
-  }
-}
-
-const devYarns = {
-  name: "test",
-  color: "red",
-  colorTag: "color tag",
-  company: "company name",
-  materials: {
-    cotton: 50,
-    wool: 50,
-  },
-  image: "test",
-};
-
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  await AddYarnToDB(devYarns);
-};
-
 export default function AddYarn() {
+  const router = useRouter();
+
+  const handleSubmit = async (data: Record<string, FormFieldValue>) => {
+    try {
+      // Prepare yarn data according to schema
+      const yarnData: Omit<IYarnSchema, "_id"> = {
+        name: (data.name as string) || "",
+        color: (data.color as string) || "",
+        colorTag: (data.colorTag as string) || "",
+        company: (data.company as string) || "",
+        materials: (data.materials as Record<string, number>) || {},
+        image: (data.image as string) || "", // TODO: Handle file upload properly
+      };
+
+      await AddYarnToDB(yarnData);
+
+      // Redirect to yarns page on success
+      router.push("/crochet/yarns");
+    } catch (error) {
+      console.error("Error adding yarn:", error);
+      alert("Failed to add yarn. Please try again.");
+    }
+  };
+
+  const handleCancel = () => {
+    router.push("/crochet/yarns");
+  };
+
   return (
     <div className={`${styles["add-yarn-page"]} wrapper`}>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Yarn Name" />
-        <input type="text" placeholder="Yarn Color" />
-        <input type="text" placeholder="Yarn Color Tag" />
-        <input type="text" placeholder="Yarn Company" />
-        <input type="text" placeholder="Yarn Materials" />
-        <input type="text" placeholder="Yarn Image" />
-        <button type="submit">Add Yarn</button>
-      </form>
+      <Form
+        title="Add New Yarn"
+        subtitle="Fill in the details below to add a new yarn to your collection."
+        fields={formFields}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+        submitLabel="Save Yarn"
+        cancelLabel="Cancel"
+      />
     </div>
   );
 }

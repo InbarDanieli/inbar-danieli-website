@@ -3,7 +3,7 @@
 import { FaPlus } from "react-icons/fa";
 import styles from "./link.module.scss";
 
-export default function Button({
+export default function Link({
   children,
   href,
   variant = "primary",
