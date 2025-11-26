@@ -11,13 +11,6 @@ export const formFields: FormFieldConfig[] = [
     gridColumn: "full",
   },
   {
-    name: "company",
-    label: "Brand",
-    type: "text",
-    placeholder: "e.g., Malabrigo",
-    gridColumn: "half",
-  },
-  {
     name: "color",
     label: "Color / Dye Lot",
     type: "text",
@@ -26,11 +19,11 @@ export const formFields: FormFieldConfig[] = [
     gridColumn: "half",
   },
   {
-    name: "materials",
-    label: "Fiber Materials",
-    type: "materials",
-    required: true,
-    gridColumn: "full",
+    name: "company",
+    label: "Brand",
+    type: "text",
+    placeholder: "e.g., Malabrigo",
+    gridColumn: "half",
   },
   {
     name: "colorTag",
@@ -39,6 +32,13 @@ export const formFields: FormFieldConfig[] = [
     placeholder: "e.g., Blue, Red, Multicolor",
     gridColumn: "full",
   },
+  {
+    name: "materials",
+    label: "Fiber Materials",
+    type: "materials",
+    gridColumn: "full",
+  },
+
   {
     name: "image",
     label: "Upload Photo",
