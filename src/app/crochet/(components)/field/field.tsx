@@ -2,13 +2,14 @@
 
 import React from "react";
 import styles from "./field.module.scss";
-import { FieldProps } from "../../(types)/field";
+import { IFieldProps } from "../../(types)/field.types";
 import MaterialsField from "../materialsField/materialsField";
 import InputField from "../inputField/inputField";
 import SelectField from "../selectField/selectField";
 import TextareaField from "../textareaField/textareaField";
 import FileField from "../fileField/fileField";
 import ColorPickerField from "../colorPickerField/colorPickerField";
+import NumberField from "../numberField/numberField";
 
 export default function Field({
   label,
@@ -22,7 +23,7 @@ export default function Field({
   accept,
   onChange,
   onBlur,
-}: FieldProps) {
+}: IFieldProps) {
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -83,12 +84,11 @@ export default function Field({
 
       case "number":
         return (
-          <InputField
+          <NumberField
             id={name}
             name={name}
-            type="number"
             value={value as number}
-            onChange={handleInputChange}
+            onChange={(value) => onChange?.(value)}
             onBlur={onBlur}
             placeholder={placeholder}
             required={required}
@@ -125,7 +125,7 @@ export default function Field({
           <InputField
             id={name}
             name={name}
-            type="text"
+            type={"text"}
             value={value as string}
             onChange={handleInputChange}
             onBlur={onBlur}

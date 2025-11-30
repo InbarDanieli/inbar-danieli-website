@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import styles from "./title.module.scss";
 
 export default function Title({
@@ -5,11 +6,13 @@ export default function Title({
   subtitle,
   titleType = "h1",
   variant = "default",
+  style = {},
 }: {
   content?: string;
   subtitle?: string;
   titleType?: "h1" | "h2" | "h3";
   variant?: "default" | "secondary";
+  style?: CSSProperties;
 }) {
   function renderTitle() {
     if (!content) return null;
@@ -20,7 +23,7 @@ export default function Title({
   }
 
   return (
-    <div className={styles.title}>
+    <div className={styles.title} style={style}>
       {renderTitle()}
       {subtitle && (
         <h4 className={`crochet-h4 secondary-text ${styles[variant]}`}>

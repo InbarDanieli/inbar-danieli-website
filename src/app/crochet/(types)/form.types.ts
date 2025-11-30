@@ -1,20 +1,20 @@
-import { FieldProps, FieldType } from "./field";
+import { IFieldProps, TFieldType } from "./field.types";
 
 export type FormFieldValue = string | number | File | null | Record<string, number>;
 
-export interface FormFieldConfig extends Omit<FieldProps, "error" | "onBlur"> {
+export interface IFormFieldConfig extends Omit<IFieldProps, "error" | "onBlur"> {
   name: string;
   label: string;
-  type?: FieldType;
+  type?: TFieldType;
   required?: boolean;
   gridColumn?: "full" | "half"; // for responsive layout
   validate?: (value: FormFieldValue) => string | undefined;
 }
 
-export interface FormProps {
+export interface IFormProps {
   title?: string;
   subtitle?: string;
-  fields: FormFieldConfig[];
+  fields: IFormFieldConfig[];
   onSubmit: (data: Record<string, FormFieldValue>) => void | Promise<void>;
   onCancel?: () => void;
   submitLabel?: string;

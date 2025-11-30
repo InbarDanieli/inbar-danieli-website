@@ -1,14 +1,13 @@
 "use client";
 
 import React from "react";
-import styles from "./inputField.module.scss";
-import { IInputFieldProps } from "../../(types)/field.types";
+import styles from "../inputField/inputField.module.scss";
+import { INumberFieldProps } from "../../(types)/field.types";
 
 
-export default function InputField({
+export default function NumberField({
   id,
   name,
-  type = "text",
   value,
   placeholder,
   required = false,
@@ -16,14 +15,14 @@ export default function InputField({
   min,
   onChange,
   onBlur,
-}: IInputFieldProps) {
+}: INumberFieldProps) {
   return (
     <input
       id={id}
       name={name}
-      type={type}
+      type={"number"}
       value={value}
-      onChange={onChange}
+      onChange={(e) => onChange?.(e.target.valueAsNumber || 0)}
       onBlur={onBlur}
       placeholder={placeholder}
       required={required}

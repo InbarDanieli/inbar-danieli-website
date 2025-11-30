@@ -1,11 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { IYarnSchema } from "../../(types)/yarn";
+import { IYarnSchema } from "../../(types)/yarn.types";
 
 import Form from "../../(components)/form/form";
 import { AddYarnToDB, formFields } from "../../(helpers)/form.helpers";
-import { FormFieldValue } from "../../(types)/form";
+import { FormFieldValue } from "../../(types)/form.types";
 import styles from "./page.module.scss";
 
 export default function AddYarn() {

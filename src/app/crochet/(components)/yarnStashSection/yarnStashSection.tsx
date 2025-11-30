@@ -2,7 +2,7 @@ import EmptySection from "../emptySection/emptySection";
 import styles from "./yarnStashSection.module.scss";
 import { PiYarn } from "react-icons/pi";
 import globalStyles from "../../(styles)/globals.module.scss";
-import { IYarnSchema } from "../../(types)/yarn";
+import { IYarnSchema } from "../../(types)/yarn.types";
 
 export default function YarnStashSection({ yarns }: { yarns: IYarnSchema[] }) {
   if (yarns.length <= 0) {

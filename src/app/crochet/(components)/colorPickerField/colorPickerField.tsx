@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./colorPickerField.module.scss";
-import { ColorPickerFieldProps } from "../../(types)/field";
+import { IColorPickerFieldProps } from "../../(types)/field.types";
 
 export default function ColorPickerField({
   id,
@@ -12,7 +12,7 @@ export default function ColorPickerField({
   error = false,
   onChange,
   onBlur,
-}: ColorPickerFieldProps) {
+}: IColorPickerFieldProps) {
   const [color, setColor] = useState(value || "");
   const colorPickerRef = useRef<HTMLInputElement>(null);
 

@@ -3,10 +3,11 @@
 import React, { useState, FormEvent } from "react";
 import styles from "./form.module.scss";
 import Button from "../button/button";
-import { FormFieldValue, FormProps } from "../../(types)/form";
+import { FormFieldValue, IFormProps } from "../../(types)/form.types";
 import Field from "../field/field";
 import { validateForm } from "../../(helpers)/field.helpers";
 import Title from "../title/title";
+import globalStyles from "../../(styles)/globals.module.scss";
 
 export default function Form({
   title,
@@ -16,7 +17,7 @@ export default function Form({
   onCancel,
   submitLabel = "Save",
   cancelLabel = "Cancel",
-}: FormProps) {
+}: IFormProps) {
   const [formData, setFormData] = useState<Record<string, FormFieldValue>>(
     () => {
       const initialData: Record<string, FormFieldValue> = {};
@@ -103,13 +104,13 @@ export default function Form({
           </div>
         </div>
 
-        <div className={styles["form-content"]}>
-          <div className={styles["fields-grid"]}>
+        <div className={globalStyles["form-content"]}>
+          <div className={globalStyles["fields-grid"]}>
             {fields.map((field) => (
               <div
                 key={field.name}
-                className={`${styles["field-wrapper"]} ${
-                  field.gridColumn === "full" ? styles.full : ""
+                className={`${globalStyles["field-wrapper"]} ${
+                  field.gridColumn === "full" ? globalStyles.full : ""
                 }`}
               >
                 <Field

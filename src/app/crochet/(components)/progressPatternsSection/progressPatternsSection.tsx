@@ -1,4 +1,4 @@
-import { IProgressPatternCard } from "../../(types)/dashbaord";
+import { IProgressPatternCard } from "../../(types)/dashbaord.types";
 import ProgressBar from "../progressBar/progressBar";
 import styles from "./progressPatternsSection.module.scss";
 import globalStyles from "../../(styles)/globals.module.scss";

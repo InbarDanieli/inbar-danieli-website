@@ -12,13 +12,21 @@
   font-weight: 600;
   cursor: pointer;
 
-  &.primary {
+  &.primary,
+  &.primary-full {
     background-color: var(--button-primary-background);
     color: var(--crochet-card-background);
   }
 
-  &.secondary {
+  &.secondary,
+  &.secondary-full {
     background-color: var(--button-secondary-background);
     color: var(--button-primary-background);
+  }
+
+  &.primary-full,
+  &.secondary-full {
+    justify-content: center;
+    width: 100%;
   }
 }

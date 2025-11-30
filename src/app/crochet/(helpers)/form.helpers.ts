@@ -1,7 +1,7 @@
-import { FormFieldConfig } from "../(types)/form";
-import { IYarnSchema } from "../(types)/yarn";
+import { IFormFieldConfig } from "../(types)/form.types";
+import { IYarnSchema } from "../(types)/yarn.types";
 
-export const formFields: FormFieldConfig[] = [
+export const formFields: IFormFieldConfig[] = [
   {
     name: "name",
     label: "Yarn Name",

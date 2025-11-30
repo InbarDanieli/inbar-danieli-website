@@ -1,4 +1,6 @@
-export type FieldType =
+import { HTMLInputTypeAttribute } from "react";
+
+export type TFieldType =
   | "text"
   | "select"
   | "number"
@@ -7,20 +9,20 @@ export type FieldType =
   | "materials"
   | "color";
 
-export interface FieldOption {
+export interface IFieldOption {
   label: string;
   value: string;
 }
 
-export interface FieldProps {
+export interface IFieldProps {
   label: string;
   name: string;
-  type?: FieldType;
+  type?: TFieldType;
   value?: string | number | Record<string, number>;
   placeholder?: string;
   required?: boolean;
   error?: string;
-  options?: FieldOption[];
+  options?: IFieldOption[];
   accept?: string; // for file inputs
   onChange?: (
     value: string | number | File | null | Record<string, number>
@@ -28,13 +30,13 @@ export interface FieldProps {
   onBlur?: () => void;
 }
 
-export interface MaterialEntry {
+export interface IMaterialEntry {
   id: string;
   name: string;
   percentage: number;
 }
 
-export interface MaterialsFieldProps {
+export interface IMaterialsFieldProps {
   value?: Record<string, number>;
   error?: string;
   onChange?: (value: Record<string, number>) => void;
@@ -42,7 +44,7 @@ export interface MaterialsFieldProps {
 }
 
 // color picker field props
-export interface ColorPickerFieldProps {
+export interface IColorPickerFieldProps {
   id: string;
   name: string;
   value?: string;
@@ -50,4 +52,23 @@ export interface ColorPickerFieldProps {
   error?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
+}
+
+
+export interface IInputFieldProps {
+  id: string;
+  name: string;
+  type?: HTMLInputTypeAttribute;
+  value?: string | number;
+  placeholder?: string;
+  required?: boolean;
+  error?: boolean;
+  min?: number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+}
+
+export interface INumberFieldProps extends Omit<IInputFieldProps, 'value' | 'onChange'> {
+  value: number;
+  onChange: (value: number) => void;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { IYarnSchema } from "../../(types)/yarn";
+import { IYarnSchema } from "../../(types)/yarn.types";
 import styles from "./yarnCard.module.scss";
 import globalStyles from "../../(styles)/globals.module.scss";
 import YarnMaterials from "../yarnMaterials/yarnMaterials";

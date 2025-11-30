@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./materialsField.module.scss";
 import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
-import { MaterialEntry, MaterialsFieldProps } from "../../(types)/field";
+import { IMaterialEntry, IMaterialsFieldProps } from "../../(types)/field.types";
 
 
 export default function MaterialsField({
@@ -11,8 +11,8 @@ export default function MaterialsField({
   error,
   onChange,
   onBlur,
-}: MaterialsFieldProps) {
-  const [materials, setMaterials] = useState<MaterialEntry[]>(() => {
+}: IMaterialsFieldProps) {
+  const [materials, setMaterials] = useState<IMaterialEntry[]>(() => {
     // Initialize from value prop
     if (Object.keys(value).length > 0) {
       return Object.entries(value).map(([name, percentage], index) => ({

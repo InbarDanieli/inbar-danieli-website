@@ -1,7 +1,7 @@
-import { FormFieldConfig, FormFieldValue } from "../(types)/form";
+import { IFormFieldConfig, FormFieldValue } from "../(types)/form.types";
 
 export const validateField = (
-  field: FormFieldConfig,
+  field: IFormFieldConfig,
   value: FormFieldValue
 ): string | undefined => {
   if (!field) return undefined;
@@ -27,7 +27,7 @@ export const validateField = (
 };
 
 export const validateForm = (
-  fields: FormFieldConfig[],
+  fields: IFormFieldConfig[],
   formData: Record<string, FormFieldValue>
 ): {
   errors: Record<string, string>;

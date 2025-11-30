@@ -39,34 +39,6 @@
     }
   }
 
-  .form-content {
-    background-color: var(--crochet-card-background, #ffffff);
-    border-radius: var(--card-radius, 1rem);
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-
-    @media (max-width: 768px) {
-      padding: 1.5rem;
-    }
-  }
-
-  .fields-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-
-    .field-wrapper {
-      &.full {
-        grid-column: 1 / -1;
-      }
-    }
-  }
-
   .actions {
     display: flex;
     justify-content: flex-end;
