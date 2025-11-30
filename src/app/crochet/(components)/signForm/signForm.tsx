@@ -5,10 +5,12 @@ import Field from "../field/field";
 import globalStyles from "../../(styles)/globals.module.scss";
 import styles from "./signForm.module.scss";
 import Button from "../button/button";
+import InputField from "../inputField/inputField";
 
-export default function Form({ type }: { type: "login" | "signup" }) {
+export default function SignForm({ type }: { type: "login" | "signup" }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async () => {
     // e.preventDefault();
@@ -32,6 +34,7 @@ export default function Form({ type }: { type: "login" | "signup" }) {
               label="Email Address"
               name="email"
               type="text"
+              placeholder="example@example.com"
               value={email}
               onChange={(value) => setEmail(value as string)}
             />
@@ -42,11 +45,26 @@ export default function Form({ type }: { type: "login" | "signup" }) {
             <Field
               label="Password"
               name="password"
-              type="text"
+              type="password"
               value={password}
+              placeholder="Enter Password"
               onChange={(value) => setPassword(value as string)}
             />
           </div>
+          {type === "signup" && (
+            <div
+              className={`${globalStyles["field-wrapper"]} ${globalStyles.full}`}
+            >
+              <Field
+                label="Confirm Password"
+                name="confirm-password"
+                type="password"
+                value={confirmPassword}
+                placeholder="Confirm Password"
+                onChange={(value) => setConfirmPassword(value as string)}
+              />
+            </div>
+          )}
           <div
             className={`${globalStyles["field-wrapper"]} ${globalStyles.full}`}
           >

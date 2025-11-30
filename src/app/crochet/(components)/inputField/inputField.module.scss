@@ -1,35 +1,56 @@
-.input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  font-size: 1rem;
-  color: var(--text-color);
-  background-color: var(--secondary-background);
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
-  transition: all 0.2s ease;
-  font-family: inherit;
+.input-container {
+  position: relative;
 
-  &::placeholder {
-    color: var(--subtitle-text-color);
-    opacity: 0.7;
-  }
+  .input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--secondary-background);
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
 
-  &:focus {
-    outline: none;
-    background-color: var(--card-background);
-    border-color: var(--button-secondary-background);
-  }
-
-  &:hover:not(:focus) {
-    border-color: var(--button-secondary-background);
-  }
-
-  &.error {
-    border-color: var(--error-color);
+    &::placeholder {
+      color: var(--subtitle-text-color);
+      opacity: 0.7;
+    }
 
     &:focus {
+      outline: none;
+      background-color: var(--card-background);
+      border-color: var(--button-secondary-background);
+    }
+
+    &:hover:not(:focus) {
+      border-color: var(--button-secondary-background);
+    }
+
+    &.error {
       border-color: var(--error-color);
+
+      &:focus {
+        border-color: var(--error-color);
+      }
+    }
+  }
+
+  .show-password-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 0.95rem;
+    color: var(--subtitle-text-color);
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+
+    &.active {
+      color: var(--text-color);
     }
   }
 }
-

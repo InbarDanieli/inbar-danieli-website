@@ -125,7 +125,7 @@ export default function Field({
           <InputField
             id={name}
             name={name}
-            type={"text"}
+            type={type}
             value={value as string}
             onChange={handleInputChange}
             onBlur={onBlur}

@@ -1,6 +1,7 @@
 import { HTMLInputTypeAttribute } from "react";
 
 export type TFieldType =
+  | "password"
   | "text"
   | "select"
   | "number"
