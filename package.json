@@ -9,7 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@emotion/css": "^11.13.5",
+    "@types/connect-mongodb-session": "^2.4.8",
+    "@types/express-session": "^1.18.2",
+    "bcryptjs": "^3.0.3",
+    "connect-mongodb-session": "^5.0.0",
+    "express-session": "^1.18.2",
     "mongodb": "^7.0.0",
     "mongoose": "^8.19.3",
     "next": "15.5.4",
@@ -21,13 +25,12 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@svgr/webpack": "^8.1.0",
-    "@types/express": "^5.0.5",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
-    "express": "^5.1.0",
     "typescript": "^5"
   }
 }

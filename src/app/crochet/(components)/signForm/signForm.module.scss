@@ -3,3 +3,15 @@
   max-width: 100%;
   width: 600px;
 }
+
+.sign-up-message {
+  font-size: 1rem;
+  color: var(--subtitle-text-color);
+  margin-top: 3rem;
+  
+  a {
+    color: var(--button-primary-background);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

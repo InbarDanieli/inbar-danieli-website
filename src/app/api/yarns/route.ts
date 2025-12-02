@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { connectToDb } from "../connectDb";
-import { Yarn } from "../(modules)/yarn";
+import { Yarn } from "@/models/Yarn";
 
 // Handle GET requests (e.g., fetching a list of users)
 export async function GET() {

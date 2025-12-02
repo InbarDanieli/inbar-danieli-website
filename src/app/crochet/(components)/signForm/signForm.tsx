@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Field from "../field/field";
 import globalStyles from "../../(styles)/globals.module.scss";
-import styles from "./signForm.module.scss";
 import Button from "../button/button";
-import InputField from "../inputField/inputField";
+import Field from "../field/field";
+import styles from "./signForm.module.scss";
 
 export default function SignForm({ type }: { type: "login" | "signup" }) {
   const [email, setEmail] = useState("");
@@ -74,6 +73,11 @@ export default function SignForm({ type }: { type: "login" | "signup" }) {
           </div>
         </div>
       </form>
+      {type === "login" && (
+        <p className={styles["sign-up-message"]}>
+          Don&apos;t have an account yet? <a href="/crochet/signup">Sign up</a>
+        </p>
+      )}
     </div>
   );
 }
