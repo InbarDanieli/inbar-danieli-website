@@ -4,10 +4,31 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-console.log(pathname);
+  // Public routes that don't require authentication
+  const isPublicRoute =
+    pathname === "/crochet/login" ||
+    pathname === "/crochet/signup" ||
+    !pathname.startsWith("/crochet");
 
+  // Check if session cookie exists (lightweight check for Edge runtime)
+  const sessionCookie = request.cookies.get("session_id");
+  const hasSessionCookie = !!sessionCookie?.value;
 
-  // Match any route starting with /crochet (except /crochet/dashboard)
+  // If trying to access protected route without session cookie, redirect to login
+  if (!isPublicRoute && !hasSessionCookie) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/crochet/login";
+    return NextResponse.redirect(url);
+  }
+
+  // If has session cookie and trying to access login/signup, redirect to dashboard
+  if (hasSessionCookie && (pathname === "/crochet/login" || pathname === "/crochet/signup")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/crochet/dashboard";
+    return NextResponse.redirect(url);
+  }
+
+  // Handle /crochet redirect to dashboard
   if (pathname === "/crochet" || pathname === "/crochet/") {
     const url = request.nextUrl.clone();
     url.pathname = "/crochet/dashboard";
