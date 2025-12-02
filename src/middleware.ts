@@ -22,7 +22,10 @@ export function middleware(request: NextRequest) {
   }
 
   // If has session cookie and trying to access login/signup, redirect to dashboard
-  if (hasSessionCookie && (pathname === "/crochet/login" || pathname === "/crochet/signup")) {
+  if (
+    hasSessionCookie &&
+    (pathname === "/crochet/login" || pathname === "/crochet/signup")
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = "/crochet/dashboard";
     return NextResponse.redirect(url);

@@ -1,30 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import globalStyles from "../../(styles)/globals.module.scss";
 import Button from "../button/button";
 import Field from "../field/field";
 import styles from "./signForm.module.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignForm({ type }: { type: "login" | "signup" }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
-
-    try {
-      //   await LoginToDB(data);
-    } catch (error) {
-      console.error("Error logging in:", error);
+  const handleSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await fetch(
+      "/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      }
+    );
+    const data = await response.json();
+    console.log(data, data.status);
+    if (data.status !== 200) {
+      toast.error(data.message);
+    } else {
+      toast.success(data.message);
     }
-    // console.log(data);
+  };
+
+  const handleSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await fetch(
+      "/api/auth/signup",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password, confirmPassword }),
+      }
+    );
+    const data = await response.json();
+    console.log(data, data.status);
+    if (data.status !== 200) {
+      toast.error(data.message);
+    } else {
+      toast.success(data.message);
+    }
   };
 
   return (
     <div className={`${globalStyles["form-content"]} ${styles["sign-form"]}`}>
-      <form onSubmit={handleSubmit} noValidate>
+      <ToastContainer position="top-center" autoClose={2000}/>
+      <form onSubmit={type === "login" ? handleSubmitLogin : handleSubmitSignup} noValidate>
         <div className={globalStyles["fields-grid"]}>
           <div
             className={`${globalStyles["field-wrapper"]} ${globalStyles.full}`}

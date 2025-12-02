@@ -11,8 +11,7 @@ export async function POST(request: NextRequest) {
     }
 
     const response = NextResponse.json(
-      { message: "User logged out successfully" },
-      { status: 200 }
+      { message: "User logged out successfully" ,status: 200},
     );
 
     // Clear the session cookie from browser
@@ -22,8 +21,7 @@ export async function POST(request: NextRequest) {
     
     // Even if there's an error, still clear the cookie
     const response = NextResponse.json(
-      { message: "User logged out successfully" },
-      { status: 200 }
+      { message: "User logged out successfully" ,status: 200},
     );
     
     return clearSessionCookie(response);

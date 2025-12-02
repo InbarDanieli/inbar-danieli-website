@@ -13,6 +13,7 @@ const MongoDBStore = MongoDBStoreFactory(session);
 // Initialize the store with MongoDB connection
 export const sessionStore = new MongoDBStore({
   uri: process.env.MONGODB_URI || "mongodb://localhost:27017/inbar-danieli",
+  databaseName: "crochet_db",
   collection: "sessions", // This is where sessions will be stored
   expires: 1000 * 60 * 60 * 24 * 7, // 7 days in milliseconds
 });
@@ -53,13 +54,17 @@ export function setSessionInStore(
   sessionData: UserSessionData
 ): Promise<void> {
   return new Promise((resolve, reject) => {
-    sessionStore.set(sessionId, sessionData as unknown as session.SessionData, (error) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve();
+    sessionStore.set(
+      sessionId,
+      sessionData as unknown as session.SessionData,
+      (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
       }
-    });
+    );
   });
 }
 
@@ -99,4 +104,3 @@ export function getAllSessions(): Promise<UserSessionData[]> {
     });
   });
 }
-
