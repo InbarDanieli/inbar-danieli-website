@@ -7,14 +7,16 @@ export default function Link({
   children,
   href,
   variant = "primary",
+  displayIcon = true,
 }: {
   children: React.ReactNode;
   href: string;
-  variant: "primary" | "secondary";
+  variant?: "primary" | "secondary";
+  displayIcon?: boolean;
 }) {
   return (
     <a href={href} className={`${styles["link"]} ${styles[variant]}`}>
-      <FaPlus  size={"0.7em"}/>
+      {displayIcon && <FaPlus size={"0.7em"} />}
       {children}
     </a>
   );

@@ -1,19 +1,9 @@
 "use client";
 
-import Title from "../(components)/title/title";
-import { FormFieldValue } from "../(types)/form.types";
 import SignForm from "../(components)/signForm/signForm";
+import Title from "../(components)/title/title";
 
 export default function LoginPage() {
-  const handleSubmit = async (data: Record<string, FormFieldValue>) => {
-    try {
-      //   await LoginToDB(email, password);
-    } catch (error) {
-      console.error("Error logging in:", error);
-    }
-    console.log(data);
-  };
-
   return (
     <div className="wrapper">
       <Title

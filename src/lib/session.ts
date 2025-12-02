@@ -85,6 +85,7 @@ export function setSessionCookie(
  * @returns The response with cookie cleared
  */
 export function clearSessionCookie(response: NextResponse): NextResponse {
+  // response.cookies.delete(SESSION_COOKIE_NAME);
   response.cookies.set({
     name: SESSION_COOKIE_NAME,
     value: "",
@@ -158,4 +159,3 @@ export async function getCurrentUserEmail(): Promise<string | null> {
   const session = await getSession();
   return session?.email ?? null;
 }
-

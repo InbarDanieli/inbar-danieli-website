@@ -5,54 +5,46 @@ import globalStyles from "../../(styles)/globals.module.scss";
 import Button from "../button/button";
 import Field from "../field/field";
 import styles from "./signForm.module.scss";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  handleSubmitLogin,
+  handleSubmitSignup,
+} from "@/app/crochet/(helpers)/auth.helpers";
 
 export default function SignForm({ type }: { type: "login" | "signup" }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const response = await fetch(
-      "/api/auth/login",
-      {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      }
-    );
-    const data = await response.json();
-    console.log(data, data.status);
-    if (data.status !== 200) {
-      toast.error(data.message);
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    if (type === "login") {
+      await handleSubmitLogin(email, password, e);
     } else {
-      toast.success(data.message);
+      await handleSubmitSignup(email, password, confirmPassword, e);
     }
+    setLoading(false);
   };
 
-  const handleSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const response = await fetch(
-      "/api/auth/signup",
-      {
-        method: "POST",
-        body: JSON.stringify({ email, password, confirmPassword }),
-      }
-    );
-    const data = await response.json();
-    console.log(data, data.status);
-    if (data.status !== 200) {
-      toast.error(data.message);
-    } else {
-      toast.success(data.message);
+  function submitButtonText() {
+    if (loading && type === "login") {
+      return "Logging in...";
     }
-  };
+    if (loading && type === "signup") {
+      return "Signing up...";
+    }
+    if (type === "login") {
+      return "Login";
+    }
+    return "Sign Up";
+  }
 
   return (
     <div className={`${globalStyles["form-content"]} ${styles["sign-form"]}`}>
-      <ToastContainer position="top-center" autoClose={2000}/>
-      <form onSubmit={type === "login" ? handleSubmitLogin : handleSubmitSignup} noValidate>
+      <ToastContainer position="top-center" autoClose={2000} />
+      <form onSubmit={onSubmit} noValidate>
         <div className={globalStyles["fields-grid"]}>
           <div
             className={`${globalStyles["field-wrapper"]} ${globalStyles.full}`}
@@ -96,7 +88,7 @@ export default function SignForm({ type }: { type: "login" | "signup" }) {
             className={`${globalStyles["field-wrapper"]} ${globalStyles.full}`}
           >
             <Button type="submit" variant="primary-full">
-              {type === "login" ? "Login" : "Sign Up"}
+              {submitButtonText()}
             </Button>
           </div>
         </div>

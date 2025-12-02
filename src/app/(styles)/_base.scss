@@ -25,6 +25,10 @@ body {
     }
   }
 
+  &:has(.header) {
+    margin-top: 64px;
+  }
+
   background: var(--background);
   padding: 24px;
   color: var(--foreground);
