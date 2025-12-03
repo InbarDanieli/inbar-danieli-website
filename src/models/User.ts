@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import { Document, model, models, Schema } from "mongoose";
 
 export interface IUser extends Document {
   email: string;
@@ -11,12 +11,6 @@ export interface IUser extends Document {
 
 const UserSchema: Schema<IUser> = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      default: () => new mongoose.Types.ObjectId().toString(),
-    },
     email: {
       type: String,
       required: [true, "Email is required"],
@@ -38,12 +32,8 @@ const UserSchema: Schema<IUser> = new Schema(
   },
   {
     timestamps: true,
-    
   }
 );
 
 // Prevent model recompilation in development
-const User: Model<IUser> =
-  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
-
-export default User;
+export const User = models.User || model<IUser>("User", UserSchema, "users");

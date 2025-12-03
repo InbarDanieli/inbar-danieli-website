@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDb } from "../../connectDb";
-import User from "@/models/User";
+import { User } from "@/models/User";
 import bcrypt from "bcryptjs";
 import { createSession, setSessionCookie } from "@/lib/session";
 
@@ -10,9 +10,10 @@ export async function POST(request: NextRequest) {
     const { email, password, confirmPassword } = body;
 
     if (!email || !password) {
-      return NextResponse.json(
-        { message: "Email and password are required", status: 400 },
-      );
+      return NextResponse.json({
+        message: "Email and password are required",
+        status: 400,
+      });
     }
 
     // Validate password length
@@ -35,9 +36,10 @@ export async function POST(request: NextRequest) {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return NextResponse.json(
-        { message: "User with this email already exists", status: 409 },
-      );
+      return NextResponse.json({
+        message: "User with this email already exists",
+        status: 409,
+      });
     }
 
     // Hash the password
@@ -67,8 +69,9 @@ export async function POST(request: NextRequest) {
     return setSessionCookie(response, sessionId);
   } catch (error) {
     console.error("Signup error:", error);
-    return NextResponse.json(
-      { message: "An error occurred during signup", status: 500 },
-    );
+    return NextResponse.json({
+      message: "An error occurred during signup",
+      status: 500,
+    });
   }
 }

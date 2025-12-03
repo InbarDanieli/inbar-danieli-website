@@ -9,7 +9,7 @@ export const connectToDb = async () => {
   return mongoose
     .connect(MONGODB_URI, { dbName: "crochet_db" })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       return result;
     })
     .catch((err) => {

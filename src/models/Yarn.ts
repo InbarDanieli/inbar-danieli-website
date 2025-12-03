@@ -1,35 +1,40 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { IYarnSchema } from "@/app/crochet/(types)/yarn.types";
+import { Schema, model, models } from "mongoose";
 
-const yarnSchema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-    default: () => new mongoose.Types.ObjectId().toString(),
+const yarnSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    color: {
+      type: String,
+      required: true,
+    },
+    colorTag: {
+      type: String,
+    },
+    company: {
+      type: String,
+    },
+    materials: {
+      type: Object,
+    },
+    image: {
+      type: String,
+    },
+    userId: {
+      type: String,
+      required: true,
+    },
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  color: {
-    type: String,
-    required: true,
-  },
-  colorTag: {
-    type: String,
-  },
-  company: {
-    type: String,
-  },
-  materials: {
-    type: Object,
-  },
-  image: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-export const Yarn = models.Yarn || model("Yarn", yarnSchema, "yarns");
+export const Yarn =
+  models.Yarn || model<IYarnSchema>("Yarn", yarnSchema, "yarns");
 
 //   id: string;
 //   name: string;

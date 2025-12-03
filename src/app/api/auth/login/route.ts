@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDb } from "../../connectDb";
-import User from "@/models/User";
+import { User } from "@/models/User";
 import bcrypt from "bcryptjs";
 import { createSession, setSessionCookie } from "@/lib/session";
 
@@ -8,8 +8,6 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { email, password } = body;
-
-    console.log({ email, password });
 
     if (!email || !password) {
       return NextResponse.json({
@@ -54,8 +52,9 @@ export async function POST(request: NextRequest) {
     return setSessionCookie(response, sessionId);
   } catch (error) {
     console.error("Login error:", error);
-    return NextResponse.json(
-      { message: "An error occurred during login", status: 500 },
-    );
+    return NextResponse.json({
+      message: "An error occurred during login",
+      status: 500,
+    });
   }
 }
