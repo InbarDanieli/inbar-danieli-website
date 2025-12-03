@@ -1,75 +1,96 @@
-import { NextRequest, NextResponse } from "next/server";
+import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { randomUUID } from "crypto";
-import {
-  getSessionFromStore,
-  setSessionInStore,
-  destroySessionInStore,
-  UserSessionData,
-} from "./sessionStore";
+import { NextResponse } from "next/server";
+
+// JWT configuration
+const JWT_SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET || "your-secret-key-change-in-production"
+);
+const JWT_ISSUER = "inbar-danieli-website";
+const JWT_AUDIENCE = "inbar-danieli-website";
+const JWT_EXPIRATION = "7d"; // 7 days
 
 // Cookie configuration
-const SESSION_COOKIE_NAME = "session_id";
+const SESSION_COOKIE_NAME = "session_token";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
 
+// Session data interface
+export interface UserSessionData {
+  userId: string;
+  email: string;
+}
+
+// JWT payload with our custom claims
+interface SessionJWTPayload extends JWTPayload {
+  userId: string;
+  email: string;
+}
+
 /**
- * Create a new session in MongoDB and return the session ID
+ * Create a new JWT session token
  * @param userId - The user's MongoDB ID
  * @param email - The user's email
- * @returns The generated session ID
+ * @returns The generated JWT token
  */
 export async function createSession(
   userId: string,
   email: string
 ): Promise<string> {
-  // Generate a cryptographically secure random session ID
-  const sessionId = randomUUID();
+  const token = await new SignJWT({ userId, email })
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setIssuer(JWT_ISSUER)
+    .setAudience(JWT_AUDIENCE)
+    .setExpirationTime(JWT_EXPIRATION)
+    .sign(JWT_SECRET);
 
-  // Create session data
-  const sessionData: UserSessionData = {
-    userId,
-    email,
-  };
-
-  // Store in MongoDB
-  await setSessionInStore(sessionId, sessionData);
-
-  return sessionId;
+  return token;
 }
 
 /**
- * Get session data from MongoDB by session ID
- * @param sessionId - The session ID
- * @returns User session data or null if not found/expired
+ * Verify and decode a JWT token
+ * @param token - The JWT token to verify
+ * @returns User session data or null if invalid/expired
  */
-export async function getSessionById(
-  sessionId: string
+export async function verifyToken(
+  token: string
 ): Promise<UserSessionData | null> {
-  return await getSessionFromStore(sessionId);
-}
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET, {
+      issuer: JWT_ISSUER,
+      audience: JWT_AUDIENCE,
+    });
 
-/**
- * Destroy a session (delete from MongoDB)
- * @param sessionId - The session ID to destroy
- */
-export async function destroySession(sessionId: string): Promise<void> {
-  await destroySessionInStore(sessionId);
+    const sessionPayload = payload as SessionJWTPayload;
+
+    if (!sessionPayload.userId || !sessionPayload.email) {
+      return null;
+    }
+
+    return {
+      userId: sessionPayload.userId,
+      email: sessionPayload.email,
+    };
+  } catch {
+    // Token is invalid or expired
+    return null;
+  }
 }
 
 /**
  * Set session cookie in HTTP response
  * @param response - Next.js response object
- * @param sessionId - The session ID to store in cookie
+ * @param token - The JWT token to store in cookie
  * @returns The response with cookie set
  */
 export function setSessionCookie(
   response: NextResponse,
-  sessionId: string
+  token: string
 ): NextResponse {
   response.cookies.set({
     name: SESSION_COOKIE_NAME,
-    value: sessionId,
-    httpOnly: true, // Prevents JavaScript access (XSS protection)
+    value: token,
+    httpOnly: false, // Allow client-side access for JWT decoding
     secure: process.env.NODE_ENV === "production", // HTTPS only in production
     sameSite: "lax", // CSRF protection
     maxAge: COOKIE_MAX_AGE,
@@ -85,11 +106,10 @@ export function setSessionCookie(
  * @returns The response with cookie cleared
  */
 export function clearSessionCookie(response: NextResponse): NextResponse {
-  // response.cookies.delete(SESSION_COOKIE_NAME);
   response.cookies.set({
     name: SESSION_COOKIE_NAME,
     value: "",
-    httpOnly: true,
+    httpOnly: false,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     maxAge: 0, // Expire immediately
@@ -111,26 +131,7 @@ export async function getSession(): Promise<UserSessionData | null> {
     return null;
   }
 
-  // Get session data from MongoDB
-  return await getSessionById(sessionCookie.value);
-}
-
-/**
- * Get session from request (for middleware)
- * @param request - Next.js request object
- * @returns User session data or null if not authenticated
- */
-export async function getSessionFromRequest(
-  request: NextRequest
-): Promise<UserSessionData | null> {
-  const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
-
-  if (!sessionCookie?.value) {
-    return null;
-  }
-
-  // Get session data from MongoDB
-  return await getSessionById(sessionCookie.value);
+  return await verifyToken(sessionCookie.value);
 }
 
 /**

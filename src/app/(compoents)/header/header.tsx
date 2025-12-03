@@ -1,39 +1,24 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from "./header.module.scss";
-import { handleLogout } from "@/app/crochet/(helpers)/auth.helpers";
 import Link from "@/app/crochet/(components)/link/link";
+import {
+  handleLogout,
+  isAuthenticated,
+} from "@/app/crochet/(helpers)/auth.helpers";
+import { usePathname } from "next/navigation";
+import styles from "./header.module.scss";
+import { useEffect, useState } from "react";
 
 const Header = () => {
-  const pathname = usePathname() || "";
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const pathname = usePathname() || "";
   const isLoginPage = pathname.startsWith("/crochet/login");
   const isSignupPage = pathname.startsWith("/crochet/signup");
-
-  const displayAuthLinks = !loading && !isLoginPage && !isSignupPage;
+  const isLoggedIn = isAuthenticated();
+  const displayAuthLinks = !isLoginPage && !isSignupPage;
 
   useEffect(() => {
-    // Check authentication status from API
-    const checkAuth = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/auth/status");
-        const data = await response.json();
-        console.log(data);
-        setIsLoggedIn(data.isAuthenticated);
-      } catch (error) {
-        console.error("Error checking auth status:", error);
-        setIsLoggedIn(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, [pathname]); // Re-check when pathname changes
+    setLoading(false);
+  }, []);
 
   if (!pathname.startsWith("/crochet")) {
     return null;
@@ -51,12 +36,14 @@ const Header = () => {
   ];
 
   function renderAuthLinks() {
+    if (loading) {
+      return null;
+    }
     if (isLoggedIn) {
       return (
         <form
           onSubmit={async (e) => {
             await handleLogout(e);
-            setIsLoggedIn(false);
           }}
         >
           <button type="submit">Logout</button>
@@ -89,7 +76,7 @@ const Header = () => {
               </a>
             ))}
         </div>
-        {!loading && <div className={styles["links"]}>{renderAuthLinks()}</div>}
+        <div className={styles["links"]}>{renderAuthLinks()}</div>
       </div>
     </div>
   );

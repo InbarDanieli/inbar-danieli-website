@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
     !pathname.startsWith("/crochet");
 
   // Check if session cookie exists (lightweight check for Edge runtime)
-  const sessionCookie = request.cookies.get("session_id");
+  const sessionCookie = request.cookies.get("session_token");
   const hasSessionCookie = !!sessionCookie?.value;
 
   // If trying to access protected route without session cookie, redirect to login
