@@ -36,4 +36,6 @@ const UserSchema: Schema<IUser> = new Schema(
 );
 
 // Prevent model recompilation in development
-export const User = models.User || model<IUser>("User", UserSchema, "users");
+export const User = model<IUser>("User", UserSchema, "users", {
+  overwriteModels: true,
+});

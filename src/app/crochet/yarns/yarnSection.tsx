@@ -9,25 +9,14 @@ import Loader from "../(components)/loader/loader";
 import Title from "../(components)/title/title";
 import { PiYarn } from "react-icons/pi";
 import Link from "../(components)/link/link";
-
-const getYarns = async () => {
-  try {
-    const response = await fetch("/api/yarns");
-    const data = await response.json();
-    if (data.status !== 200) {
-      throw new Error(data.message);
-    }
-    return data.data || [];
-  } catch (error) {
-    console.log({ error });
-    throw (error as { message: string }).message || "Error fetching yarns";
-  }
-};
+import { deleteYarn, getYarns } from "../(helpers)/yarn.helpers";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function YarnSection() {
   const [yarns, setYarns] = useState<IYarnSchema[]>([]);
   const [error, setError] = useState<string>("");
   const [loader, setLoader] = useState<boolean>(true);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchYarns = async () => {
@@ -44,6 +33,16 @@ export default function YarnSection() {
 
     fetchYarns();
   }, []);
+
+  async function handleDeleteYarn(yarn: IYarnSchema) {
+    const response = await deleteYarn(yarn);
+    if (response.status !== 200) {
+      toast.error("Error deleting yarn, please try again");
+      return;
+    }
+    setYarns(yarns.filter((y) => y._id !== yarn._id));
+    toast.success("Yarn deleted successfully");
+  }
 
   function renderBody() {
     if (loader) {
@@ -67,7 +66,16 @@ export default function YarnSection() {
   }
 
   return (
-    <div className={`${styles["yarns-page"]} wrapper`}>
+    <div
+      className={`${styles["yarns-page"]} wrapper`}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (selectedItem !== null) {
+          setSelectedItem(null);
+        }
+      }}
+    >
+      <ToastContainer position="top-center" autoClose={2000} />
       <div className={styles.hero}>
         <Title
           content={`My Yarn Stash`}
@@ -81,7 +89,17 @@ export default function YarnSection() {
       {renderBody()}
       <div className={styles["yarns-section-wrapper"]}>
         {yarns.map((yarn, idx) => (
-          <YarnCard key={yarn._id + idx} yarn={yarn} />
+          <YarnCard
+            onDelete={async (yarn) => {
+              handleDeleteYarn(yarn);
+            }}
+            disabled={(yarn) =>
+              selectedItem !== yarn._id && selectedItem !== null
+            }
+            onclick={(yarn) => setSelectedItem(yarn._id)}
+            key={yarn._id + idx}
+            yarn={yarn}
+          />
         ))}
       </div>
     </div>

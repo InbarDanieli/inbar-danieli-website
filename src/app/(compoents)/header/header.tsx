@@ -7,6 +7,7 @@ import {
 import { usePathname } from "next/navigation";
 import styles from "./header.module.scss";
 import { useEffect, useState } from "react";
+import Button from "@/app/crochet/(components)/button/button";
 
 const Header = () => {
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ const Header = () => {
             await handleLogout(e);
           }}
         >
-          <button type="submit">Logout</button>
+          <Button type="submit">Logout</Button>
         </form>
       );
     } else {

@@ -33,8 +33,9 @@ const yarnSchema = new Schema(
   }
 );
 
-export const Yarn =
-  models.Yarn || model<IYarnSchema>("Yarn", yarnSchema, "yarns");
+export const Yarn = model<IYarnSchema>("Yarn", yarnSchema, "yarns", {
+  overwriteModels: true,
+});
 
 //   id: string;
 //   name: string;
