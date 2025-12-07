@@ -11,16 +11,11 @@ import Link from "../link/link";
 
 export default function YarnCard({
   yarn,
-  onclick,
   onDelete,
-  disabled,
 }: {
   yarn: IYarnSchema;
-  onclick: (yarn: IYarnSchema) => void;
-  disabled: (yarn: IYarnSchema) => boolean;
   onDelete: (yarn: IYarnSchema) => void;
 }) {
-  const isDisabled = disabled(yarn);
   return (
     <div className={`${styles["yarn-card"]} ${globalStyles["card-wrapper"]}`}>
       {yarn.image && (
@@ -43,29 +38,16 @@ export default function YarnCard({
         </div>
       </div>
       <div className={styles["yarn-card-actions"]}>
-        <button
-          className={styles["yarn-card-actions-button"]}
-          disabled={isDisabled}
-          onClick={(e) => {
-            e.stopPropagation();
-
-            !isDisabled && onclick(yarn);
-          }}
+        <Link
+          variant="primary"
+          href={`/crochet/yarns/edit/${yarn._id}`}
+          displayIcon={false}
         >
-          ...
-        </button>
-        <div className={styles["yarn-card-actions-buttons"]}>
-          <Link
-            variant="primary"
-            href={`/crochet/yarns/edit/${yarn._id}`}
-            displayIcon={false}
-          >
-            Edit
-          </Link>
-          <Button onclick={() => onDelete(yarn)} variant="secondary">
-            Delete
-          </Button>
-        </div>
+          Edit
+        </Link>
+        <Button onclick={() => onDelete(yarn)} variant="secondary">
+          Delete
+        </Button>
       </div>
     </div>
   );

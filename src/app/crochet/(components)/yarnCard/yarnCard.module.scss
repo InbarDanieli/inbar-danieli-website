@@ -2,7 +2,7 @@
   --info-color: var(--subtitle-text-color);
 
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 1rem;
   padding: 1rem;
   color: var(--info-color);
@@ -42,11 +42,18 @@
     @media (max-width: 768px) {
       flex-direction: column;
       align-items: flex-start;
-      
 
       .separator {
-       display: none;
+        display: none;
       }
     }
+  }
+
+  .yarn-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
   }
 }
