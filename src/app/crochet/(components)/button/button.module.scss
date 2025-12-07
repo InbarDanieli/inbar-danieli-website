@@ -8,9 +8,12 @@
   border: none;
   outline: none;
 
+  background: none;
+
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+
 
   &.primary,
   &.primary-full {
@@ -28,5 +31,23 @@
   &.secondary-full {
     justify-content: center;
     width: 100%;
+  }
+
+  &.primary-color,
+  &.secondary-color {
+    padding: 0;
+    font-size: 0.8rem;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.primary-color {
+    color: var(--button-primary-background);
+  }
+
+  &.secondary-color {
+    color: var(--button-secondary-background);
   }
 }

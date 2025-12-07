@@ -16,7 +16,6 @@ export default function YarnSection() {
   const [yarns, setYarns] = useState<IYarnSchema[]>([]);
   const [error, setError] = useState<string>("");
   const [loader, setLoader] = useState<boolean>(true);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchYarns = async () => {

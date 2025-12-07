@@ -11,7 +11,7 @@ export default function Link({
 }: {
   children: React.ReactNode;
   href: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "primary-color" | "secondary-color";
   displayIcon?: boolean;
 }) {
   return (

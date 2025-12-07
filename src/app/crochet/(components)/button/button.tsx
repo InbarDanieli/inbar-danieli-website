@@ -11,7 +11,7 @@ export default function Button({
 }: {
   children: React.ReactNode;
   onclick?: () => void;
-  variant?: "primary" | "secondary" | "primary-full" | "secondary-full";
+  variant?: "primary" | "secondary" | "primary-full" | "secondary-full" | "primary-color" | "secondary-color";
   disabled?: boolean;
   type?: "submit" | "reset" | "button";
 }) {
