@@ -66,15 +66,7 @@ export default function YarnSection() {
   }
 
   return (
-    <div
-      className={`${styles["yarns-page"]} wrapper`}
-      onClick={(e) => {
-        e.stopPropagation();
-        if (selectedItem !== null) {
-          setSelectedItem(null);
-        }
-      }}
-    >
+    <div className={`${styles["yarns-page"]} wrapper`}>
       <ToastContainer position="top-center" autoClose={2000} />
       <div className={styles.hero}>
         <Title
@@ -93,10 +85,6 @@ export default function YarnSection() {
             onDelete={async (yarn) => {
               handleDeleteYarn(yarn);
             }}
-            disabled={(yarn) =>
-              selectedItem !== yarn._id && selectedItem !== null
-            }
-            onclick={(yarn) => setSelectedItem(yarn._id)}
             key={yarn._id + idx}
             yarn={yarn}
           />
