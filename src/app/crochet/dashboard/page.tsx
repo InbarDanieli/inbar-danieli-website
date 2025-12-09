@@ -10,9 +10,10 @@ import ProgressPatternsSection from "../(components)/progressPatternsSection/pro
 import { progressPatterns } from "../(demoData)/petterns";
 import YarnStashSection from "../(components)/yarnStashSection/yarnStashSection";
 import { yarns } from "../(demoData)/yarns";
-import { getDetailedTimeOfDay } from "../(helpers)/getTimeOfDay";
-
-export const patternsComingSoon = true;
+import {
+  getDetailedTimeOfDay,
+  patternsComingSoon,
+} from "../(helpers)/getTimeOfDay";
 
 // // Define the metadata specifically for crochet/dashboard
 export const metadata: Metadata = {

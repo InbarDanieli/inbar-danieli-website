@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDb } from "../connectDb";
 import { Yarn } from "@/models/Yarn";
 import { getCurrentUserId } from "@/lib/session";
@@ -15,14 +15,14 @@ export async function GET() {
 
     console.log({ yarns });
 
-    return Response.json({
+    return NextResponse.json({
       message: "Yarns fetched successfully",
       data: yarns || [],
       status: 200,
     });
   } catch (error) {
     console.log({ error });
-    return Response.json({
+    return NextResponse.json({
       message: error,
       data: [],
       status: 500,
@@ -40,14 +40,14 @@ export async function POST(request: NextRequest) {
 
     const yarn = await Yarn.create(body);
 
-    return Response.json({
+    return NextResponse.json({
       message: "Yarn created successfully",
       data: yarn,
       status: 200,
     });
   } catch (error) {
     console.dir(error, { depth: null });
-    return Response.json({
+    return NextResponse.json({
       message: error,
       data: [],
       status: 500,

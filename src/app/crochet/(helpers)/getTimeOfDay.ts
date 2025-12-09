@@ -35,3 +35,7 @@ export const getDetailedTimeOfDay = (): {
 
   return { timeCategory, timeEmoji };
 };
+
+
+// TODO - remove this after patterns are implemented
+export const patternsComingSoon = true;

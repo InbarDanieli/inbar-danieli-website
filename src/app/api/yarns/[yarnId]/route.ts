@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDb } from "../../connectDb";
 import { Yarn } from "@/models/Yarn";
 
@@ -13,20 +13,20 @@ export async function DELETE(
     const yarn = await Yarn.findByIdAndDelete(yarnId);
 
     if (!yarn) {
-      return Response.json({
+      return NextResponse.json({
         message: "Yarn not found",
         data: [],
         status: 404,
       });
     }
-    return Response.json({
+    return NextResponse.json({
       message: "Yarn deleted successfully",
       data: yarn,
       status: 200,
     });
   } catch (error) {
     console.log({ error });
-    return Response.json({
+    return NextResponse.json({
       message: error,
       data: [],
       status: 500,
@@ -43,14 +43,14 @@ export async function GET(
     await connectToDb();
     const { yarnId } = await params;
     const yarn = await Yarn.findById(yarnId);
-    return Response.json({
+    return NextResponse.json({
       message: "Yarn fetched successfully",
       data: yarn,
       status: 200,
     });
   } catch (error) {
     console.log({ error });
-    return Response.json({
+    return NextResponse.json({
       message: error,
       data: [],
       status: 500,
@@ -68,14 +68,14 @@ export async function PUT(
     const { yarnId } = await params;
     const body = await request.json();
     const yarn = await Yarn.findByIdAndUpdate(yarnId, body);
-    return Response.json({
+    return NextResponse.json({
       message: "Yarn updated successfully",
       data: yarn,
       status: 200,
     });
   } catch (error) {
     console.log({ error });
-    return Response.json({
+    return NextResponse.json({
       message: error,
       data: [],
       status: 500,

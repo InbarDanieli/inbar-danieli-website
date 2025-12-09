@@ -4,7 +4,7 @@ import styles from "./progressPatternsSection.module.scss";
 import globalStyles from "../../(styles)/globals.module.scss";
 import { GiSpellBook } from "react-icons/gi";
 import EmptySection from "../emptySection/emptySection";
-import { patternsComingSoon } from "../../dashboard/page";
+import { patternsComingSoon } from "../../(helpers)/getTimeOfDay";
 
 export default function ProgressPatternsSection({
   cards,
