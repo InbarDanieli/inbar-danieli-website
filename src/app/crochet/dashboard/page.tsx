@@ -12,6 +12,8 @@ import YarnStashSection from "../(components)/yarnStashSection/yarnStashSection"
 import { yarns } from "../(demoData)/yarns";
 import { getDetailedTimeOfDay } from "../(helpers)/getTimeOfDay";
 
+export const patternsComingSoon = true;
+
 // // Define the metadata specifically for crochet/dashboard
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -39,8 +41,9 @@ export default function Dashboard() {
 
       <div className={styles["patterns-section-wrapper"]}>
         <SectionHeader
-          title="Continue Your work"
-          linkText="View All Patterns"
+          variant="disabled"
+          title={patternsComingSoon ? "Patterns" : "Continue Your work"}
+          linkText={patternsComingSoon ? "Coming soon!" : "View All Patterns"}
           linkUrl="/crochet/patterns"
         />
         <ProgressPatternsSection cards={progressPatterns} />
@@ -57,5 +60,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-

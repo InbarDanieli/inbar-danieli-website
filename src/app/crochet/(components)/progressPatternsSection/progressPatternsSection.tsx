@@ -4,12 +4,25 @@ import styles from "./progressPatternsSection.module.scss";
 import globalStyles from "../../(styles)/globals.module.scss";
 import { GiSpellBook } from "react-icons/gi";
 import EmptySection from "../emptySection/emptySection";
+import { patternsComingSoon } from "../../dashboard/page";
 
 export default function ProgressPatternsSection({
   cards,
 }: {
   cards: IProgressPatternCard[];
 }) {
+
+  if(patternsComingSoon){
+    return (
+      <EmptySection
+        title="Coming soon!"
+        description={`We're working on adding this feature soon! \n Check back soon for updates.`}
+        icon={<GiSpellBook size={60} />}
+        variant="pattern"
+      />
+    );
+  }
+
   if (cards.length <= 0) {
     return (
       <EmptySection

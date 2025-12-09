@@ -27,13 +27,18 @@ const Header = () => {
 
   const links = [
     {
+      label: "Dashboard",
+      href: "/crochet/dashboard",
+    },
+    {
       label: "Yarns",
       href: "/crochet/yarns",
     },
-    {
-      label: "About",
-      href: "/crochet/about",
-    },
+    // TODO - add about page
+    // {
+    //   label: "About",
+    //   href: "/crochet/about",
+    // },
   ];
 
   function renderAuthLinks() {
