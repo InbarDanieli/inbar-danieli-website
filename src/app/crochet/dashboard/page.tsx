@@ -20,6 +20,7 @@ export default function Dashboard() {
   const { data, isPending: loading, error } = useYarns();
 
   const yarns = data?.data || [];
+  const yarnCount = data?.count || 0;
 
   return (
     <div className={`${styles.page} dashboard-page wrapper`}>
@@ -31,9 +32,9 @@ export default function Dashboard() {
       </div>
 
       <div className={globalStyles["grid-section"]}>
-        <StatCard title="Yarn Stash" count={124} />
-        <StatCard title="Patterns in Progress" count={2} />
-        <StatCard title="All Patterns" count={20} />
+        <StatCard title="Yarn Stash" count={yarnCount} loading={loading} />
+        <StatCard title="Patterns in Progress" count={2} disabled={true} />
+        <StatCard title="All Patterns" count={20} disabled={true} />
       </div>
 
       <div className={styles["patterns-section-wrapper"]}>

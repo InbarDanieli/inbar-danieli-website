@@ -1,22 +1,11 @@
 "use client";
 
 import globalStyles from "../../../(styles)/globals.module.scss";
-// import yarnStyles from "../../yarnCard/yarnCard.module.scss";
+import LoaderSkeleton from "../loaderSkeleton/loaderSkeleton";
 import styles from "./yarnsLoader.module.scss";
 
-import { useEffect, useState } from "react";
-import LoaderSkeleton from "../loaderSkeleton/loaderSkeleton";
-
 export default function YarnsLoader() {
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
   return (
     <div className={styles["loader-wrapper"]}>
       {Array.from({ length: 3 }).map((_, index) => (

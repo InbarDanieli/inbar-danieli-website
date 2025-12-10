@@ -1,3 +1,5 @@
+"use client";
+
 import EmptySection from "../emptySection/emptySection";
 import styles from "./yarnStashSection.module.scss";
 import { PiYarn } from "react-icons/pi";
@@ -7,12 +9,11 @@ import YarnsLoader from "../loaders/yarnsLoader/yarnsLoader";
 
 export default function YarnStashSection({
   yarns,
-  loading,
+  loading = true,
 }: {
   yarns: IYarnSchema[];
   loading: boolean;
 }) {
-
   if (loading) {
     return <YarnsLoader />;
   }
