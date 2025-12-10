@@ -2,29 +2,26 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDb } from "../connectDb";
 import { Yarn } from "@/models/Yarn";
 import { getCurrentUserId } from "@/lib/session";
+import { paginate, emptyPaginationResult } from "@/lib/pagination";
 
-// Handle GET requests (e.g., fetching a list of users)
-export async function GET() {
+// Handle GET requests with pagination
+export async function GET(request: NextRequest) {
   try {
     await connectToDb();
     const userId = await getCurrentUserId();
 
-    // console.log("Yarns fetched for", userId);
-
-    const yarns = await Yarn.find({ userId });
-
-    console.log({ yarns });
+    const result = await paginate(request, Yarn, { userId });
 
     return NextResponse.json({
       message: "Yarns fetched successfully",
-      data: yarns || [],
+      ...result,
       status: 200,
     });
   } catch (error) {
     console.log({ error });
     return NextResponse.json({
       message: error,
-      data: [],
+      ...emptyPaginationResult(),
       status: 500,
     });
   }
