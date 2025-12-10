@@ -12,9 +12,11 @@ import Link from "../link/link";
 export default function YarnCard({
   yarn,
   onDelete,
+  enableActions = true,
 }: {
   yarn: IYarnSchema;
-  onDelete: (yarn: IYarnSchema) => void;
+  onDelete?: (yarn: IYarnSchema) => void;
+  enableActions?: boolean;
 }) {
   return (
     <div className={`${styles["yarn-card"]} ${globalStyles["card-wrapper"]}`}>
@@ -37,19 +39,27 @@ export default function YarnCard({
           {yarn?.materials && <YarnMaterials materials={yarn.materials} />}
         </div>
       </div>
-      <div className={styles["yarn-card-actions"]}>
-        <Link
-          variant="primary-color"
-          fontSize="small"
-          href={`/crochet/yarns/edit/${yarn._id}`}
-          displayIcon={false}
-        >
-          Edit
-        </Link>
-        <Button onclick={() => onDelete(yarn)} variant="primary-color" fontSize="small">
-          Delete
-        </Button>
-      </div>
+      {enableActions && (
+        <div className={styles["yarn-card-actions"]}>
+          <Link
+            variant="primary-color"
+            fontSize="small"
+            href={`/crochet/yarns/edit/${yarn._id}`}
+            displayIcon={false}
+          >
+            Edit
+          </Link>
+          {onDelete && (
+            <Button
+              onclick={() => onDelete(yarn)}
+              variant="primary-color"
+              fontSize="small"
+            >
+              Delete
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
