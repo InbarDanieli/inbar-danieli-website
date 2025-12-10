@@ -10,23 +10,12 @@ const YARNS_QUERY_KEY = ["yarns"];
 
 // Helper to get cached yarns directly
 function getCachedYarns(queryClient: QueryClient): IYarnSchema[] | undefined {
-  return queryClient.getQueryData<IYarnSchema[]>(YARNS_QUERY_KEY);
+  return queryClient.getQueryData<IYarnsResponse>(YARNS_QUERY_KEY)?.data;
 }
 
 // API functions
-async function fetchYarns({
-  page,
-  limit,
-}: {
-  page?: number;
-  limit?: number;
-}): Promise<IYarnsResponse> {
-  const queryParams = new URLSearchParams();
-  if (page) queryParams.set("page", page.toString());
-  if (limit) queryParams.set("limit", limit.toString());
-  const queryString = queryParams.toString();
-
-  const response = await fetch(`/api/yarns?${queryString}`);
+async function fetchYarns(): Promise<IYarnsResponse> {
+  const response = await fetch(`/api/yarns`);
   const data = await response.json();
   if (data.status !== 200) {
     throw new Error(data.message || "Error fetching yarns");
@@ -84,13 +73,10 @@ async function deleteYarnApi(yarnId: string): Promise<void> {
 /**
  * Hook to fetch all yarns with caching
  */
-export function useYarns({
-  page,
-  limit,
-}: { page?: number; limit?: number } = {}) {
+export function useYarns() {
   return useQuery<IYarnsResponse, Error>({
     queryKey: YARNS_QUERY_KEY,
-    queryFn: () => fetchYarns({ page, limit }),
+    queryFn: fetchYarns,
     staleTime: 1000 * 60 * 5, // 5 minutes - prevents refetch when navigating between pages
   });
 }
@@ -130,14 +116,13 @@ export function useAddYarn() {
   const queryClient = useQueryClient();
 
   return useMutation({
+    // mutationFn: createYarn,
     mutationFn: createYarn,
     onSuccess: async (newYarn) => {
       // Update the cache immediately for instant feedback
-      queryClient.setQueryData<IYarnSchema[]>(YARNS_QUERY_KEY, (old) => {
-        if (old) {
-          return [...old, newYarn];
-        }
-        return [newYarn];
+      queryClient.setQueryData<IYarnsResponse>(YARNS_QUERY_KEY, (old) => {
+        if (!old) return old;
+        return { ...old, data: [...old.data, newYarn] };
       });
       // Also invalidate to ensure consistency
       await queryClient.invalidateQueries({ queryKey: YARNS_QUERY_KEY });
@@ -156,9 +141,12 @@ export function useUpdateYarn() {
     mutationFn: updateYarn,
     onSuccess: async (updatedYarn, { yarnId }) => {
       // Update the cache immediately for instant feedback
-      queryClient.setQueryData<IYarnSchema[]>(YARNS_QUERY_KEY, (old) => {
-        if (!old) return [updatedYarn];
-        return old.map((yarn) => (yarn._id === yarnId ? updatedYarn : yarn));
+      queryClient.setQueryData<IYarnsResponse>(YARNS_QUERY_KEY, (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          data: old.data.map((yarn) => (yarn._id === yarnId ? updatedYarn : yarn)),
+        };
       });
       // Also invalidate to ensure consistency
       await queryClient.invalidateQueries({ queryKey: YARNS_QUERY_KEY });
@@ -181,12 +169,13 @@ export function useDeleteYarn() {
 
       // Snapshot the previous value
       const previousYarns =
-        queryClient.getQueryData<IYarnSchema[]>(YARNS_QUERY_KEY);
+        queryClient.getQueryData<IYarnsResponse>(YARNS_QUERY_KEY);
 
       // Optimistically remove from the list
-      queryClient.setQueryData<IYarnSchema[]>(YARNS_QUERY_KEY, (old) =>
-        old?.filter((yarn) => yarn._id !== yarnId)
-      );
+      queryClient.setQueryData<IYarnsResponse>(YARNS_QUERY_KEY, (old) => {
+        if (!old) return old;
+        return { ...old, data: old.data.filter((yarn) => yarn._id !== yarnId) };
+      });
 
       // Return context with the snapshot
       return { previousYarns };
