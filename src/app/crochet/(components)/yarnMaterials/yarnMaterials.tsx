@@ -1,4 +1,4 @@
-import { IYarnSchema } from "../../(types)/yarn.types";
+import { IYarnSchema } from "@/types/yarn.types";
 import styles from "./yarnMaterials.module.scss";
 
 export default function YarnMaterials({

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import YarnCard from "../(components)/yarnCard/yarnCard";
-import { IYarnSchema } from "../(types)/yarn.types";
+import { IYarnSchema } from "@/types/yarn.types";
 import styles from "./page.module.scss";
 import EmptySection from "../(components)/emptySection/emptySection";
 import Loader from "../(components)/loader/loader";

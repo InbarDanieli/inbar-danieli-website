@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
-import styles from "./form.module.scss";
-import Button from "../button/button";
-import { FormFieldValue, IFormProps } from "../../(types)/form.types";
-import Field from "../field/field";
+import { FormFieldValue, IFormProps } from "@/types/form.types";
+import { FormEvent, useState } from "react";
 import { validateForm } from "../../(helpers)/field.helpers";
-import Title from "../title/title";
 import globalStyles from "../../(styles)/globals.module.scss";
+import Button from "../button/button";
+import Field from "../field/field";
+import Title from "../title/title";
+import styles from "./form.module.scss";
 
 export default function Form({
   title,

@@ -3,15 +3,15 @@
 // import { useParams, useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { IYarnSchema } from "../../../(types)/yarn.types";
+import { IYarnSchema } from "@/types/yarn.types";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../../../(components)/form/form";
 import { getAuthUser } from "../../../(helpers)/auth.helpers";
 import { formFields, UpdateYarnInDB } from "../../../(helpers)/form.helpers";
-import { FormFieldValue, IFormFieldConfig } from "../../../(types)/form.types";
+import { FormFieldValue, IFormFieldConfig } from "@/types/form.types";
 import styles from "./page.module.scss";
-import { getYarn } from "@/app/crochet/(helpers)/yarn.helpers";
+import { getYarn } from "../../../(helpers)/yarn.helpers"; 
 
 export default function EditYarn() {
   const router = useRouter();

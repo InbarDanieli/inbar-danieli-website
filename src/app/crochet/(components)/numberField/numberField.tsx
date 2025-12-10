@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "../inputField/inputField.module.scss";
-import { INumberFieldProps } from "../../(types)/field.types";
+import { INumberFieldProps } from "@/types/field.types";
 
 
 export default function NumberField({

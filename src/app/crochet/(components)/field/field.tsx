@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./field.module.scss";
-import { IFieldProps } from "../../(types)/field.types";
+import { IFieldProps } from "@/types/field.types";
 import MaterialsField from "../materialsField/materialsField";
 import InputField from "../inputField/inputField";
 import SelectField from "../selectField/selectField";

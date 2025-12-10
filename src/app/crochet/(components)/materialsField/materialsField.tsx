@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./materialsField.module.scss";
 import { IoAddCircleOutline, IoCloseCircle } from "react-icons/io5";
-import { IMaterialEntry, IMaterialsFieldProps } from "../../(types)/field.types";
+import { IMaterialEntry, IMaterialsFieldProps } from "@/types/field.types";
 
 
 export default function MaterialsField({

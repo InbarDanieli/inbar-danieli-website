@@ -1,4 +1,4 @@
-import { IYarnSchema } from "@/app/crochet/(types)/yarn.types";
+import { IYarnSchema } from "@/types/yarn.types";
 import { Schema, model, models } from "mongoose";
 
 const yarnSchema = new Schema(

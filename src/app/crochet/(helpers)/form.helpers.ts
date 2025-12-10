@@ -1,5 +1,5 @@
-import { IFormFieldConfig } from "../(types)/form.types";
-import { IYarnSchema } from "../(types)/yarn.types";
+import { IFormFieldConfig } from "@/types/form.types";
+import { IYarnSchema } from "@/types/yarn.types";
 
 export const formFields: IFormFieldConfig[] = [
   {

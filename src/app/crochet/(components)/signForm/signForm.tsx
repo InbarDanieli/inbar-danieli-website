@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   handleSubmitLogin,
   handleSubmitSignup,
-} from "@/app/crochet/(helpers)/auth.helpers";
+} from "../../(helpers)/auth.helpers";
 
 export default function SignForm({ type }: { type: "login" | "signup" }) {
   const [email, setEmail] = useState("");

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./inputField.module.scss";
-import { IInputFieldProps } from "../../(types)/field.types";
+import { IInputFieldProps } from "@/types/field.types";
 import { FaEye } from "react-icons/fa";
 
 export default function InputField({

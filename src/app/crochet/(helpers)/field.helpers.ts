@@ -1,4 +1,4 @@
-import { IFormFieldConfig, FormFieldValue } from "../(types)/form.types";
+import { IFormFieldConfig, FormFieldValue } from "@/types/form.types";
 
 export const validateField = (
   field: IFormFieldConfig,

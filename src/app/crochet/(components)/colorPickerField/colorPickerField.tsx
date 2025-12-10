@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./colorPickerField.module.scss";
-import { IColorPickerFieldProps } from "../../(types)/field.types";
+import { IColorPickerFieldProps } from "@/types/field.types";
 
 export default function ColorPickerField({
   id,

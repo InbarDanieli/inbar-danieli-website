@@ -1,13 +1,13 @@
 "use client";
-import Link from "@/app/crochet/(components)/link/link";
+import Link from "../../crochet/(components)/link/link";
 import {
   handleLogout,
   isAuthenticated,
-} from "@/app/crochet/(helpers)/auth.helpers";
+} from "../../crochet/(helpers)/auth.helpers";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.scss";
 import { useEffect, useState } from "react";
-import Button from "@/app/crochet/(components)/button/button";
+import Button from "../../crochet/(components)/button/button";
 
 const Header = () => {
   const [loading, setLoading] = useState(true);

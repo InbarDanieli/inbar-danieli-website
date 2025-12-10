@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { IYarnSchema } from "../(types)/yarn.types";
+import { IYarnSchema } from "@/types/yarn.types";
 
 export const getYarns = async () => {
   try {
