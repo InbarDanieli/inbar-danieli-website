@@ -14,8 +14,19 @@ function getCachedYarns(queryClient: QueryClient): IYarnSchema[] | undefined {
 }
 
 // API functions
-async function fetchYarns(): Promise<IYarnsResponse> {
-  const response = await fetch("/api/yarns");
+async function fetchYarns({
+  page,
+  limit,
+}: {
+  page?: number;
+  limit?: number;
+}): Promise<IYarnsResponse> {
+  const queryParams = new URLSearchParams();
+  if (page) queryParams.set("page", page.toString());
+  if (limit) queryParams.set("limit", limit.toString());
+  const queryString = queryParams.toString();
+
+  const response = await fetch(`/api/yarns?${queryString}`);
   const data = await response.json();
   if (data.status !== 200) {
     throw new Error(data.message || "Error fetching yarns");
@@ -73,10 +84,13 @@ async function deleteYarnApi(yarnId: string): Promise<void> {
 /**
  * Hook to fetch all yarns with caching
  */
-export function useYarns() {
-  return useQuery({
+export function useYarns({
+  page,
+  limit,
+}: { page?: number; limit?: number } = {}) {
+  return useQuery<IYarnsResponse, Error>({
     queryKey: YARNS_QUERY_KEY,
-    queryFn: fetchYarns,
+    queryFn: () => fetchYarns({ page, limit }),
     staleTime: 1000 * 60 * 5, // 5 minutes - prevents refetch when navigating between pages
   });
 }

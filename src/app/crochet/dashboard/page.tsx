@@ -17,7 +17,7 @@ import styles from "./page.module.scss";
 export default function Dashboard() {
   const { timeCategory } = getDetailedTimeOfDay();
   const userName = "Inbar";
-  const { data, isPending: loading, error } = useYarns();
+  const { data, isPending: loading, error } = useYarns({limit: 3});
 
   const yarns = data?.data || [];
   const yarnCount = data?.count || 0;
