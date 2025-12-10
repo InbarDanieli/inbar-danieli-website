@@ -12,7 +12,9 @@ import { useYarns, useDeleteYarn } from "../(hooks)/useYarns";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function YarnSection() {
-  const { data: yarns = [], isPending, error } = useYarns();
+  const { data, isPending, error } = useYarns();
+
+  const yarns = data?.data || [];
   const deleteYarnMutation = useDeleteYarn();
 
   async function handleDeleteYarn(yarn: IYarnSchema) {

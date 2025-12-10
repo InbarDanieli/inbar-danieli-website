@@ -4,7 +4,7 @@ import {
   useQueryClient,
   QueryClient,
 } from "@tanstack/react-query";
-import { IYarnSchema } from "@/types/yarn.types";
+import { IYarnSchema, IYarnsResponse } from "@/types/yarn.types";
 
 const YARNS_QUERY_KEY = ["yarns"];
 
@@ -14,13 +14,14 @@ function getCachedYarns(queryClient: QueryClient): IYarnSchema[] | undefined {
 }
 
 // API functions
-async function fetchYarns(): Promise<IYarnSchema[]> {
+async function fetchYarns(): Promise<IYarnsResponse> {
   const response = await fetch("/api/yarns");
   const data = await response.json();
   if (data.status !== 200) {
     throw new Error(data.message || "Error fetching yarns");
   }
-  return data.data || [];
+
+  return data;
 }
 
 async function createYarn(
@@ -86,13 +87,14 @@ export function useYarns() {
  */
 export function useYarn(yarnId: string) {
   const queryClient = useQueryClient();
-  const { data: yarns, isPending, error } = useYarns();
+  const { data, isPending, error } = useYarns();
+  const yarns = data?.data;
 
   // Check cache directly for immediate access (avoids loading flash)
   const cachedYarns = getCachedYarns(queryClient);
   const yarn =
-    yarns?.find((y) => y._id === yarnId) ??
-    cachedYarns?.find((y) => y._id === yarnId);
+    yarns?.find((y: IYarnSchema) => y._id === yarnId) ??
+    cachedYarns?.find((y: IYarnSchema) => y._id === yarnId);
 
   // Only show loading if we don't have the yarn in cache at all
   const isLoading = isPending && !yarn;

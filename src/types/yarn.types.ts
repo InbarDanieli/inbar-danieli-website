@@ -16,3 +16,15 @@ export interface IYarnSchema {
   // cost 
   // PurchaseUrl
 }
+
+
+export interface IYarnsResponse {
+  message: string;
+  data: IYarnSchema[];
+  page: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  count: number;
+  totalPages: number;
+  status: number;
+}

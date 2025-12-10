@@ -14,11 +14,12 @@ import { useYarns } from "../(hooks)/useYarns";
 import globalStyles from "../(styles)/globals.module.scss";
 import styles from "./page.module.scss";
 
-
 export default function Dashboard() {
   const { timeCategory } = getDetailedTimeOfDay();
   const userName = "Inbar";
-  const { data: yarns = [], isPending: loading, error } = useYarns();
+  const { data, isPending: loading, error } = useYarns();
+
+  const yarns = data?.data || [];
 
   return (
     <div className={`${styles.page} dashboard-page wrapper`}>
