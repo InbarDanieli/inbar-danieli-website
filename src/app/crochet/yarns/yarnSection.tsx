@@ -4,7 +4,7 @@ import YarnCard from "../(components)/yarnCard/yarnCard";
 import { IYarnSchema } from "@/types/yarn.types";
 import styles from "./page.module.scss";
 import EmptySection from "../(components)/emptySection/emptySection";
-import Loader from "../(components)/loader/loader";
+import Loader from "../(components)/loaders/loader/loader";
 import Title from "../(components)/title/title";
 import { PiYarn } from "react-icons/pi";
 import Link from "../(components)/link/link";

@@ -3,8 +3,20 @@ import styles from "./yarnStashSection.module.scss";
 import { PiYarn } from "react-icons/pi";
 import globalStyles from "../../(styles)/globals.module.scss";
 import { IYarnSchema } from "@/types/yarn.types";
+import YarnsLoader from "../loaders/yarnsLoader/yarnsLoader";
 
-export default function YarnStashSection({ yarns }: { yarns: IYarnSchema[] }) {
+export default function YarnStashSection({
+  yarns,
+  loading,
+}: {
+  yarns: IYarnSchema[];
+  loading: boolean;
+}) {
+
+  if (loading) {
+    return <YarnsLoader />;
+  }
+
   if (yarns.length <= 0) {
     return (
       <EmptySection
@@ -19,7 +31,10 @@ export default function YarnStashSection({ yarns }: { yarns: IYarnSchema[] }) {
   return (
     <div className={styles["yarn-stash-section"]}>
       {yarns.map((yarn) => (
-        <div className={`${styles["yarn-item"]} ${globalStyles["card-wrapper"]}`} key={yarn._id}>
+        <div
+          className={`${styles["yarn-item"]} ${globalStyles["card-wrapper"]}`}
+          key={yarn._id}
+        >
           <img src={yarn.image} alt={yarn.name} />
           <div className={styles["yarn-item-content"]}>
             <h4>{yarn.name}</h4>

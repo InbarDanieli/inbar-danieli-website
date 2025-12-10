@@ -24,7 +24,7 @@ export function getPaginationParams(
     1,
     Math.min(
       maxLimit,
-      parseInt(searchParams.get("max") || String(defaultLimit), 10)
+      parseInt(searchParams.get("limit") || String(defaultLimit), 10)
     )
   );
   const skip = (page - 1) * limit;

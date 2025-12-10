@@ -1,29 +1,24 @@
-// "use client";
+"use client";
 
-import type { Metadata } from "next";
-import Title from "../(components)/title/title";
-import styles from "./page.module.scss";
-import globalStyles from "../(styles)/globals.module.scss";
-import StatCard from "../(components)/statCard/statCard";
-import SectionHeader from "../(components)/sectionHeader/sectionHeader";
 import ProgressPatternsSection from "../(components)/progressPatternsSection/progressPatternsSection";
-import { progressPatterns } from "../(demoData)/petterns";
+import SectionHeader from "../(components)/sectionHeader/sectionHeader";
+import StatCard from "../(components)/statCard/statCard";
+import Title from "../(components)/title/title";
 import YarnStashSection from "../(components)/yarnStashSection/yarnStashSection";
-import { yarns } from "../(demoData)/yarns";
+import { progressPatterns } from "../(demoData)/petterns";
 import {
   getDetailedTimeOfDay,
   patternsComingSoon,
 } from "../(helpers)/getTimeOfDay";
+import { useYarns } from "../(hooks)/useYarns";
+import globalStyles from "../(styles)/globals.module.scss";
+import styles from "./page.module.scss";
 
-// // Define the metadata specifically for crochet/dashboard
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Dashboard for crochet Projects",
-};
 
 export default function Dashboard() {
   const { timeCategory } = getDetailedTimeOfDay();
   const userName = "Inbar";
+  const { data: yarns = [], isPending: loading, error } = useYarns();
 
   return (
     <div className={`${styles.page} dashboard-page wrapper`}>
@@ -56,7 +51,7 @@ export default function Dashboard() {
           linkText="View All Yarns"
           linkUrl="/crochet/yarns"
         />
-        <YarnStashSection yarns={yarns} />
+        <YarnStashSection yarns={yarns} loading={loading} />
       </div>
     </div>
   );

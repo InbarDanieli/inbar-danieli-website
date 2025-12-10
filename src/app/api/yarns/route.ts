@@ -10,7 +10,12 @@ export async function GET(request: NextRequest) {
     await connectToDb();
     const userId = await getCurrentUserId();
 
-    const result = await paginate(request, Yarn, { userId });
+    const result = await paginate(
+      request,
+      Yarn,
+      { userId },
+      { sort: { createdAt: -1 } }
+    );
 
     return NextResponse.json({
       message: "Yarns fetched successfully",

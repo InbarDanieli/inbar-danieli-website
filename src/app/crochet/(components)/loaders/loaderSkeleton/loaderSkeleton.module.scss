@@ -1,0 +1,43 @@
+.loader-skeleton {
+  --height: 100px;
+  --width: 100%;
+  --base-color: var(--crochet-card-background);
+  --highlight-color: var(--a-header-color);
+  --animation-duration: 1.5s;
+  --animation-direction: normal;
+  --skeleton-radius: var(--card-radius);
+
+  position: relative;
+  height: var(--height);
+  width: var(--width);
+  background: var(--base-color);
+  overflow: hidden;
+  border-radius: var(--skeleton-radius);
+
+  &::before {
+    content: "";
+    position: absolute;
+    border-radius: var(--skeleton-radius);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(
+      90deg,
+      var(--base-color) 0%,
+      var(--highlight-color) 50%,
+      var(--base-color) 100%
+    );
+    transform: translateX(-100%);
+    animation: loading-skeleton 2s infinite;
+    animation-direction: var(--animation-direction);
+    animation-duration: var(--animation-duration);
+  }
+
+  @keyframes loading-skeleton {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
