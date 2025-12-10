@@ -20,6 +20,7 @@ export default function Dashboard() {
   const { data, isPending: loading, error } = useYarns();
 
   const yarns = data?.data || [];
+  const firstThreeYarns = yarns.slice(0, 3);
   const yarnCount = data?.count || 0;
 
   return (
@@ -53,7 +54,7 @@ export default function Dashboard() {
           linkText="View All Yarns"
           linkUrl="/crochet/yarns"
         />
-        <YarnStashSection yarns={yarns} loading={loading} />
+        <YarnStashSection yarns={firstThreeYarns} loading={loading} />
       </div>
     </div>
   );
