@@ -57,7 +57,7 @@ export default function EditYarn() {
     }
   }
 
-  const handleCancel = () => {
+  const handleBack = () => {
     router.push("/crochet/yarns");
   };
 
@@ -94,9 +94,9 @@ export default function EditYarn() {
         subtitle="Update the details below to modify your yarn."
         fields={formFieldsValues}
         onSubmit={handleSubmit}
-        onCancel={handleCancel}
+        OnBack={handleBack}
+        backLabel="Back to Yarns"
         submitLabel="Update Yarn"
-        cancelLabel="Cancel"
       />
     </div>
   );

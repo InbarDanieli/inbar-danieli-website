@@ -1,5 +1,6 @@
 "use client";
 
+import { IoIosArrowBack } from "react-icons/io";
 import styles from "./button.module.scss";
 
 export default function Button({
@@ -11,7 +12,7 @@ export default function Button({
 }: {
   children: React.ReactNode;
   onclick?: () => void;
-  variant?: "primary" | "secondary" | "primary-full" | "secondary-full" | "primary-color" | "secondary-color";
+  variant?: "primary" | "secondary" | "primary-full" | "secondary-full" | "primary-color" | "secondary-color" | "back";
   disabled?: boolean;
   type?: "submit" | "reset" | "button";
 }) {
@@ -22,6 +23,7 @@ export default function Button({
       onClick={onclick}
       className={`${styles["button"]} ${styles[variant]}`}
     >
+      {variant === "back" && <IoIosArrowBack size={"1.3em"} />}
       {children}
     </button>
   );

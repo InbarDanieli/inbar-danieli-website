@@ -17,6 +17,8 @@ export interface IFormProps {
   fields: IFormFieldConfig[];
   onSubmit: (data: Record<string, FormFieldValue>) => void | Promise<void>;
   onCancel?: () => void;
+  OnBack?: () => void;
+  backLabel?: string;
   submitLabel?: string;
   cancelLabel?: string;
 }

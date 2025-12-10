@@ -14,7 +14,7 @@ import { useAddYarn, useYarns } from "../../(hooks)/useYarns";
 export default function AddYarn() {
   const router = useRouter();
   const user = getAuthUser();
-  
+
   // Pre-fetch yarns to populate the cache before mutation
   useYarns();
   const addYarnMutation = useAddYarn();
@@ -46,7 +46,7 @@ export default function AddYarn() {
     }
   };
 
-  const handleCancel = () => {
+  const handleBack = () => {
     router.push("/crochet/yarns");
   };
 
@@ -54,13 +54,13 @@ export default function AddYarn() {
     <div className={`${styles["add-yarn-page"]} wrapper`}>
       <ToastContainer position="top-center" autoClose={2000} />
       <Form
+        OnBack={handleBack}
+        backLabel="Back to Yarns"
         title="Add New Yarn"
         subtitle="Fill in the details below to add a new yarn to your collection."
         fields={formFields}
         onSubmit={handleSubmit}
-        onCancel={handleCancel}
         submitLabel="Save Yarn"
-        cancelLabel="Cancel"
       />
     </div>
   );

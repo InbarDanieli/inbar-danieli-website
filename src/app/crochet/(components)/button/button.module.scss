@@ -14,7 +14,6 @@
   font-weight: 600;
   cursor: pointer;
 
-
   &.primary,
   &.primary-full {
     background-color: var(--button-primary-background);
@@ -49,5 +48,17 @@
 
   &.secondary-color {
     color: var(--button-secondary-background);
+  }
+
+  &.back {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    margin-bottom: 2.5rem;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

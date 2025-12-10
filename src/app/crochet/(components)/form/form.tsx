@@ -15,6 +15,8 @@ export default function Form({
   fields,
   onSubmit,
   onCancel,
+  OnBack,
+  backLabel = "Back",
   submitLabel = "Save",
   cancelLabel = "Cancel",
 }: IFormProps) {
@@ -79,6 +81,11 @@ export default function Form({
 
   return (
     <div className={styles.form}>
+      {OnBack && (
+        <Button onclick={OnBack} variant="back">
+          {backLabel}
+        </Button>
+      )}
       <form onSubmit={handleSubmit} noValidate>
         <div className={styles.header}>
           <Title
