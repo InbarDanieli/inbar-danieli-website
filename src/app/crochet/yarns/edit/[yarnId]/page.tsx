@@ -1,17 +1,17 @@
 "use client";
 
-// import { useParams, useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { IYarnSchema } from "@/types/yarn.types";
-import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../../../(components)/form/form";
 import { getAuthUser } from "../../../(helpers)/auth.helpers";
-import { formFields, UpdateYarnInDB } from "../../../(helpers)/form.helpers";
+import { formFields } from "../../../(helpers)/form.helpers";
 import { FormFieldValue, IFormFieldConfig } from "@/types/form.types";
 import styles from "./page.module.scss";
-import { getYarn } from "../../../(helpers)/yarn.helpers"; 
+import { useYarn, useUpdateYarn } from "../../../(hooks)/useYarns";
+import { useMemo } from "react";
+import Loader from "../../../(components)/loader/loader";
 
 export default function EditYarn() {
   const router = useRouter();
@@ -19,35 +19,19 @@ export default function EditYarn() {
 
   const params = useParams<{ yarnId: string }>();
   const { yarnId } = params;
-  const [loading, setLoading] = useState(true);
-  const [formFieldsValues, setFormFieldsValues] =
-    useState<IFormFieldConfig[]>(formFields);
 
-  useEffect(() => {
-    const fetchYarn = async () => {
-      try {
-        const yarn = await getYarn(yarnId);
-        if (!yarn) {
-          throw new Error("Yarn not found");
-        }
-        setFormFieldsValues(
-          formFields.map((field) => {
-            return {
-              ...field,
-              value: yarn?.[field.name as keyof IYarnSchema] || "",
-            };
-          })
-        );
-      } catch (error) {
-        console.error("Error fetching yarn:", error);
-        setLoading(false);
-        toast.error("Error fetching yarn, please try again");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchYarn();
-  }, [yarnId]);
+  // Gets yarn directly from cached yarns list - no separate API call!
+  const { data: yarn, isPending, error, isNotFound } = useYarn(yarnId);
+  const updateYarnMutation = useUpdateYarn();
+
+  // Memoize form fields with yarn values
+  const formFieldsValues: IFormFieldConfig[] = useMemo(() => {
+    if (!yarn) return formFields;
+    return formFields.map((field) => ({
+      ...field,
+      value: yarn[field.name as keyof IYarnSchema] || "",
+    }));
+  }, [yarn]);
 
   async function handleSubmit(data: Record<string, FormFieldValue>) {
     try {
@@ -61,16 +45,16 @@ export default function EditYarn() {
         colorTag: (data.colorTag as string) || "",
         company: (data.company as string) || "",
         materials: (data.materials as Record<string, number>) || {},
-        image: (data.image as string) || "", // TODO: Handle file upload properly
+        image: (data.image as string) || "",
       };
 
-      await UpdateYarnInDB(yarnId, yarnData);
+      await updateYarnMutation.mutateAsync({ yarnId, yarnData });
       toast.success("Yarn updated successfully");
       // Redirect to yarns page on success
       router.push("/crochet/yarns");
     } catch (error) {
-      console.error("Error adding yarn:", error);
-      toast.error("Failed to add yarn. Please try again.");
+      console.error("Error updating yarn:", error);
+      toast.error("Failed to update yarn. Please try again.");
     }
   }
 
@@ -78,22 +62,43 @@ export default function EditYarn() {
     router.push("/crochet/yarns");
   };
 
+  // Show loading only while yarns list is being fetched
+  if (isPending) {
+    return (
+      <div className={`${styles["add-yarn-page"]} wrapper`}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`${styles["add-yarn-page"]} wrapper`}>
+        <p>Error loading yarn: {error.message}</p>
+      </div>
+    );
+  }
+
+  if (isNotFound) {
+    return (
+      <div className={`${styles["add-yarn-page"]} wrapper`}>
+        <p>Yarn not found</p>
+      </div>
+    );
+  }
+
   return (
     <div className={`${styles["add-yarn-page"]} wrapper`}>
       <ToastContainer position="top-center" autoClose={2000} />
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <Form
-          title="Add New Yarn"
-          subtitle="Fill in the details below to add a new yarn to your collection."
-          fields={formFieldsValues}
-          onSubmit={handleSubmit}
-          onCancel={handleCancel}
-          submitLabel="Update Yarn"
-          cancelLabel="Cancel"
-        />
-      )}
+      <Form
+        title="Edit Yarn"
+        subtitle="Update the details below to modify your yarn."
+        fields={formFieldsValues}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+        submitLabel="Update Yarn"
+        cancelLabel="Cancel"
+      />
     </div>
   );
 }

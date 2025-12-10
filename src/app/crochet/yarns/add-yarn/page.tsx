@@ -4,15 +4,20 @@ import { useRouter } from "next/navigation";
 import { IYarnSchema } from "@/types/yarn.types";
 
 import Form from "../../(components)/form/form";
-import { AddYarnToDB, formFields } from "../../(helpers)/form.helpers";
+import { formFields } from "../../(helpers)/form.helpers";
 import { FormFieldValue } from "@/types/form.types";
 import styles from "./page.module.scss";
 import { getAuthUser } from "../../(helpers)/auth.helpers";
 import { toast, ToastContainer } from "react-toastify";
+import { useAddYarn, useYarns } from "../../(hooks)/useYarns";
 
 export default function AddYarn() {
   const router = useRouter();
   const user = getAuthUser();
+  
+  // Pre-fetch yarns to populate the cache before mutation
+  useYarns();
+  const addYarnMutation = useAddYarn();
 
   const handleSubmit = async (data: Record<string, FormFieldValue>) => {
     try {
@@ -30,7 +35,8 @@ export default function AddYarn() {
         userId: user?.userId || "",
       };
 
-      await AddYarnToDB(yarnData);
+      await addYarnMutation.mutateAsync(yarnData);
+      toast.success("Yarn added successfully");
 
       // Redirect to yarns page on success
       router.push("/crochet/yarns");

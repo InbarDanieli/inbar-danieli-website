@@ -1,5 +1,4 @@
 import { IFormFieldConfig } from "@/types/form.types";
-import { IYarnSchema } from "@/types/yarn.types";
 
 export const formFields: IFormFieldConfig[] = [
   {
@@ -47,39 +46,3 @@ export const formFields: IFormFieldConfig[] = [
   },
 ];
 
-export async function AddYarnToDB(yarn: Omit<IYarnSchema, "_id">) {
-  try {
-    const response = await fetch("/api/yarns", {
-      method: "POST",
-      body: JSON.stringify(yarn),
-    });
-    const data = await response.json();
-    if (data.status !== 200) {
-      throw new Error(data.message);
-    }
-    return data.data;
-  } catch (error) {
-    console.log({ error });
-    throw (error as { message: string }).message || "Error adding yarn to DB";
-  }
-}
-
-export async function UpdateYarnInDB(
-  yarnId: string,
-  updatedYarn: Omit<IYarnSchema, "_id" | "userId">
-) {
-  try {
-    const response = await fetch(`/api/yarns/${yarnId}`, {
-      method: "PUT",
-      body: JSON.stringify(updatedYarn),
-    });
-    const data = await response.json();
-    if (data.status !== 200) {
-      throw new Error(data.message);
-    }
-    return data.data;
-  } catch (error) {
-    console.log({ error });
-    throw (error as { message: string }).message || "Error updating yarn in DB";
-  }
-}
