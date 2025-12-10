@@ -52,7 +52,7 @@ const Header = () => {
             await handleLogout(e);
           }}
         >
-          <Button type="submit">Logout</Button>
+          <Button variant="primary-color" type="submit">Logout</Button>
         </form>
       );
     } else {

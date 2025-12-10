@@ -40,12 +40,13 @@ export default function YarnCard({
       <div className={styles["yarn-card-actions"]}>
         <Link
           variant="primary-color"
+          fontSize="small"
           href={`/crochet/yarns/edit/${yarn._id}`}
           displayIcon={false}
         >
           Edit
         </Link>
-        <Button onclick={() => onDelete(yarn)} variant="primary-color">
+        <Button onclick={() => onDelete(yarn)} variant="primary-color" fontSize="small">
           Delete
         </Button>
       </div>

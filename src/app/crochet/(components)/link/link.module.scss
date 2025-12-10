@@ -11,6 +11,14 @@
   font-weight: 600;
   cursor: pointer;
 
+  &.small {
+    font-size: 0.8rem;
+  }
+
+  &.medium {
+    font-size: 1rem;
+  }
+
   &.primary {
     background-color: var(--button-primary-background);
     color: var(--crochet-card-background);
