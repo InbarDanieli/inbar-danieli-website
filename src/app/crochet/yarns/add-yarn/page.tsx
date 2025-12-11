@@ -31,7 +31,7 @@ export default function AddYarn() {
         colorTag: (data.colorTag as string) || "",
         company: (data.company as string) || "",
         materials: (data.materials as Record<string, number>) || {},
-        image: (data.image as string) || "", // TODO: Handle file upload properly
+        image: (data.image as string) || "",
         userId: user?.userId || "",
       };
 

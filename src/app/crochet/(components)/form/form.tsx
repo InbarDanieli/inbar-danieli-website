@@ -26,6 +26,9 @@ export default function Form({
       fields.forEach((field) => {
         if (field.type === "materials") {
           initialData[field.name] = field.value || {};
+        } else if (field.type === "file") {
+          // File fields store URLs as strings
+          initialData[field.name] = field.value || "";
         } else {
           initialData[field.name] = field.value || "";
         }
@@ -123,9 +126,7 @@ export default function Form({
                 <Field
                   {...field}
                   value={
-                    field.type === "file"
-                      ? undefined
-                      : field.type === "materials"
+                    field.type === "materials"
                       ? (formData[field.name] as Record<string, number>)
                       : (formData[field.name] as string | number | undefined)
                   }

@@ -8,6 +8,10 @@
     opacity: 0;
     cursor: pointer;
     z-index: 2;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   .file-upload-content {
@@ -20,6 +24,11 @@
     border-radius: 0.5rem;
     background-color: var(--secondary-background);
     transition: all 0.2s ease;
+    min-height: 180px;
+
+    &.uploading {
+      border-color: var(--button-secondary-background);
+    }
 
     .upload-icon {
       width: 3rem;
@@ -47,8 +56,73 @@
     }
   }
 
-  &:hover .file-upload-content {
+  &:hover .file-upload-content:not(.uploading) {
     border-color: var(--button-secondary-background);
   }
-}
 
+  // Progress bar styles
+  .progress-container {
+    width: 80%;
+    height: 8px;
+    background-color: var(--crochet-card-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: var(--button-secondary-background);
+    transition: width 0.2s ease;
+    border-radius: 4px;
+  }
+
+  // Preview styles
+  .preview-container {
+    position: relative;
+    border: 2px solid var(--crochet-card-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--secondary-background);
+  }
+
+  .preview-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .remove-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      color: white;
+    }
+
+    &:hover {
+      background-color: rgba(220, 53, 69, 0.9);
+    }
+  }
+
+  // Error styles
+  .error {
+    color: var(--error-color, #dc3545);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+  }
+}

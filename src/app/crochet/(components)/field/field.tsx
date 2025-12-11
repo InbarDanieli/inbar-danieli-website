@@ -75,7 +75,8 @@ export default function Field({
           <FileField
             id={name}
             name={name}
-            onChange={handleInputChange}
+            value={value as string}
+            onChange={(url) => onChange?.(url)}
             onBlur={onBlur}
             accept={accept}
             required={required}
