@@ -1,4 +1,26 @@
 module.exports = {
+  images: {
+    // TODO - should be removed?
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/crochet",
+        destination: "/crochet/dashboard",
+        permanent: true,
+      },
+    ];
+  },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
