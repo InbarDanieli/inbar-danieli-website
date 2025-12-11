@@ -64,15 +64,21 @@ export default function Popup({
 
   useEffect(() => {
     if (isOpen) {
+      // Lock scroll on both html and body
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+
       document.addEventListener("mousedown", handleOutsideClick);
       document.addEventListener("keydown", handleEscapeKey);
-      document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
       document.removeEventListener("keydown", handleEscapeKey);
-      document.body.style.overflow = "unset";
+
+      // Restore scroll
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [isOpen, handleOutsideClick, handleEscapeKey]);
 
@@ -100,7 +106,9 @@ export default function Popup({
             />
           </div>
         )}
-        <div className={styles.content} style={popupContentStyles}>{children}</div>
+        <div className={styles.content} style={popupContentStyles}>
+          {children}
+        </div>
       </div>
     </div>
   );
