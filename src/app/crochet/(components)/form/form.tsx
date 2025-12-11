@@ -21,6 +21,7 @@ export default function Form({
   backLabel = "Back",
   submitLabel = "Save",
   cancelLabel = "Cancel",
+  variant = "default",
 }: IFormProps) {
   const [formData, setFormData] = useState<Record<string, FormFieldValue>>(
     () => {
@@ -72,7 +73,7 @@ export default function Form({
 
     setIsSubmitting(true);
     try {
-      await onSubmit(formData);
+      await onSubmit?.(formData);
     } catch (error) {
       console.error("Form submission error:", error);
     } finally {
@@ -88,7 +89,7 @@ export default function Form({
         </Button>
       )}
       <form onSubmit={handleSubmit} noValidate>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${styles[variant]}`}>
           <Title
             content={title || ""}
             subtitle={subtitle || ""}
@@ -98,13 +99,15 @@ export default function Form({
           <ActionButtons
             cancelLabel={cancelLabel}
             submitLabel={submitLabel}
-            isSubmitting={isSubmitting}
+            isLoading={isSubmitting}
             onCancel={onCancel}
             className={actionsStyles.desktop}
           />
         </div>
 
-        <div className={globalStyles["form-content"]}>
+        <div
+          className={`${globalStyles["form-content"]} ${styles["form-content"]} ${styles[variant]}`}
+        >
           <div className={globalStyles["fields-grid"]}>
             {fields.map((field) => (
               <div
@@ -134,8 +137,8 @@ export default function Form({
         <ActionButtons
           cancelLabel={cancelLabel}
           submitLabel={submitLabel}
-          isSubmitting={isSubmitting}
-          onCancel={()=> {}}
+          isLoading={isSubmitting}
+          onCancel={onCancel}
           className={actionsStyles.mobile}
         />
       </form>

@@ -15,10 +15,11 @@ export interface IFormProps {
   title?: string;
   subtitle?: string;
   fields: IFormFieldConfig[];
-  onSubmit: (data: Record<string, FormFieldValue>) => void | Promise<void>;
+  onSubmit?: (data: Record<string, FormFieldValue>) => void | Promise<void>;
   onCancel?: () => void;
   OnBack?: () => void;
   backLabel?: string;
   submitLabel?: string;
   cancelLabel?: string;
+  variant?: "default" | "popup";
 }

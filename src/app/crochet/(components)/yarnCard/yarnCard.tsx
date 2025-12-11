@@ -7,15 +7,16 @@ import YarnMaterials from "../yarnMaterials/yarnMaterials";
 import YarnColorTag from "../yarnColorTag/yarnColorTag";
 import Image from "next/image";
 import Button from "../button/button";
-import Link from "../link/link";
 
 export default function YarnCard({
   yarn,
   onDelete,
+  onYarnEdit,
   enableActions = true,
 }: {
   yarn: IYarnSchema;
   onDelete?: (yarn: IYarnSchema) => void;
+  onYarnEdit?: (yarn: IYarnSchema) => void;
   enableActions?: boolean;
 }) {
   return (
@@ -41,14 +42,15 @@ export default function YarnCard({
       </div>
       {enableActions && (
         <div className={styles["yarn-card-actions"]}>
-          <Link
-            variant="primary-color"
-            fontSize="small"
-            href={`/crochet/yarns/edit/${yarn._id}`}
-            displayIcon={false}
-          >
-            Edit
-          </Link>
+          {onYarnEdit && (
+            <Button
+              variant="primary-color"
+              fontSize="small"
+              onclick={() => onYarnEdit(yarn)}
+            >
+              Edit
+            </Button>
+          )}
           {onDelete && (
             <Button
               onclick={() => onDelete(yarn)}

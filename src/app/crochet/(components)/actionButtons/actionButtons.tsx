@@ -1,28 +1,52 @@
+import { IoClose } from "react-icons/io5";
 import Button from "../button/button";
 import styles from "./actionButtons.module.scss";
 
 export default function ActionButtons({
   onCancel,
-  isSubmitting,
+  isLoading,
   cancelLabel,
   submitLabel,
   className,
+  onSubmit,
+  variant = "default",
 }: {
   onCancel?: () => void;
-  isSubmitting: boolean;
+  isLoading: boolean;
   cancelLabel?: string;
   submitLabel?: string;
   className?: string;
+  onSubmit?: () => void;
+  variant?: "default" | "popup";
 }) {
   return (
     <div className={`${styles.actions} ${className}`}>
       {onCancel && (
-        <Button variant="secondary" onclick={onCancel} disabled={isSubmitting}>
-          {cancelLabel}
-        </Button>
+        <>
+          {variant === "default" ? (
+            <Button variant="secondary" onclick={onCancel} disabled={isLoading}>
+              {cancelLabel}
+            </Button>
+          ) : (
+            <button
+              type="button"
+              className={styles.closeButton}
+              onClick={onCancel}
+              aria-label="Close popup"
+            >
+              <IoClose size="1.5em" />
+            </button>
+          )}
+        </>
       )}
-      <Button variant="primary" type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Submitting..." : submitLabel}
+
+      <Button
+        onclick={onSubmit || undefined}
+        variant="primary"
+        type="submit"
+        disabled={isLoading}
+      >
+        {isLoading ? "Submitting..." : submitLabel}
       </Button>
     </div>
   );

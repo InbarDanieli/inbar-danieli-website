@@ -14,6 +14,8 @@ export default function Title({
   variant?: "default" | "secondary";
   style?: CSSProperties;
 }) {
+  if (!content && !subtitle) return null;
+
   function renderTitle() {
     if (!content) return null;
     if (titleType === "h1") return <h1>{content}</h1>;

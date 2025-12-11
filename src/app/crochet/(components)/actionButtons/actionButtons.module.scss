@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  padding: 0 2rem;
 
   &.mobile {
     display: none;
@@ -30,6 +29,38 @@
   @media (max-width: 480px) {
     button {
       flex: 1;
+    }
+  }
+
+  .closeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: var(--crochet-card-border);
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: 2px solid var(--button-primary-background);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+      width: 2rem;
+      height: 2rem;
     }
   }
 }
