@@ -20,8 +20,6 @@ import {
   useYarns,
 } from "../(hooks)/useYarns";
 import styles from "./page.module.scss";
-import Title from "../(components)/title/title";
-import Button from "../(components)/button/button";
 
 export default function YarnSection() {
   const { data, isPending, error } = useYarns();
@@ -161,6 +159,8 @@ export default function YarnSection() {
       <ToastContainer position="top-center" autoClose={2000} />
 
       <Hero
+        loadingLabel="Add yarn"
+        isLoading={isPending}
         title="My Yarn Stash"
         subtitle="Your personal collection of yarns"
         primaryButtonLabel="Add Yarn"

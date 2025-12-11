@@ -10,9 +10,11 @@ export default function ActionButtons({
   className,
   onSubmit,
   variant = "default",
+  loadingLabel = "Submitting...",
 }: {
   onCancel?: () => void;
   isLoading: boolean;
+  loadingLabel?: string;
   cancelLabel?: string;
   submitLabel?: string;
   className?: string;
@@ -24,13 +26,13 @@ export default function ActionButtons({
       {onCancel && (
         <>
           {variant === "default" ? (
-            <Button variant="secondary" onclick={onCancel} disabled={isLoading}>
+            <Button className={styles.actionButton} variant="secondary" onclick={onCancel} disabled={isLoading}>
               {cancelLabel}
             </Button>
           ) : (
             <button
               type="button"
-              className={styles.closeButton}
+              className={`${styles.closeButton} ${styles.actionButton}`}
               onClick={onCancel}
               aria-label="Close popup"
             >
@@ -41,12 +43,13 @@ export default function ActionButtons({
       )}
 
       <Button
+        className={styles.actionButton}
         onclick={onSubmit || undefined}
         variant="primary"
         type="submit"
         disabled={isLoading}
       >
-        {isLoading ? "Submitting..." : submitLabel}
+        {isLoading ? loadingLabel : submitLabel}
       </Button>
     </div>
   );

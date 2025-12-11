@@ -11,6 +11,7 @@ export default function Hero({
   secondaryButtonLabel,
   primaryButtonLabel,
   isLoading = false,
+  loadingLabel,
   onSecondaryClick,
   onPrimaryClick,
 }: {
@@ -24,9 +25,8 @@ export default function Hero({
   secondaryButtonLabel?: string;
   onSecondaryClick?: () => void;
   isLoading?: boolean;
+  loadingLabel?: string;
 }) {
-  console.log(onPrimaryClick);
-
   return (
     <div className={styles.hero}>
       <Title
@@ -36,6 +36,7 @@ export default function Hero({
         variant={titleVariant}
       />
       <ActionButtons
+        loadingLabel={loadingLabel}
         variant={variant}
         cancelLabel={secondaryButtonLabel}
         submitLabel={primaryButtonLabel}

@@ -32,6 +32,21 @@
     }
   }
 
+  .actionButton {
+    transition: all 0.25s ease;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: auto;
+      background-color: var(--crochet-card-border);
+      color: var(--text-color);
+      border-color: var(--crochet-card-border);
+      border-radius: 0.5rem;
+      transition: background-color 0.15s ease, opacity 0.15s ease;
+      flex-shrink: 0;
+    }
+  }
+
   .closeButton {
     display: flex;
     align-items: center;
