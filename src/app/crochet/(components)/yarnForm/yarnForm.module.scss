@@ -1,8 +1,19 @@
-.add-yarn-page {
+.yarn-form {
+  position: relative;
   min-height: calc(100vh - 200px);
-
-  @media (max-width: 768px) {
-    padding: 1.5rem 0;
-  }
 }
 
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 101;
+}
+
+.actionButtons{
+  margin-right: 3rem;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+  }
+}

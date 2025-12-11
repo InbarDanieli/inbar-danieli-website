@@ -22,4 +22,5 @@ export interface IFormProps {
   submitLabel?: string;
   cancelLabel?: string;
   variant?: "default" | "popup";
+  actionButtonsClassName?: string;
 }

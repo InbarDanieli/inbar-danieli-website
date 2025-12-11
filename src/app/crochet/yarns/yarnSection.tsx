@@ -144,6 +144,7 @@ export default function YarnSection() {
         size="large"
       >
         <YarnForm
+          onClose={closePopup}
           submitLabel={selectedYarn ? "Update Yarn" : "Add Yarn"}
           type={selectedYarn ? "edit" : "add"}
           formFields={selectedYarn ? formFieldsValues : formFields}

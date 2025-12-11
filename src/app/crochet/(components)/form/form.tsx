@@ -22,6 +22,7 @@ export default function Form({
   submitLabel = "Save",
   cancelLabel = "Cancel",
   variant = "default",
+  actionButtonsClassName,
 }: IFormProps) {
   const [formData, setFormData] = useState<Record<string, FormFieldValue>>(
     () => {
@@ -101,7 +102,9 @@ export default function Form({
             submitLabel={submitLabel}
             isLoading={isSubmitting}
             onCancel={onCancel}
-            className={actionsStyles.desktop}
+            className={`${
+              variant !== "popup" ? actionsStyles.desktop : undefined
+            } ${actionButtonsClassName}`}
           />
         </div>
 
@@ -134,13 +137,15 @@ export default function Form({
             ))}
           </div>
         </div>
-        <ActionButtons
-          cancelLabel={cancelLabel}
-          submitLabel={submitLabel}
-          isLoading={isSubmitting}
-          onCancel={onCancel}
-          className={actionsStyles.mobile}
-        />
+        {variant !== "popup" && (
+          <ActionButtons
+            cancelLabel={cancelLabel}
+            submitLabel={submitLabel}
+            isLoading={isSubmitting}
+            onCancel={onCancel}
+            className={`${actionsStyles.mobile} ${actionButtonsClassName}`}
+          />
+        )}
       </form>
     </div>
   );

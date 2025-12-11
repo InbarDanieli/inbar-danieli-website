@@ -26,7 +26,12 @@ export default function ActionButtons({
       {onCancel && (
         <>
           {variant === "default" ? (
-            <Button className={styles.actionButton} variant="secondary" onclick={onCancel} disabled={isLoading}>
+            <Button
+              className={styles.actionButton}
+              variant="secondary"
+              onclick={onCancel}
+              disabled={isLoading}
+            >
               {cancelLabel}
             </Button>
           ) : (
