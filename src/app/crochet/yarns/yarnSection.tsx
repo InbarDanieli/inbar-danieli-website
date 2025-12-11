@@ -56,7 +56,7 @@ export default function YarnSection() {
           subtitle="Your personal collection of yarns"
         />
 
-        <Link variant="primary" href="/crochet/yarns/add-yarn">
+        <Link className={styles["add-yarn-link"]} variant="primary" href="/crochet/yarns/add-yarn">
           Add Yarn
         </Link>
       </div>

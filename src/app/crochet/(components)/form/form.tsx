@@ -4,10 +4,12 @@ import { FormFieldValue, IFormProps } from "@/types/form.types";
 import { FormEvent, useState } from "react";
 import { validateForm } from "../../(helpers)/field.helpers";
 import globalStyles from "../../(styles)/globals.module.scss";
+import actionsStyles from "../actionButtons/actionButtons.module.scss";
 import Button from "../button/button";
 import Field from "../field/field";
 import Title from "../title/title";
 import styles from "./form.module.scss";
+import ActionButtons from "../actionButtons/actionButtons";
 
 export default function Form({
   title,
@@ -33,7 +35,6 @@ export default function Form({
       return initialData;
     }
   );
-
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,21 +95,13 @@ export default function Form({
             titleType="h2"
             variant="secondary"
           />
-
-          <div className={styles.actions}>
-            {onCancel && (
-              <Button
-                variant="secondary"
-                onclick={onCancel}
-                disabled={isSubmitting}
-              >
-                {cancelLabel}
-              </Button>
-            )}
-            <Button variant="primary" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : submitLabel}
-            </Button>
-          </div>
+          <ActionButtons
+            cancelLabel={cancelLabel}
+            submitLabel={submitLabel}
+            isSubmitting={isSubmitting}
+            onCancel={onCancel}
+            className={actionsStyles.desktop}
+          />
         </div>
 
         <div className={globalStyles["form-content"]}>
@@ -138,6 +131,13 @@ export default function Form({
             ))}
           </div>
         </div>
+        <ActionButtons
+          cancelLabel={cancelLabel}
+          submitLabel={submitLabel}
+          isSubmitting={isSubmitting}
+          onCancel={()=> {}}
+          className={actionsStyles.mobile}
+        />
       </form>
     </div>
   );

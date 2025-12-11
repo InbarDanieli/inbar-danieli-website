@@ -1,0 +1,35 @@
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 0 2rem;
+
+  &.mobile {
+    display: none;
+    @media (max-width: 768px) {
+      display: flex;
+    }
+  }
+
+  &.desktop {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0;
+    justify-content: center;
+
+    button {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    button {
+      flex: 1;
+    }
+  }
+}
