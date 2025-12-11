@@ -1,8 +1,8 @@
 "use client";
 
 import { IoIosArrowBack } from "react-icons/io";
-import styles from "./button.module.scss";
-
+import globalStyles from "../../(styles)/globals.module.scss";
+import { IActionElementProps } from "@/types/actionElement.types";
 export default function Button({
   children,
   onclick,
@@ -10,20 +10,18 @@ export default function Button({
   disabled = false,
   type = "button",
   fontSize = "medium",
+  className,
 }: {
-  children: React.ReactNode;
   onclick?: () => void;
-  variant?: "primary" | "secondary" | "primary-full" | "secondary-full" | "primary-color" | "secondary-color" | "back";
   disabled?: boolean;
   type?: "submit" | "reset" | "button";
-  fontSize?: "small" | "medium" | "large";
-}) {
+} & IActionElementProps) {
   return (
     <button
       type={type}
       disabled={disabled}
       onClick={onclick}
-      className={`${styles["button"]} ${styles[variant]} ${styles[fontSize]}`}
+      className={`${globalStyles["button"]} ${globalStyles[variant]} ${globalStyles[fontSize]} ${className}`}
     >
       {variant === "back" && <IoIosArrowBack size={"1.3em"} />}
       {children}

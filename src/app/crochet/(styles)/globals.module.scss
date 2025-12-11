@@ -48,3 +48,76 @@
     }
   }
 }
+
+
+.button, .link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  border: none;
+  outline: none;
+
+  background: none;
+
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &.small {
+    font-size: 0.8rem;
+  }
+
+  &.large {
+    font-size: 1.2rem;
+  }
+
+  &.primary,
+  &.primary-full {
+    background-color: var(--button-primary-background);
+    color: var(--crochet-card-background);
+  }
+
+  &.secondary,
+  &.secondary-full {
+    background-color: var(--button-secondary-background);
+    color: var(--button-primary-background);
+  }
+
+  &.primary-full,
+  &.secondary-full {
+    justify-content: center;
+    width: 100%;
+  }
+
+  &.primary-color,
+  &.secondary-color {
+    padding: 0;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.primary-color {
+    color: var(--button-primary-background);
+  }
+
+  &.secondary-color {
+    color: var(--button-secondary-background);
+  }
+
+  &.back {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    margin-bottom: 2.5rem;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
