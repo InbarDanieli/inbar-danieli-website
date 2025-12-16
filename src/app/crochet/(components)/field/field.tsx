@@ -23,6 +23,7 @@ export default function Field({
   accept,
   onChange,
   onBlur,
+  defaultValue
 }: IFieldProps) {
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -132,6 +133,7 @@ export default function Field({
             placeholder={placeholder}
             required={required}
             error={!!error}
+            defaultValue={defaultValue}
           />
         );
     }

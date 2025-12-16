@@ -18,13 +18,12 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
 export interface UserSessionData {
   userId: string;
   email: string;
+  firstName: string;
+  lastName: string;
 }
 
 // JWT payload with our custom claims
-interface SessionJWTPayload extends JWTPayload {
-  userId: string;
-  email: string;
-}
+interface SessionJWTPayload extends JWTPayload, UserSessionData {}
 
 /**
  * Create a new JWT session token
@@ -34,9 +33,11 @@ interface SessionJWTPayload extends JWTPayload {
  */
 export async function createSession(
   userId: string,
-  email: string
+  email: string,
+  firstName: string,
+  lastName: string
 ): Promise<string> {
-  const token = await new SignJWT({ userId, email })
+  const token = await new SignJWT({ userId, email, firstName, lastName })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setIssuer(JWT_ISSUER)
@@ -70,6 +71,8 @@ export async function verifyToken(
     return {
       userId: sessionPayload.userId,
       email: sessionPayload.email,
+      firstName: sessionPayload.firstName,
+      lastName: sessionPayload.lastName,
     };
   } catch {
     // Token is invalid or expired
@@ -159,4 +162,9 @@ export async function getCurrentUserId(): Promise<string | null> {
 export async function getCurrentUserEmail(): Promise<string | null> {
   const session = await getSession();
   return session?.email ?? null;
+}
+
+export async function getCurrentUserInfo(): Promise<UserSessionData | null> {
+  const session = await getSession();
+  return session;
 }

@@ -17,13 +17,15 @@ export default function SignForm({ type }: { type: "login" | "signup" }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
     if (type === "login") {
       await handleSubmitLogin(email, password, e);
     } else {
-      await handleSubmitSignup(email, password, confirmPassword, e);
+      await handleSubmitSignup(email, password, confirmPassword, firstName, lastName, e);
     }
     setLoading(false);
   };
@@ -58,6 +60,34 @@ export default function SignForm({ type }: { type: "login" | "signup" }) {
               onChange={(value) => setEmail(value as string)}
             />
           </div>
+          {type === "signup" && (
+            <>
+              <div
+                className={`${globalStyles["field-wrapper"]} ${globalStyles.half}`}
+              >
+                <Field
+                  label="First Name"
+                  name="firstName"
+                  type="text"
+                  placeholder="Enter First Name"
+                  value={firstName}
+                  onChange={(value) => setFirstName(value as string)}
+                />
+              </div>
+              <div
+                className={`${globalStyles["field-wrapper"]} ${globalStyles.half}`}
+              >
+                <Field
+                  label="Last Name"
+                  name="lastName"
+                  type="text"
+                  placeholder="Enter Last Name"
+                  value={lastName}
+                  onChange={(value) => setLastName(value as string)}
+                />
+              </div>
+            </>
+          )}
           <div
             className={`${globalStyles["field-wrapper"]} ${globalStyles.full}`}
           >

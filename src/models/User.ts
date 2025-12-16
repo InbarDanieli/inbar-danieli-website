@@ -7,6 +7,8 @@ export interface IUser extends Document {
   resetTokenExpiration: Date;
   createdAt: Date;
   updatedAt: Date;
+  firstName: string;
+  lastName: string;
 }
 
 const UserSchema: Schema<IUser> = new Schema(
@@ -27,6 +29,11 @@ const UserSchema: Schema<IUser> = new Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters long"],
     },
+    firstName: {
+      type: String,
+      required: [true, "First name is required"],
+    },
+    lastName: String,
     resetToken: String,
     resetTokenExpiration: Date,
   },

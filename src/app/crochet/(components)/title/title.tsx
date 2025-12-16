@@ -8,7 +8,7 @@ export default function Title({
   variant = "default",
   style = {},
 }: {
-  content?: string;
+  content?: string | React.ReactNode;
   subtitle?: string;
   titleType?: "h1" | "h2" | "h3";
   variant?: "default" | "secondary";

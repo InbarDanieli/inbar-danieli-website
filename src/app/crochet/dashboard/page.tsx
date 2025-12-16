@@ -13,10 +13,20 @@ import {
 import { useYarns } from "../(hooks)/useYarns";
 import globalStyles from "../(styles)/globals.module.scss";
 import styles from "./page.module.scss";
+import { useUser } from "../(hooks)/useUser";
+import LoaderSkeleton from "../(components)/loaders/loaderSkeleton/loaderSkeleton";
 
 export default function Dashboard() {
   const { timeCategory } = getDetailedTimeOfDay();
-  const userName = "Inbar";
+
+  const {
+    data: userInfo,
+    isPending: loadingUserInfo,
+    error: errorUserInfo,
+  } = useUser();
+
+  const userName = userInfo?.firstName || "unknown";
+
   const { data, isPending: loading, error } = useYarns();
 
   const yarns = data?.data || [];
@@ -27,7 +37,16 @@ export default function Dashboard() {
     <div className={`${styles.page} dashboard-page wrapper`}>
       <div className={styles.header}>
         <Title
-          content={`Good ${timeCategory}, ${userName}!`}
+          content={
+            <div className={styles["user-name-wrapper"]}>
+              Good {timeCategory},
+              {loadingUserInfo ? (
+                <LoaderSkeleton height="40px" width="150px" />
+              ) : (
+                ` ${userName}!`
+              )}
+            </div>
+          }
           subtitle="Here's a look at your crochet world today"
         />
       </div>

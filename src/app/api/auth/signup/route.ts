@@ -7,11 +7,18 @@ import { createSession, setSessionCookie } from "@/lib/session";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, password, confirmPassword } = body;
+    const { email, password, confirmPassword, firstName, lastName } = body;
 
-    if (!email || !password) {
+    if (!email || !password ) {
       return NextResponse.json({
         message: "Email and password are required",
+        status: 400,
+      });
+    }
+
+    if (!firstName) {
+      return NextResponse.json({
+        message: "First name is required",
         status: 400,
       });
     }
@@ -49,17 +56,19 @@ export async function POST(request: NextRequest) {
     const newUser = await User.create({
       email,
       password: hashedPassword,
+      firstName,
+      lastName,
     });
 
     // Create session in MongoDB for automatic login
     const userId = String(newUser._id);
-    const sessionId = await createSession(userId, newUser.email);
+    const sessionId = await createSession(userId, newUser.email, newUser.firstName, newUser.lastName);
 
     // Create response
     const response = NextResponse.json(
       {
         message: "User created successfully",
-        user: { id: userId, email: newUser.email },
+        user: { id: userId, email: newUser.email, name: `${newUser.firstName} ${newUser.lastName}` },
         status: 200,
       },
       { status: 201 }

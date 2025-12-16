@@ -59,12 +59,20 @@ export const handleSubmitSignup = async (
   email: string,
   password: string,
   confirmPassword: string,
+  firstName: string,
+  lastName: string,
   e: FormEvent<HTMLFormElement>
 ) => {
   e.preventDefault();
   const response = await fetch("/api/auth/signup", {
     method: "POST",
-    body: JSON.stringify({ email, password, confirmPassword }),
+    body: JSON.stringify({
+      email,
+      password,
+      confirmPassword,
+      firstName,
+      lastName,
+    }),
   });
   const data = await response.json();
 

@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = String(user._id);
-    const sessionId = await createSession(userId, user.email);
+    const sessionId = await createSession(userId, user.email, user.firstName, user.lastName);
 
     const response = NextResponse.json({
       message: "User logged in successfully",

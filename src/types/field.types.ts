@@ -29,6 +29,7 @@ export interface IFieldProps {
     value: string | number | File | null | Record<string, number>
   ) => void;
   onBlur?: () => void;
+  defaultValue?: string | number;
 }
 
 export interface IMaterialEntry {
@@ -67,6 +68,7 @@ export interface IInputFieldProps {
   min?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
+  defaultValue?: string | number;
 }
 
 export interface INumberFieldProps extends Omit<IInputFieldProps, 'value' | 'onChange'> {

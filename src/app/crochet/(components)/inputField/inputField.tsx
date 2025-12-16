@@ -16,6 +16,7 @@ export default function InputField({
   min,
   onChange,
   onBlur,
+  defaultValue,
 }: IInputFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,6 +31,7 @@ export default function InputField({
         name={name}
         type={type === "password" ? (showPassword ? "text" : "password") : type}
         value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}
