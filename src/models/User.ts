@@ -1,12 +1,12 @@
 import { Document, model, models, Schema } from "mongoose";
 
 export interface IUser extends Document {
-  email: string;
-  password: string;
   resetToken: string;
   resetTokenExpiration: Date;
   createdAt: Date;
   updatedAt: Date;
+  password: string;
+  email: string;
   firstName: string;
   lastName: string;
 }

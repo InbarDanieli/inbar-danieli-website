@@ -2,20 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDb } from "../connectDb";
 import { Yarn } from "@/models/Yarn";
 import { getCurrentUserId } from "@/lib/session";
-import { paginate, emptyPaginationResult } from "@/lib/pagination";
+import {
+  paginate,
+  emptyPaginationResult,
+  getPaginationParams,
+} from "@/lib/pagination";
+import { PaginateOptions } from "@/types/pagination.types";
 
 // Handle GET requests with pagination
 export async function GET(request: NextRequest) {
   try {
     await connectToDb();
     const userId = await getCurrentUserId();
+    const options: PaginateOptions = { sort: { createdAt: -1 } };
+    const { page, limit, skip } = getPaginationParams(request, options);
 
-    const result = await paginate(
-      request,
-      Yarn,
-      { userId },
-      { sort: { createdAt: -1 } }
-    );
+    const result = await paginate({
+      page,
+      limit,
+      skip,
+      model: Yarn,
+      filter: { userId },
+      options,
+    });
 
     return NextResponse.json({
       message: "Yarns fetched successfully",

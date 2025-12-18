@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import EmptySection from "../(components)/emptySection/emptySection";
 import Hero from "../(components)/hero/hero";
 import Loader from "../(components)/loaders/loader/loader";
+import LoadMore from "../(components)/loadMore/loadMore";
 import Popup from "../(components)/popup/popup";
 import YarnCard from "../(components)/yarnCard/yarnCard";
 import YarnForm from "../(components)/yarnForm/yarnForm";
@@ -17,12 +18,14 @@ import {
   useAddYarn,
   useDeleteYarn,
   useUpdateYarn,
+  useUpdateYarnsWithPagination,
   useYarns,
 } from "../(hooks)/useYarns";
 import styles from "./page.module.scss";
 
 export default function YarnSection() {
   const { data, isPending, error } = useYarns();
+  const updateYarnsWithPaginationMutation = useUpdateYarnsWithPagination();
   const user = getAuthUser();
   const addYarnMutation = useAddYarn();
   const updateYarnMutation = useUpdateYarn();
@@ -30,7 +33,6 @@ export default function YarnSection() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedYarn, setSelectedYarn] = useState<IYarnSchema | null>(null);
 
-  const yarns = data?.data || [];
   const deleteYarnMutation = useDeleteYarn();
 
   async function handleDeleteYarn(yarn: IYarnSchema) {
@@ -56,7 +58,7 @@ export default function YarnSection() {
       return <p>{error.message}</p>;
     }
 
-    if (yarns.length <= 0) {
+    if (data?.data.length <= 0) {
       return (
         <EmptySection
           title="No yarns found"
@@ -94,6 +96,17 @@ export default function YarnSection() {
     }
   };
 
+  async function handleLoadMore(page: number) {
+    try {
+      await updateYarnsWithPaginationMutation.mutateAsync({
+        page,
+      });
+    } catch (error) {
+      console.error("Error loading more yarns:", error);
+      toast.error("Failed to load more yarns. Please try again.");
+    }
+  }
+
   async function handleEditSubmit(
     data: Record<string, FormFieldValue>,
     yarnId: string
@@ -114,7 +127,6 @@ export default function YarnSection() {
 
       await updateYarnMutation.mutateAsync({ yarnId, yarnData });
       toast.success("Yarn updated successfully");
-
       closePopup();
     } catch (error) {
       console.error("Error updating yarn:", error);
@@ -170,7 +182,7 @@ export default function YarnSection() {
 
       {renderBody()}
       <div className={styles["yarns-section-wrapper"]}>
-        {yarns.map((yarn, idx) => (
+        {data?.data.map((yarn, idx) => (
           <YarnCard
             onDelete={async (yarn) => {
               handleDeleteYarn(yarn);
@@ -184,6 +196,12 @@ export default function YarnSection() {
           />
         ))}
       </div>
+
+      <LoadMore
+        nextPage={data?.nextPage || null}
+        onPageChange={handleLoadMore}
+        className={styles["load-more"]}
+      />
     </div>
   );
 }

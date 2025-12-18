@@ -61,16 +61,23 @@ export function buildPaginationMeta(
  *   sort: { createdAt: -1 }
  * });
  */
-export async function paginate<T>(
-  request: NextRequest,
-  model: Model<T>,
-  filter: FilterQuery<T> = {},
-  options: PaginateOptions = {}
-): Promise<PaginationResult<T>> {
+export async function paginate<T>({
+  page,
+  limit,
+  skip,
+  model,
+  filter = {},
+  options = {},
+}: {
+  page: number;
+  limit: number;
+  skip: number;
+  model: Model<T>;
+  filter: FilterQuery<T>;
+  options: PaginateOptions;
+}): Promise<PaginationResult<T>> {
   const { sort = { _id: -1 } } = options;
-
-  const { page, limit, skip } = getPaginationParams(request, options);
-
+  
   // Run count and find queries in parallel for better performance
   const [count, data] = await Promise.all([
     model.countDocuments(filter),

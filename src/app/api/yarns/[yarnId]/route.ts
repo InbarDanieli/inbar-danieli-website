@@ -67,7 +67,8 @@ export async function PUT(
     await connectToDb();
     const { yarnId } = await params;
     const body = await request.json();
-    const yarn = await Yarn.findByIdAndUpdate(yarnId, body);
+    const yarn = await Yarn.findByIdAndUpdate(yarnId, body, { new: true });
+
     return NextResponse.json({
       message: "Yarn updated successfully",
       data: yarn,

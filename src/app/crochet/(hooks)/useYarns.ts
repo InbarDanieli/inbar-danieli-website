@@ -1,17 +1,7 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-} from "@tanstack/react-query";
 import { IYarnSchema, IYarnsResponse } from "@/types/yarn.types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const YARNS_QUERY_KEY = ["yarns"];
-
-// Helper to get cached yarns directly
-function getCachedYarns(queryClient: QueryClient): IYarnSchema[] | undefined {
-  return queryClient.getQueryData<IYarnsResponse>(YARNS_QUERY_KEY)?.data;
-}
 
 // API functions
 async function fetchYarns(): Promise<IYarnsResponse> {
@@ -58,6 +48,23 @@ async function updateYarn({
   return data.data;
 }
 
+async function updateYarnsWithPagination({
+  page,
+}: {
+  page: number;
+}): Promise<IYarnsResponse> {
+  const response = await fetch(`/api/yarns?page=${page}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  if (data.status !== 200) {
+    throw new Error(data.message || "Error updating yarns with pagination");
+  }
+
+  return data;
+}
+
 async function deleteYarnApi(yarnId: string): Promise<void> {
   const response = await fetch(`/api/yarns/${yarnId}`, {
     method: "DELETE",
@@ -77,35 +84,8 @@ export function useYarns() {
   return useQuery<IYarnsResponse, Error>({
     queryKey: YARNS_QUERY_KEY,
     queryFn: fetchYarns,
-    staleTime: 1000 * 60 * 5, // 5 minutes - prevents refetch when navigating between pages
+    staleTime: 1000 * 60 * 10, // 10 minutes - prevents refetch when navigating between pages
   });
-}
-
-/**
- * Hook to get a single yarn by ID - reads directly from cached yarns list
- * No separate API call needed!
- */
-export function useYarn(yarnId: string) {
-  const queryClient = useQueryClient();
-  const { data, isPending, error } = useYarns();
-  const yarns = data?.data;
-
-  // Check cache directly for immediate access (avoids loading flash)
-  const cachedYarns = getCachedYarns(queryClient);
-  const yarn =
-    yarns?.find((y: IYarnSchema) => y._id === yarnId) ??
-    cachedYarns?.find((y: IYarnSchema) => y._id === yarnId);
-
-  // Only show loading if we don't have the yarn in cache at all
-  const isLoading = isPending && !yarn;
-
-  return {
-    data: yarn,
-    isPending: isLoading,
-    error,
-    // Useful for edit page to know if yarn wasn't found (vs still loading)
-    isNotFound: !isLoading && !error && !yarn,
-  };
 }
 
 /**
@@ -122,10 +102,8 @@ export function useAddYarn() {
       // Update the cache immediately for instant feedback
       queryClient.setQueryData<IYarnsResponse>(YARNS_QUERY_KEY, (old) => {
         if (!old) return old;
-        return { ...old, data: [...old.data, newYarn] };
+        return { ...old, data: [newYarn, ...old.data] };
       });
-      // Also invalidate to ensure consistency
-      await queryClient.invalidateQueries({ queryKey: YARNS_QUERY_KEY });
     },
   });
 }
@@ -145,11 +123,31 @@ export function useUpdateYarn() {
         if (!old) return old;
         return {
           ...old,
-          data: old.data.map((yarn) => (yarn._id === yarnId ? updatedYarn : yarn)),
+          data: old.data.map((yarn) => {
+            if (yarn._id === yarnId) {
+              return { ...yarn, ...updatedYarn };
+            }
+            return yarn;
+          }),
         };
       });
-      // Also invalidate to ensure consistency
-      await queryClient.invalidateQueries({ queryKey: YARNS_QUERY_KEY });
+    },
+  });
+}
+
+export function useUpdateYarnsWithPagination() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateYarnsWithPagination,
+    onSuccess: async (updatedData: IYarnsResponse) => {
+      queryClient.setQueryData<IYarnsResponse>(YARNS_QUERY_KEY, (old) => {
+        if (!old) return old;
+        return {
+          ...updatedData,
+          data: [...old.data, ...(updatedData?.data || [])],
+        };
+      });
     },
   });
 }
