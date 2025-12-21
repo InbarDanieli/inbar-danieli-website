@@ -23,6 +23,7 @@ export default function Form({
   cancelLabel = "Cancel",
   variant = "default",
   actionButtonsClassName,
+  loadingLabel = "Submitting...",
 }: IFormProps) {
   const [formData, setFormData] = useState<Record<string, FormFieldValue>>(
     () => {
@@ -98,6 +99,7 @@ export default function Form({
             variant="secondary"
           />
           <ActionButtons
+          loadingLabel={loadingLabel}
             cancelLabel={cancelLabel}
             submitLabel={submitLabel}
             isLoading={isSubmitting}

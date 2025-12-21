@@ -21,7 +21,6 @@ export interface IPopupProps {
   closeOnOutsideClick?: boolean;
   size?: "small" | "medium" | "large" | "fullscreen";
   className?: string;
-  onClickHandler: () => void;
   showHeader?: boolean;
 }
 

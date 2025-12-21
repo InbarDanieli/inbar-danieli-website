@@ -137,8 +137,6 @@ export default function YarnSection() {
     }
   }
 
-  function runClickHandler() {}
-
   // Memoize form fields with yarn values
   const formFieldsValues: IFormFieldConfig[] = useMemo(() => {
     if (!selectedYarn) return formFields;
@@ -153,7 +151,6 @@ export default function YarnSection() {
       <Popup
         popupContentStyles={{ padding: 0 }}
         showHeader={false}
-        onClickHandler={runClickHandler}
         isOpen={isPopupOpen}
         onClose={closePopup}
         size="large"
