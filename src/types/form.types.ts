@@ -23,4 +23,5 @@ export interface IFormProps {
   cancelLabel?: string;
   variant?: "default" | "popup";
   actionButtonsClassName?: string;
+  loadingLabel?: string;
 }

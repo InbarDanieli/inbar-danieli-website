@@ -10,19 +10,20 @@ export default function YarnForm({
   formFields,
   onSubmit,
   onClose,
-  submitLabel,
 }: {
   type: "add" | "edit";
   formFields: IFormFieldConfig[];
   onSubmit: (data: Record<string, FormFieldValue>) => void;
   onClose: () => void;
-  submitLabel: string;
 }) {
-  const title = type === "add" ? "Add New Yarn" : "Edit Yarn";
-  const subtitle =
-    type === "add"
-      ? "Fill in the details below to add a new yarn to your collection."
-      : "Update the details below to modify your yarn.";
+  const isAdded = type === "add";
+  
+  const loadingLabel = isAdded ? "Adding Yarn..." : "Updating Yarn...";
+  const submitLabel = isAdded ? "Add Yarn" : "Update Yarn";
+  const title = isAdded ? "Add New Yarn" : "Edit Yarn";
+  const subtitle = isAdded
+    ? "Fill in the details below to add a new yarn to your collection."
+    : "Update the details below to modify your yarn.";
 
   return (
     <>
@@ -36,6 +37,7 @@ export default function YarnForm({
       <div className={`${styles["yarn-form"]} wrapper`}>
         <ToastContainer position="top-center" autoClose={2000} />
         <Form
+          loadingLabel={loadingLabel}
           actionButtonsClassName={styles.actionButtons}
           variant="popup"
           title={title}
