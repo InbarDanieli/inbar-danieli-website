@@ -3,7 +3,7 @@ export const getDetailedTimeOfDay = (): {
   timeEmoji: string;
 } => {
   const currentHour: number = new Date().getHours();
-  
+
   let timeCategory: string = "";
   let timeEmoji: string = "";
 
@@ -35,7 +35,3 @@ export const getDetailedTimeOfDay = (): {
 
   return { timeCategory, timeEmoji };
 };
-
-
-// TODO - remove this after patterns are implemented
-export const patternsComingSoon = true;

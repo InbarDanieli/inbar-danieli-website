@@ -6,10 +6,7 @@ import StatCard from "../(components)/statCard/statCard";
 import Title from "../(components)/title/title";
 import YarnStashSection from "../(components)/yarnStashSection/yarnStashSection";
 import { progressPatterns } from "../(demoData)/petterns";
-import {
-  getDetailedTimeOfDay,
-  patternsComingSoon,
-} from "../(helpers)/getTimeOfDay";
+import { getDetailedTimeOfDay } from "../(helpers)/getTimeOfDay";
 import { useYarns } from "../(hooks)/useYarns";
 import globalStyles from "../(styles)/globals.module.scss";
 import styles from "./page.module.scss";
@@ -18,6 +15,7 @@ import LoaderSkeleton from "../(components)/loaders/loaderSkeleton/loaderSkeleto
 
 export default function Dashboard() {
   const { timeCategory } = getDetailedTimeOfDay();
+  const patternsComingSoon = false;
 
   const {
     data: userInfo,

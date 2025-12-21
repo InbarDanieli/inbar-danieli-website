@@ -4,15 +4,15 @@ import styles from "./progressPatternsSection.module.scss";
 import globalStyles from "../../(styles)/globals.module.scss";
 import { GiSpellBook } from "react-icons/gi";
 import EmptySection from "../emptySection/emptySection";
-import { patternsComingSoon } from "../../(helpers)/getTimeOfDay";
 
 export default function ProgressPatternsSection({
   cards,
 }: {
   cards: IProgressPatternCard[];
 }) {
+  const patternsComingSoon = true;
 
-  if(patternsComingSoon){
+  if (patternsComingSoon) {
     return (
       <EmptySection
         title="Coming soon!"

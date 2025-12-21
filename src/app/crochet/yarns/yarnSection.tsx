@@ -172,7 +172,7 @@ export default function YarnSection() {
 
       <Hero
         loadingLabel="Add yarn"
-        isLoading={isPending}
+        isLoading={isPending || addYarnMutation.isPending || updateYarnMutation.isPending}
         title="My Yarn Stash"
         subtitle="Your personal collection of yarns"
         primaryButtonLabel="Add Yarn"
