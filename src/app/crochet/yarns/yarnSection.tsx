@@ -25,8 +25,11 @@ import styles from "./page.module.scss";
 
 export default function YarnSection() {
   const { data, isPending, error } = useYarns();
-  const updateYarnsWithPaginationMutation = useUpdateYarnsWithPagination();
   const user = getAuthUser();
+  const {
+    mutateAsync: updateYarnsWithPaginationMutation,
+    isPending: isUpdatingYarns,
+  } = useUpdateYarnsWithPagination();
   const addYarnMutation = useAddYarn();
   const updateYarnMutation = useUpdateYarn();
 
@@ -98,7 +101,7 @@ export default function YarnSection() {
 
   async function handleLoadMore(page: number) {
     try {
-      await updateYarnsWithPaginationMutation.mutateAsync({
+      await updateYarnsWithPaginationMutation({
         page,
       });
     } catch (error) {
@@ -198,6 +201,7 @@ export default function YarnSection() {
       </div>
 
       <LoadMore
+        loading={isUpdatingYarns}
         nextPage={data?.nextPage || null}
         onPageChange={handleLoadMore}
         className={styles["load-more"]}

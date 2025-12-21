@@ -4,7 +4,7 @@ import { PiYarn } from "react-icons/pi";
 import styles from "./loader.module.scss";
 import { useEffect, useState } from "react";
 
-export default function Loader() {
+export default function Loader({size = 50}: {size?: number}) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Loader() {
   }
   return (
     <div className={styles["loader"]}>
-      <PiYarn size={50} />
+      <PiYarn size={size} />
     </div>
   );
 }
