@@ -1,4 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
+import { IYarnImage } from "./yarn.types";
 
 export type TFieldType =
   | "password"
@@ -19,14 +20,14 @@ export interface IFieldProps {
   label: string;
   name: string;
   type?: TFieldType;
-  value?: string | number | Record<string, number>;
+  value?: string | number | Record<string, number> | IYarnImage | null;
   placeholder?: string;
   required?: boolean;
   error?: string;
   options?: IFieldOption[];
   accept?: string; // for file inputs
   onChange?: (
-    value: string | number | File | null | Record<string, number>
+    value: string | number | File | null | Record<string, number> | IYarnImage
   ) => void;
   onBlur?: () => void;
   defaultValue?: string | number;

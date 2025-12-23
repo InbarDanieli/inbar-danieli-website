@@ -8,6 +8,10 @@
     opacity: 0;
     cursor: pointer;
     z-index: 2;
+
+    &:disabled {
+      cursor: wait;
+    }
   }
 
   .file-upload-content {
@@ -20,6 +24,11 @@
     border-radius: 0.5rem;
     background-color: var(--secondary-background);
     transition: all 0.2s ease;
+
+    &.uploading {
+      border-color: var(--button-secondary-background);
+      background-color: var(--secondary-background);
+    }
 
     .upload-icon {
       width: 3rem;
@@ -47,8 +56,83 @@
     }
   }
 
-  &:hover .file-upload-content {
+  &:hover .file-upload-content:not(.uploading) {
     border-color: var(--button-secondary-background);
+  }
+
+  .preview-container {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 2px solid var(--crochet-card-border);
+    background-color: var(--secondary-background);
+
+    .preview-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .remove-button {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      z-index: 3;
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+        color: white;
+      }
+
+      &:hover {
+        background-color: rgba(220, 38, 38, 0.8);
+      }
+    }
+
+    .uploading-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: white;
+      font-size: 0.875rem;
+    }
+  }
+
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid var(--crochet-card-border);
+    border-top-color: var(--button-secondary-background);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .error-message {
+    color: var(--error-color, #dc2626);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
   }
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

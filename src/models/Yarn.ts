@@ -1,5 +1,5 @@
 import { IYarnSchema } from "@/types/yarn.types";
-import { Schema, model, models } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const yarnSchema = new Schema(
   {
@@ -21,7 +21,11 @@ const yarnSchema = new Schema(
       type: Object,
     },
     image: {
-      type: String,
+      type: {
+        src: String,
+        imageId: String,
+      },
+      default: null,
     },
     userId: {
       type: String,
