@@ -10,6 +10,7 @@ import TextareaField from "../textareaField/textareaField";
 import FileField from "../fileField/fileField";
 import ColorPickerField from "../colorPickerField/colorPickerField";
 import NumberField from "../numberField/numberField";
+import { IYarnImage } from "@/types/yarn.types";
 
 export default function Field({
   label,
@@ -30,12 +31,7 @@ export default function Field({
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    if (type === "file") {
-      const files = (e.target as HTMLInputElement).files;
-      onChange?.(files && files.length > 0 ? files[0] : null);
-    } else {
-      onChange?.(e.target.value);
-    }
+    onChange?.(e.target.value);
   };
 
   const renderInput = () => {
@@ -76,7 +72,8 @@ export default function Field({
           <FileField
             id={name}
             name={name}
-            onChange={handleInputChange}
+            value={value as IYarnImage | null}
+            onChange={(val) => onChange?.(val as IYarnImage)}
             onBlur={onBlur}
             accept={accept}
             required={required}

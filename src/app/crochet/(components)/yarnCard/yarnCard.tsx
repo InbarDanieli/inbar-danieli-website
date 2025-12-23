@@ -21,8 +21,8 @@ export default function YarnCard({
 }) {
   return (
     <div className={`${styles["yarn-card"]} ${globalStyles["card-wrapper"]}`}>
-      {yarn.image && (
-        <Image src={yarn.image} alt={yarn.name} width={100} height={100} />
+      {yarn.image?.src && (
+        <Image src={yarn.image.src} alt={yarn.name} width={100} height={100} />
       )}
 
       <div className={styles["yarn-card-content"]}>

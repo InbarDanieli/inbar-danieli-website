@@ -10,6 +10,7 @@ import Field from "../field/field";
 import Title from "../title/title";
 import styles from "./form.module.scss";
 import ActionButtons from "../actionButtons/actionButtons";
+import { IYarnImage } from "@/types/yarn.types";
 
 export default function Form({
   title,
@@ -31,6 +32,8 @@ export default function Form({
       fields.forEach((field) => {
         if (field.type === "materials") {
           initialData[field.name] = field.value || {};
+        } else if (field.type === "file") {
+          initialData[field.name] = field.value || null;
         } else {
           initialData[field.name] = field.value || "";
         }
@@ -99,7 +102,7 @@ export default function Form({
             variant="secondary"
           />
           <ActionButtons
-          loadingLabel={loadingLabel}
+            loadingLabel={loadingLabel}
             cancelLabel={cancelLabel}
             submitLabel={submitLabel}
             isLoading={isSubmitting}
@@ -124,11 +127,12 @@ export default function Form({
                 <Field
                   {...field}
                   value={
-                    field.type === "file"
-                      ? undefined
-                      : field.type === "materials"
-                      ? (formData[field.name] as Record<string, number>)
-                      : (formData[field.name] as string | number | undefined)
+                    formData[field.name] as
+                      | string
+                      | number
+                      | Record<string, number>
+                      | IYarnImage
+                      | null
                   }
                   error={touched[field.name] ? errors[field.name] : undefined}
                   onChange={(value: FormFieldValue) =>
