@@ -171,7 +171,7 @@ export default function YarnsPage() {
       <ToastContainer position="top-center" autoClose={2000} />
 
       <Hero
-        loadingLabel="Add yarn"
+        loadingLabel="Loading..."
         isLoading={isPending || addYarnMutation.isPending || updateYarnMutation.isPending}
         title="My Yarn Stash"
         subtitle="Your personal collection of yarns"
