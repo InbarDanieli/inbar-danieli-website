@@ -23,7 +23,7 @@ export default function Dashboard() {
     error: errorUserInfo,
   } = useUser();
 
-  const userName = userInfo?.firstName || "unknown";
+  const userName = userInfo?.firstName;
 
   const { data, isPending: loading, error } = useYarns();
 
@@ -37,11 +37,13 @@ export default function Dashboard() {
         <Title
           content={
             <div className={styles["user-name-wrapper"]}>
-              Good {timeCategory},
+              Good {timeCategory}
               {loadingUserInfo ? (
                 <LoaderSkeleton height="40px" width="150px" />
+              ) : userName ? (
+                `, ${userName}!`
               ) : (
-                ` ${userName}!`
+                "!"
               )}
             </div>
           }
