@@ -1,4 +1,4 @@
-import { Document, model, models, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
 export interface IUser extends Document {
   resetToken: string;
