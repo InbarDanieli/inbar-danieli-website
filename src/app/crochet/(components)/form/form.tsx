@@ -1,16 +1,16 @@
 "use client";
 
 import { FormFieldValue, IFormProps } from "@/types/form.types";
+import { IYarnImage } from "@/types/yarn.types";
 import { FormEvent, useState } from "react";
 import { validateForm } from "../../(helpers)/field.helpers";
 import globalStyles from "../../(styles)/globals.module.scss";
+import ActionButtons from "../actionButtons/actionButtons";
 import actionsStyles from "../actionButtons/actionButtons.module.scss";
 import Button from "../button/button";
 import Field from "../field/field";
 import Title from "../title/title";
 import styles from "./form.module.scss";
-import ActionButtons from "../actionButtons/actionButtons";
-import { IYarnImage } from "@/types/yarn.types";
 
 export default function Form({
   title,

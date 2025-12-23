@@ -9,6 +9,7 @@ import {
 } from "react";
 import Hero from "../hero/hero";
 import styles from "./popup.module.scss";
+import ActionButtons from "../actionButtons/actionButtons";
 
 export interface IPopupProps {
   popupContentStyles?: CSSProperties;
@@ -95,11 +96,15 @@ export default function Popup({
         {showHeader && (
           <div className={styles.header}>
             <Hero
-              variant="popup"
+              actionSection={
+                <ActionButtons
+                  variant="popup"
+                  isLoading={false}
+                  onCancel={showCloseButton ? onClose : undefined}
+                />
+              }
               title={title || ""}
               subtitle={subtitle || ""}
-              onSecondaryClick={showCloseButton ? onClose : undefined}
-              secondaryButtonLabel="Close"
               titleType="h2"
               titleVariant="secondary"
             />

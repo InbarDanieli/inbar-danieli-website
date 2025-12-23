@@ -22,6 +22,7 @@ import {
   useYarns,
 } from "../(hooks)/useYarns";
 import styles from "./page.module.scss";
+import ActionButtons from "../(components)/actionButtons/actionButtons";
 
 export default function YarnsPage() {
   const { data, isPending, error } = useYarns();
@@ -171,12 +172,20 @@ export default function YarnsPage() {
       <ToastContainer position="top-center" autoClose={2000} />
 
       <Hero
-        loadingLabel="Loading..."
-        isLoading={isPending || addYarnMutation.isPending || updateYarnMutation.isPending}
         title="My Yarn Stash"
         subtitle="Your personal collection of yarns"
-        primaryButtonLabel="Add Yarn"
-        onPrimaryClick={() => setIsPopupOpen(true)}
+        actionSection={
+          <ActionButtons
+            isLoading={
+              isPending ||
+              addYarnMutation.isPending ||
+              updateYarnMutation.isPending
+            }
+            loadingLabel="Loading..."
+            submitLabel="Add Yarn"
+            onSubmit={() => setIsPopupOpen(true)}
+          />
+        }
       />
 
       {renderBody()}

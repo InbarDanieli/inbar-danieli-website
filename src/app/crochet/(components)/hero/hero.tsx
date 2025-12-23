@@ -1,4 +1,3 @@
-import ActionButtons from "../actionButtons/actionButtons";
 import Title from "../title/title";
 import styles from "./hero.module.scss";
 export default function Hero({
@@ -6,26 +5,13 @@ export default function Hero({
   subtitle,
   titleType = "h1",
   titleVariant = "default",
-
-  variant = "default",
-  secondaryButtonLabel,
-  primaryButtonLabel,
-  isLoading = false,
-  loadingLabel,
-  onSecondaryClick,
-  onPrimaryClick,
+  actionSection,
 }: {
-  variant?: "default" | "popup";
-  title: string;
+  title: string | React.ReactNode;
   titleType?: "h1" | "h2" | "h3";
   titleVariant?: "default" | "secondary";
   subtitle: string;
-  primaryButtonLabel?: string;
-  onPrimaryClick?: () => void;
-  secondaryButtonLabel?: string;
-  onSecondaryClick?: () => void;
-  isLoading?: boolean;
-  loadingLabel?: string;
+  actionSection?: React.ReactNode;
 }) {
   return (
     <div className={styles.hero}>
@@ -35,15 +21,7 @@ export default function Hero({
         titleType={titleType}
         variant={titleVariant}
       />
-      <ActionButtons
-        loadingLabel={loadingLabel}
-        variant={variant}
-        cancelLabel={secondaryButtonLabel}
-        submitLabel={primaryButtonLabel}
-        isLoading={isLoading}
-        onCancel={onSecondaryClick}
-        onSubmit={onPrimaryClick}
-      />
+      {actionSection}
     </div>
   );
 }
