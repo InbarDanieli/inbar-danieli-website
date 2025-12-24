@@ -15,9 +15,12 @@ import styles from "./form.module.scss";
 export default function Form({
   title,
   subtitle,
+  formTitle,
   fields,
   onSubmit,
   onCancel,
+  onFormDataChange,
+  formData,
   OnBack,
   backLabel = "Back",
   submitLabel = "Save",
@@ -26,28 +29,12 @@ export default function Form({
   actionButtonsClassName,
   loadingLabel = "Submitting...",
 }: IFormProps) {
-  const [formData, setFormData] = useState<Record<string, FormFieldValue>>(
-    () => {
-      const initialData: Record<string, FormFieldValue> = {};
-      fields.forEach((field) => {
-        if (field.type === "materials") {
-          initialData[field.name] = field.value || {};
-        } else if (field.type === "file") {
-          initialData[field.name] = field.value || null;
-        } else {
-          initialData[field.name] = field.value || "";
-        }
-      });
-      return initialData;
-    }
-  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFieldChange = (name: string, value: FormFieldValue) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
+    onFormDataChange?.({ ...formData, [name]: value });
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => {
@@ -117,6 +104,7 @@ export default function Form({
           className={`${globalStyles["form-content"]} ${styles["form-content"]} ${styles[variant]}`}
         >
           <div className={globalStyles["fields-grid"]}>
+            {formTitle && <h3 className={styles.formTitle}>{formTitle}</h3>}
             {fields.map((field) => (
               <div
                 key={field.name}

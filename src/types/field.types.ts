@@ -72,7 +72,8 @@ export interface IInputFieldProps {
   defaultValue?: string | number;
 }
 
-export interface INumberFieldProps extends Omit<IInputFieldProps, 'value' | 'onChange'> {
+export interface INumberFieldProps
+  extends Omit<IInputFieldProps, "value" | "onChange"> {
   value: number;
   onChange: (value: number) => void;
 }

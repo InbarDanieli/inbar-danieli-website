@@ -3,6 +3,7 @@
 import { FaPlus } from "react-icons/fa";
 import globalStyles from "../../(styles)/globals.module.scss";
 import { IActionElementProps } from "@/types/actionElement.types";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function Link({
   children,
@@ -20,7 +21,8 @@ export default function Link({
       href={href}
       className={`${globalStyles["link"]} ${globalStyles[variant]} ${globalStyles[fontSize]} ${className}`}
     >
-      {displayIcon && <FaPlus size={"0.7em"} />}
+      {displayIcon && variant !== "back" && <FaPlus size={"0.7em"} />}
+      {variant === "back" && <IoIosArrowBack size={"1.3em"} />}
       {children}
     </a>
   );

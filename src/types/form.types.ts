@@ -1,9 +1,16 @@
 import { IFieldProps, TFieldType } from "./field.types";
 import { IYarnImage } from "./yarn.types";
 
-export type FormFieldValue = string | number | File | null | Record<string, number> | IYarnImage;
+export type FormFieldValue =
+  | string
+  | number
+  | File
+  | null
+  | Record<string, number>
+  | IYarnImage;
 
-export interface IFormFieldConfig extends Omit<IFieldProps, "error" | "onBlur"> {
+export interface IFormFieldConfig
+  extends Omit<IFieldProps, "error" | "onBlur"> {
   name: string;
   label: string;
   type?: TFieldType;
@@ -13,6 +20,9 @@ export interface IFormFieldConfig extends Omit<IFieldProps, "error" | "onBlur"> 
 }
 
 export interface IFormProps {
+  formTitle?: string;
+  formData: Record<string, FormFieldValue>;
+  onFormDataChange: (data: Record<string, FormFieldValue>) => void;
   title?: string;
   subtitle?: string;
   fields: IFormFieldConfig[];
