@@ -1,5 +1,6 @@
 import { HTMLInputTypeAttribute } from "react";
 import { IYarnImage } from "./yarn.types";
+import { FormFieldValue } from "./form.types";
 
 export type TFieldType =
   | "password"
@@ -16,11 +17,12 @@ export interface IFieldOption {
   value: string;
 }
 
+
 export interface IFieldProps {
   label: string;
   name: string;
   type?: TFieldType;
-  value?: string | number | Record<string, number> | IYarnImage | null;
+  value?: FormFieldValue;
   placeholder?: string;
   required?: boolean;
   error?: string;

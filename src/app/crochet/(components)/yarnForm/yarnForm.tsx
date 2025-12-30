@@ -63,7 +63,7 @@ export default function YarnForm({
           variant="popup"
           title={title}
           subtitle={subtitle}
-          fields={formFields}
+          fields={[{ fields: formFields }]}
           onSubmit={onSubmit}
           submitLabel={submitLabel}
         />

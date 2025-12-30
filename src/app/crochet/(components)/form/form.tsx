@@ -1,21 +1,18 @@
 "use client";
 
 import { FormFieldValue, IFormProps } from "@/types/form.types";
-import { IYarnImage } from "@/types/yarn.types";
 import { FormEvent, useState } from "react";
 import { validateForm } from "../../(helpers)/field.helpers";
-import globalStyles from "../../(styles)/globals.module.scss";
 import ActionButtons from "../actionButtons/actionButtons";
 import actionsStyles from "../actionButtons/actionButtons.module.scss";
 import Button from "../button/button";
-import Field from "../field/field";
 import Title from "../title/title";
 import styles from "./form.module.scss";
+import FormContainer from "./formContainer/formContainer";
 
 export default function Form({
   title,
   subtitle,
-  formTitle,
   fields,
   onSubmit,
   onCancel,
@@ -28,6 +25,7 @@ export default function Form({
   variant = "default",
   actionButtonsClassName,
   loadingLabel = "Submitting...",
+  contentWrapperClassName,
 }: IFormProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -48,14 +46,16 @@ export default function Form({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const allFields = fields.flatMap((field) => field.fields);
+
     const { errors: validationErrors, isValid } = validateForm(
-      fields,
+      allFields,
       formData
     );
 
     if (!isValid) {
       const newTouched: Record<string, boolean> = {};
-      fields.forEach((field) => {
+      allFields.forEach((field) => {
         newTouched[field.name] = true;
       });
       setTouched(newTouched);
@@ -100,37 +100,22 @@ export default function Form({
           />
         </div>
 
-        <div
-          className={`${globalStyles["form-content"]} ${styles["form-content"]} ${styles[variant]}`}
-        >
-          <div className={globalStyles["fields-grid"]}>
-            {formTitle && <h3 className={styles.formTitle}>{formTitle}</h3>}
-            {fields.map((field) => (
-              <div
-                key={field.name}
-                className={`${globalStyles["field-wrapper"]} ${
-                  field.gridColumn === "full" ? globalStyles.full : ""
-                }`}
-              >
-                <Field
-                  {...field}
-                  value={
-                    formData[field.name] as
-                      | string
-                      | number
-                      | Record<string, number>
-                      | IYarnImage
-                      | null
-                  }
-                  error={touched[field.name] ? errors[field.name] : undefined}
-                  onChange={(value: FormFieldValue) =>
-                    handleFieldChange(field.name, value)
-                  }
-                />
-              </div>
-            ))}
-          </div>
+        <div className={contentWrapperClassName}>
+          {fields.map((field, idx) => (
+            <FormContainer
+              className={field.className}
+              formTitle={field.title}
+              fields={field.fields}
+              formData={formData}
+              touched={touched}
+              errors={errors}
+              onFieldChange={handleFieldChange}
+              variant={variant}
+              key={(field?.title || "") + idx}
+            />
+          ))}
         </div>
+
         {variant !== "popup" && (
           <ActionButtons
             cancelLabel={cancelLabel}

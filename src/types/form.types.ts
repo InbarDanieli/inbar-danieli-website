@@ -25,7 +25,7 @@ export interface IFormProps {
   onFormDataChange: (data: Record<string, FormFieldValue>) => void;
   title?: string;
   subtitle?: string;
-  fields: IFormFieldConfig[];
+  fields: { fields: IFormFieldConfig[]; title?: string; className?: string }[];
   onSubmit?: (data: Record<string, FormFieldValue>) => void | Promise<void>;
   onCancel?: () => void;
   OnBack?: () => void;
@@ -35,4 +35,16 @@ export interface IFormProps {
   variant?: "default" | "popup";
   actionButtonsClassName?: string;
   loadingLabel?: string;
+  contentWrapperClassName?: string;
+}
+
+export interface IFormContainerProps {
+  formTitle?: string;
+  fields: IFormFieldConfig[];
+  formData: Record<string, FormFieldValue>;
+  touched: Record<string, boolean>;
+  errors: Record<string, string>;
+  onFieldChange: (name: string, value: FormFieldValue) => void;
+  variant?: "default" | "popup";
+  className?: string;
 }
