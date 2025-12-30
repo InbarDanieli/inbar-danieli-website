@@ -10,13 +10,13 @@ export type TFieldType =
   | "file"
   | "textarea"
   | "materials"
+  | "abbreviation"
   | "color";
 
 export interface IFieldOption {
   label: string;
   value: string;
 }
-
 
 export interface IFieldProps {
   label: string;
@@ -29,7 +29,14 @@ export interface IFieldProps {
   options?: IFieldOption[];
   accept?: string; // for file inputs
   onChange?: (
-    value: string | number | File | null | Record<string, number> | IYarnImage
+    value:
+      | string
+      | number
+      | File
+      | null
+      | Record<string, number>
+      | IYarnImage
+      | Record<string, string>
   ) => void;
   onBlur?: () => void;
   defaultValue?: string | number;
@@ -48,6 +55,20 @@ export interface IMaterialsFieldProps {
   onBlur?: () => void;
 }
 
+export interface IAbbreviationEntry {
+  id: string;
+  name: string;
+  value: string;
+}
+
+export interface IAbbreviationFieldProps {
+  value?: Record<string, string>;
+  error?: string;
+  onChange?: (value: Record<string, string>) => void;
+  onBlur?: () => void;
+  formTitle?: string;
+}
+
 // color picker field props
 export interface IColorPickerFieldProps {
   id: string;
@@ -58,7 +79,6 @@ export interface IColorPickerFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
 }
-
 
 export interface IInputFieldProps {
   id: string;
@@ -72,6 +92,7 @@ export interface IInputFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   defaultValue?: string | number;
+  className?: string;
 }
 
 export interface INumberFieldProps
