@@ -17,18 +17,19 @@ export default function NumberField({
   onBlur,
 }: INumberFieldProps) {
   return (
-    <input
-      id={id}
-      name={name}
-      type={"number"}
-      value={value}
-      onChange={(e) => onChange?.(e.target.valueAsNumber || 0)}
-      onBlur={onBlur}
-      placeholder={placeholder}
-      required={required}
-      min={min}
-      className={`${styles.input} ${error ? styles.error : ""}`}
-    />
+    <div className={styles["input-container"]}>
+      <input
+        className={`${styles.input} ${error ? styles.error : ""}`}
+        id={id}
+        name={name}
+        type={"number"}
+        value={value}
+        onChange={(e) => onChange?.(e.target.valueAsNumber || 0)}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        required={required}
+        min={min}
+      />
+    </div>
   );
 }
-
