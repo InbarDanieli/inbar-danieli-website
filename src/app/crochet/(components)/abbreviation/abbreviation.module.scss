@@ -1,0 +1,42 @@
+.abbreviation-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .abbreviation-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+
+    .add-button {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: none;
+      border: none;
+      color: var(--button-primary-background);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+
+  .abbreviation-entry {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .abbreviation-input {
+    height: 36px;
+  }
+
+  .remove-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--subtitle-text-color);
+    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+  }
+}

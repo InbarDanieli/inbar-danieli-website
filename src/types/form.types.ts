@@ -7,6 +7,7 @@ export type FormFieldValue =
   | File
   | null
   | Record<string, number>
+  | Record<string, string>
   | IYarnImage;
 
 export interface IFormFieldConfig

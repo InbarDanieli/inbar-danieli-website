@@ -11,6 +11,7 @@ import FileField from "../fileField/fileField";
 import ColorPickerField from "../colorPickerField/colorPickerField";
 import NumberField from "../numberField/numberField";
 import { IYarnImage } from "@/types/yarn.types";
+import AbbreviationField from "../abbreviation/abbreviation";
 
 export default function Field({
   label,
@@ -24,7 +25,7 @@ export default function Field({
   accept,
   onChange,
   onBlur,
-  defaultValue
+  defaultValue,
 }: IFieldProps) {
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -105,6 +106,17 @@ export default function Field({
           />
         );
 
+      case "abbreviation":
+        return (
+          <AbbreviationField
+            formTitle={label}
+            value={value as Record<string, string>}
+            error={error}
+            onChange={(val) => onChange?.(val)}
+            onBlur={onBlur}
+          />
+        );
+
       case "color":
         return (
           <ColorPickerField
@@ -138,9 +150,11 @@ export default function Field({
 
   return (
     <div className={styles.field}>
-      <label htmlFor={name} className={styles.label}>
-        {label} {required && <span className={styles.required}>*</span>}
-      </label>
+      {type !== "abbreviation" && (
+        <label htmlFor={name} className={styles.label}>
+          {label} {required && <span className={styles.required}>*</span>}
+        </label>
+      )}
       {renderInput()}
       {error && <span className={styles["error-message"]}>{error}</span>}
     </div>
