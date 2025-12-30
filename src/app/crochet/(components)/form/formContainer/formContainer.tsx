@@ -18,7 +18,7 @@ export default function FormContainer({
       className={`${globalStyles["form-content"]} ${styles["form-content"]} ${styles[variant]} ${className}`}
     >
       <div className={globalStyles["fields-grid"]}>
-        {formTitle && <h3 className={styles.formTitle}>{formTitle}</h3>}
+        {formTitle && <h3 className={styles['form-title']}>{formTitle}</h3>}
         {fields.map((field) => (
           <div
             key={field.name}

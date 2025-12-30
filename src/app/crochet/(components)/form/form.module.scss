@@ -48,4 +48,8 @@
   .header:empty + .form-content {
     padding: 0;
   }
+
+  .form-title {
+    grid-column: 1 / -1;
+  }
 }
