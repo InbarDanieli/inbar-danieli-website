@@ -13,7 +13,7 @@ import Popup from "../(components)/popup/popup";
 import YarnCard from "../(components)/yarnCard/yarnCard";
 import YarnForm from "../(components)/yarnForm/yarnForm";
 import { getAuthUser } from "../(helpers)/auth.helpers";
-import { formFields } from "../(helpers)/form.helpers";
+import { formFields } from "../(helpers)/yarn-form.helpers";
 import {
   useAddYarn,
   useDeleteYarn,
