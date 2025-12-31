@@ -13,6 +13,7 @@ import {
   formFieldstwo,
 } from "../../(helpers)/pattern-form.helpers";
 import styles from "./page.module.scss";
+import { handleKeyDown } from "../../(helpers)/form.helpers";
 
 export default function CreatePatternPage() {
   const [formData, setFormData] = useState<Partial<IPattern>>({
@@ -82,7 +83,7 @@ export default function CreatePatternPage() {
 
   return (
     <div className={`create-pattern-page wrapper`}>
-      <form onSubmit={handleSubmit} noValidate className={styles["pattern-form"]}>
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} noValidate className={styles["pattern-form"]}>
         <Hero
           title="Create New Pattern"
           subtitle="Fill in the details below to create a new pattern."

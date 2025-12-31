@@ -9,6 +9,7 @@ import Button from "../button/button";
 import Title from "../title/title";
 import styles from "./form.module.scss";
 import FormContainer from "./formContainer/formContainer";
+import { handleKeyDown } from "../../(helpers)/form.helpers";
 
 export default function Form({
   title,
@@ -80,7 +81,7 @@ export default function Form({
           {backLabel}
         </Button>
       )}
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} noValidate>
         <div className={`${styles.header} ${styles[variant]}`}>
           <Title
             content={title || ""}
