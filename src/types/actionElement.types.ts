@@ -1,6 +1,5 @@
 export interface IActionElementProps {
   children: React.ReactNode;
-  onclick?: () => void;
   variant?:
     | "primary"
     | "secondary"

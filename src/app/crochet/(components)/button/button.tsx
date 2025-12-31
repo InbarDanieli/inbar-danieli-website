@@ -12,7 +12,7 @@ export default function Button({
   fontSize = "medium",
   className,
 }: {
-  onclick?: () => void;
+  onclick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   type?: "submit" | "reset" | "button";
 } & IActionElementProps) {
@@ -20,7 +20,7 @@ export default function Button({
     <button
       type={type}
       disabled={disabled}
-      onClick={onclick}
+      onClick={(e) => onclick && onclick(e)}
       className={`${globalStyles["button"]} ${globalStyles[variant]} ${globalStyles[fontSize]} ${className}`}
     >
       {variant === "back" && <IoIosArrowBack size={"1.3em"} />}

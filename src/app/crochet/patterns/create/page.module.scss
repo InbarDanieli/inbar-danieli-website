@@ -1,25 +1,16 @@
-.contentWrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-  grid-template-areas:
-    "details details image"
-    "details details abbreviation"
-    "content content .";
+.pattern-form {
+  width: 100%;
+}
 
-  .pattern-details {
-    grid-area: details;
+.pattern-details-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+
+  .form-left-section {
+    flex: 2;
   }
-  .pattern-content {
-    grid-area: content;
-  }
-  .pattern-image {
-    grid-area: image;
-    align-self: start;
-    
-  }
-  .pattern-abbreviation {
-    grid-area: abbreviation;
-    align-self: start;
+  .form-right-section {
+    flex: 1;
   }
 }

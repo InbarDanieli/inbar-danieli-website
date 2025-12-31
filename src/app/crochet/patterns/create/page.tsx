@@ -2,11 +2,17 @@
 
 import { FormFieldValue } from "@/types/form.types";
 import { IPattern } from "@/types/pattern.types";
-import { useState } from "react";
-import Form from "../../(components)/form/form";
-import { formFeaturedImageFields, formFieldstwo, formFields } from "../../(helpers)/pattern-form.helpers";
+import { FormEvent, useState } from "react";
+import Button from "../../(components)/button/button";
+import FormContainer from "../../(components)/form/formContainer/formContainer";
+import Hero from "../../(components)/hero/hero";
+import { validateForm } from "../../(helpers)/field.helpers";
+import {
+  formFeaturedImageFields,
+  formFields,
+  formFieldstwo,
+} from "../../(helpers)/pattern-form.helpers";
 import styles from "./page.module.scss";
-
 
 export default function CreatePatternPage() {
   const [formData, setFormData] = useState<Partial<IPattern>>({
@@ -23,38 +29,114 @@ export default function CreatePatternPage() {
     post: [],
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFieldChange = (name: string, value: FormFieldValue) => {
+    setFormData({ ...formData, [name]: value });
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const allFields = [
+      ...formFeaturedImageFields,
+      ...formFieldstwo,
+      ...formFields,
+    ];
+
+    const { errors: validationErrors, isValid } = validateForm(
+      allFields,
+      formData as Record<string, FormFieldValue>
+    );
+
+    if (!isValid) {
+      const newTouched: Record<string, boolean> = {};
+      allFields.forEach((field) => {
+        newTouched[field.name] = true;
+      });
+      setTouched(newTouched);
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // add submit
+      console.log(formData);
+    } catch (error) {
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className={`create-pattern-page wrapper`}>
-      <Form
-        contentWrapperClassName={styles.contentWrapper}
-        onSubmit={(data) => console.log(data)}
-        formData={formData as Record<string, FormFieldValue>}
-        onFormDataChange={setFormData}
-        fields={[
-          {
-            fields: formFields,
-            title: "Patterns Details",
-            className: styles["pattern-details"],
-          },
-          {
-            fields: formFieldstwo,
-            title: "Pattern Content",
-            className: styles["pattern-content"],
-          },
-          {
-            fields: formFeaturedImageFields,
-            title: "Featured Image",
-            className: styles["pattern-image"],
-          },
-          {
-            fields: formFieldstwo,
-            title: "",
-            className: styles["pattern-abbreviation"],
-          },
-        ]}
-        title="Patterns Details"
-        subtitle="Fill in the details below to create a new pattern."
-      />
+      <form onSubmit={handleSubmit} noValidate className={styles["pattern-form"]}>
+        <Hero
+          title="Create New Pattern"
+          subtitle="Fill in the details below to create a new pattern."
+          actionSection={
+            <Button
+              type="submit"
+              variant="primary"
+            >
+              Create Pattern
+            </Button>
+          }
+        />
+        <div className={styles["pattern-details-container"]}>
+          <div className={styles["form-left-section"]}>
+            <FormContainer
+              className={styles["pattern-details"]}
+              formTitle="Patterns Details"
+              fields={formFields}
+              formData={formData as Record<string, FormFieldValue>}
+              touched={touched}
+              errors={errors}
+              onFieldChange={handleFieldChange}
+            />
+            <FormContainer
+              className={styles["pattern-content"]}
+              formTitle="Pattern Content"
+              fields={formFieldstwo}
+              formData={formData as Record<string, FormFieldValue>}
+              touched={touched}
+              errors={errors}
+              onFieldChange={handleFieldChange}
+            />
+          </div>
+          <div className={styles["form-right-section"]}>
+            <FormContainer
+              className={styles["pattern-image"]}
+              formTitle="Featured Image"
+              fields={formFeaturedImageFields}
+              formData={formData as Record<string, FormFieldValue>}
+              touched={touched}
+              errors={errors}
+              onFieldChange={handleFieldChange}
+            />
+            <FormContainer
+              className={styles["pattern-abbreviation"]}
+              fields={formFieldstwo}
+              formData={formData as Record<string, FormFieldValue>}
+              touched={touched}
+              errors={errors}
+              onFieldChange={handleFieldChange}
+            />
+          </div>
+        </div>
+      </form>
     </div>
   );
 }
