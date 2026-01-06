@@ -1,11 +1,6 @@
 // LAYOUT UTILITIES
 .wrapper {
   max-width: 80rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   margin: auto;
 
   &.have-padding {
