@@ -24,6 +24,7 @@
   background-color: var(--crochet-card-background, #ffffff);
   border-radius: var(--card-radius, 1rem);
   padding: 2rem;
+  margin: auto;
   margin-bottom: 1.5rem;
 
   @media (max-width: 768px) {
