@@ -8,8 +8,14 @@ import { useState } from "react";
 
 export default function SelectTypeButton({
   onChange,
+  className,
+  icon = <IoMdAddCircle size={18} />,
+  label = "Add Block",
 }: {
   onChange: (value: IPatternPost) => void;
+  className?: string;
+  icon?: React.ReactNode;
+  label?: string;
 }) {
   const [blockSelectIsOpen, setBlockSelectIsOpen] = useState(false);
   return (
@@ -20,10 +26,10 @@ export default function SelectTypeButton({
         e.preventDefault();
         setBlockSelectIsOpen(true);
       }}
-      className={styles["add-button"]}
+      className={`${styles["add-button"]} ${className}`}
     >
-      <IoMdAddCircle size={18} />
-      Add Block
+      {icon}
+      {label}
       {blockSelectIsOpen && (
         <BlockSelect
           onClose={() => setBlockSelectIsOpen(false)}

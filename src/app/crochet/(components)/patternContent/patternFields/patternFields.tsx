@@ -2,6 +2,7 @@ import { IPatternPost } from "@/types/pattern.types";
 import InputField from "../../inputField/inputField";
 import SelectTypeButton from "../selectTypeButton/selectTypeButton";
 import styles from "./patternFields.module.scss";
+import { HiPencil } from "react-icons/hi";
 
 export default function PatternFields({
   value,
@@ -22,6 +23,7 @@ export default function PatternFields({
       {value.map((field) => (
         <div key={field.id} className={styles["pattern-field"]}>
           <InputField
+            className={styles["pattern-field-input"]}
             id={field.id}
             name={field.type}
             value={field.content}
@@ -33,6 +35,9 @@ export default function PatternFields({
             }
           />
           <SelectTypeButton
+            className={`${styles[field.type]} ${styles["edit-button"]}`}
+            icon={<HiPencil size={16} />}
+            label={field.type}
             onChange={(newPost) => handleChange(field.id, newPost)}
           />
         </div>

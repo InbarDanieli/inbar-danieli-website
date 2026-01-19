@@ -1,5 +1,21 @@
-.pattern-field{
+.pattern-field {
   position: relative;
-  display: flex;
-  gap: 0.5rem;
+  // display: flex;
+  background-color: var(--secondary-background);
+  border-radius: 0.5rem;
+  // padding: 1rem;
+
+  .pattern-field-input input {
+    padding-top: 1.5rem;
+  }
+
+  .edit-button {
+    font-size: 0.8rem;
+
+    &.title {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+  }
 }

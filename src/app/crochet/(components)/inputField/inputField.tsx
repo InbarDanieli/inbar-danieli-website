@@ -17,6 +17,7 @@ export default function InputField({
   onChange,
   onBlur,
   defaultValue,
+  className,
 }: IInputFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,7 +26,7 @@ export default function InputField({
   };
 
   return (
-    <div className={styles["input-container"]}>
+    <div className={`${styles["input-container"]} ${className}`}>
       <input
         id={id}
         name={name}

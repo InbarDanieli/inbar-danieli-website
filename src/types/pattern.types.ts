@@ -11,6 +11,7 @@ export type TPatternPostType =
 export interface IPatternPost {
   type: TPatternPostType;
   content: string;
+  rowNumber?: number;
   images: string[];
   id: string;
 }
