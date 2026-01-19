@@ -26,7 +26,7 @@ export default function SelectTypeButton({
         e.preventDefault();
         setBlockSelectIsOpen(true);
       }}
-      className={`${styles["add-button"]} ${className}`}
+      className={`${styles["select-type-button"]} ${className}`}
     >
       {icon}
       {label}
