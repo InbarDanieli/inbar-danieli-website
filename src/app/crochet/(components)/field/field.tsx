@@ -1,17 +1,19 @@
 "use client";
 
-import React from "react";
-import styles from "./field.module.scss";
 import { IFieldProps } from "@/types/field.types";
-import MaterialsField from "../materialsField/materialsField";
+import { IPatternPost } from "@/types/pattern.types";
+import { IYarnImage } from "@/types/yarn.types";
+import React, { useCallback, useMemo } from "react";
+import AbbreviationField from "../abbreviation/abbreviation";
+import ColorPickerField from "../colorPickerField/colorPickerField";
+import FileField from "../fileField/fileField";
 import InputField from "../inputField/inputField";
+import MaterialsField from "../materialsField/materialsField";
+import NumberField from "../numberField/numberField";
+import PatternContentField from "../patternContent/patternContent";
 import SelectField from "../selectField/selectField";
 import TextareaField from "../textareaField/textareaField";
-import FileField from "../fileField/fileField";
-import ColorPickerField from "../colorPickerField/colorPickerField";
-import NumberField from "../numberField/numberField";
-import { IYarnImage } from "@/types/yarn.types";
-import AbbreviationField from "../abbreviation/abbreviation";
+import styles from "./field.module.scss";
 
 export default function Field({
   label,
@@ -27,15 +29,22 @@ export default function Field({
   onBlur,
   defaultValue,
 }: IFieldProps) {
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    onChange?.(e.target.value);
-  };
+  const handleInputChange = useCallback(
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) => {
+      onChange?.(e.target.value);
+    },
+    [onChange]
+  );
 
-  const renderInput = () => {
+  const displayLabel = useMemo(() => {
+    return type !== "abbreviation" && type !== "pattern-content";
+  }, [type]);
+
+  const renderInput = useCallback(() => {
     switch (type) {
       case "select":
         return (
@@ -117,6 +126,16 @@ export default function Field({
           />
         );
 
+      case "pattern-content":
+        return (
+          <PatternContentField
+            value={value as IPatternPost[]}
+            onChange={(val) => onChange?.(val as IPatternPost[])}
+            onBlur={onBlur}
+            formTitle={label}
+          />
+        );
+
       case "color":
         return (
           <ColorPickerField
@@ -146,11 +165,25 @@ export default function Field({
           />
         );
     }
-  };
+  }, [
+    type,
+    name,
+    value,
+    placeholder,
+    required,
+    error,
+    options,
+    accept,
+    defaultValue,
+    onChange,
+    onBlur,
+    handleInputChange,
+    label,
+  ]);
 
   return (
     <div className={styles.field}>
-      {type !== "abbreviation" && (
+      {displayLabel && (
         <label htmlFor={name} className={styles.label}>
           {label} {required && <span className={styles.required}>*</span>}
         </label>

@@ -1,4 +1,5 @@
 import { IFieldProps, TFieldType } from "./field.types";
+import { IPatternPost } from "./pattern.types";
 import { IYarnImage } from "./yarn.types";
 
 export type FormFieldValue =
@@ -6,6 +7,7 @@ export type FormFieldValue =
   | number
   | File
   | null
+  | IPatternPost[]
   | Record<string, number>
   | Record<string, string>
   | IYarnImage;

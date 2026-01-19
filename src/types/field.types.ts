@@ -1,6 +1,6 @@
 import { HTMLInputTypeAttribute } from "react";
-import { IYarnImage } from "./yarn.types";
 import { FormFieldValue } from "./form.types";
+import { IPatternPost } from "./pattern.types";
 
 export type TFieldType =
   | "password"
@@ -11,6 +11,7 @@ export type TFieldType =
   | "textarea"
   | "materials"
   | "abbreviation"
+  | "pattern-content"
   | "color";
 
 export interface IFieldOption {
@@ -28,16 +29,7 @@ export interface IFieldProps {
   error?: string;
   options?: IFieldOption[];
   accept?: string; // for file inputs
-  onChange?: (
-    value:
-      | string
-      | number
-      | File
-      | null
-      | Record<string, number>
-      | IYarnImage
-      | Record<string, string>
-  ) => void;
+  onChange?: (value: FormFieldValue) => void;
   onBlur?: () => void;
   defaultValue?: string | number;
 }
@@ -93,10 +85,18 @@ export interface IInputFieldProps {
   onBlur?: () => void;
   defaultValue?: string | number;
   className?: string;
+  variant?: "default" | "title-input";
 }
 
 export interface INumberFieldProps
   extends Omit<IInputFieldProps, "value" | "onChange"> {
   value: number;
   onChange: (value: number) => void;
+}
+
+export interface IPatternContentFieldProps {
+  value: IPatternPost[];
+  onChange: (value: IPatternPost[]) => void;
+  onBlur?: () => void;
+  formTitle?: string;
 }

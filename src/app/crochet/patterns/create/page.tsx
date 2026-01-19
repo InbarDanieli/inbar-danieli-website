@@ -10,7 +10,8 @@ import { validateForm } from "../../(helpers)/field.helpers";
 import {
   formFeaturedImageFields,
   formFields,
-  formFieldstwo,
+  abbreviationFields,
+  patternContentFields,
 } from "../../(helpers)/pattern-form.helpers";
 import styles from "./page.module.scss";
 import { handleKeyDown } from "../../(helpers)/form.helpers";
@@ -51,7 +52,8 @@ export default function CreatePatternPage() {
 
     const allFields = [
       ...formFeaturedImageFields,
-      ...formFieldstwo,
+      ...abbreviationFields,
+      ...patternContentFields,
       ...formFields,
     ];
 
@@ -109,8 +111,8 @@ export default function CreatePatternPage() {
             />
             <FormContainer
               className={styles["pattern-content"]}
-              formTitle="Pattern Content"
-              fields={formFieldstwo}
+              // formTitle="Pattern Content"
+              fields={patternContentFields}
               formData={formData as Record<string, FormFieldValue>}
               touched={touched}
               errors={errors}
@@ -129,7 +131,7 @@ export default function CreatePatternPage() {
             />
             <FormContainer
               className={styles["pattern-abbreviation"]}
-              fields={formFieldstwo}
+              fields={abbreviationFields}
               formData={formData as Record<string, FormFieldValue>}
               touched={touched}
               errors={errors}

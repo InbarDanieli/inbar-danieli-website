@@ -1,0 +1,35 @@
+.block-select-container {
+  padding: 0.3rem 0;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 190px;
+  background-color: var(--crochet-card-background);
+  border: 1px solid var(--crochet-card-border);
+  border-radius: 6px;
+  z-index: 1;
+
+  .block-type {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--header-link-color) 20%,
+        var(--overlay-mix) 100%
+      );
+      color: var(--header-link-color);
+    }
+
+    .block-type-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+  }
+}

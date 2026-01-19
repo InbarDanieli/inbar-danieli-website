@@ -73,11 +73,22 @@ export const formFeaturedImageFields: IPatternFields[] = [
   },
 ];
 
-export const formFieldstwo: IPatternFields[] = [
+export const abbreviationFields: IPatternFields[] = [
   {
     name: "abbreviation",
     label: "Abbreviations",
     type: "abbreviation",
+    gridColumn: "full",
+    required: true,
+    value: "",
+  },
+];
+
+export const patternContentFields: IPatternFields[] = [
+  {
+    name: "post",
+    label: "Pattern Content",
+    type: "pattern-content",
     gridColumn: "full",
     required: true,
     value: "",
