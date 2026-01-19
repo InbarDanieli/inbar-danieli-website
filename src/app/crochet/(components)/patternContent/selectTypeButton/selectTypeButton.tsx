@@ -4,16 +4,14 @@ import { IoMdAddCircle } from "react-icons/io";
 import BlockSelect from "../../blockSelect/blockSelect";
 import { blockTypes } from "./blockType";
 import styles from "./selectTypeButton.module.scss";
+import { useState } from "react";
 
 export default function SelectTypeButton({
-  blockSelectIsOpen,
-  setBlockSelectIsOpen,
   onChange,
 }: {
-  blockSelectIsOpen: boolean;
-  setBlockSelectIsOpen: (isOpen: boolean) => void;
   onChange: (value: IPatternPost) => void;
 }) {
+  const [blockSelectIsOpen, setBlockSelectIsOpen] = useState(false);
   return (
     <button
       type="button"

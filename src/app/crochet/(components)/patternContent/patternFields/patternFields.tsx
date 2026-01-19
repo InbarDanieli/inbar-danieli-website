@@ -1,5 +1,4 @@
 import { IPatternPost } from "@/types/pattern.types";
-import { useState } from "react";
 import InputField from "../../inputField/inputField";
 import SelectTypeButton from "../selectTypeButton/selectTypeButton";
 import styles from "./patternFields.module.scss";
@@ -18,8 +17,6 @@ export default function PatternFields({
     onChange(updatedValue);
   }
 
-  const [blockSelectIsOpen, setBlockSelectIsOpen] = useState(false);
-
   return (
     <div>
       {value.map((field) => (
@@ -36,8 +33,6 @@ export default function PatternFields({
             }
           />
           <SelectTypeButton
-            blockSelectIsOpen={blockSelectIsOpen}
-            setBlockSelectIsOpen={setBlockSelectIsOpen}
             onChange={(newPost) => handleChange(field.id, newPost)}
           />
         </div>
