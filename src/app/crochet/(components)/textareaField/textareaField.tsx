@@ -13,6 +13,7 @@ interface TextareaFieldProps {
   rows?: number;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onBlur?: () => void;
+  className?: string;
 }
 
 export default function TextareaField({
@@ -25,6 +26,7 @@ export default function TextareaField({
   rows = 4,
   onChange,
   onBlur,
+  className,
 }: TextareaFieldProps) {
   return (
     <textarea
@@ -36,7 +38,7 @@ export default function TextareaField({
       placeholder={placeholder}
       required={required}
       rows={rows}
-      className={`${styles.textarea} ${error ? styles.error : ""}`}
+      className={`${styles.textarea} ${error ? styles.error : ""} ${className}`}
     />
   );
 }
