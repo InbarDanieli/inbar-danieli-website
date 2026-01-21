@@ -2,7 +2,7 @@
 
 import { IFieldProps } from "@/types/field.types";
 import { IPatternPost } from "@/types/pattern.types";
-import { IYarnImage } from "@/types/yarn.types";
+import { IImageScheme } from "@/types/yarn.types";
 import React, { useCallback, useMemo } from "react";
 import AbbreviationField from "../abbreviation/abbreviation";
 import ColorPickerField from "../colorPickerField/colorPickerField";
@@ -82,8 +82,8 @@ export default function Field({
           <FileField
             id={name}
             name={name}
-            value={value as IYarnImage | null}
-            onChange={(val) => onChange?.(val as IYarnImage)}
+            value={value as IImageScheme | null}
+            onChange={(val) => onChange?.(val as IImageScheme)}
             onBlur={onBlur}
             accept={accept}
             required={required}

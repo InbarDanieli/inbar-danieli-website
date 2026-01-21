@@ -1,7 +1,7 @@
 "use client";
 
 import { FormFieldValue, IFormFieldConfig } from "@/types/form.types";
-import { IYarnImage, IYarnSchema } from "@/types/yarn.types";
+import { IImageScheme, IYarnSchema } from "@/types/yarn.types";
 import { useMemo, useState } from "react";
 import { PiYarn } from "react-icons/pi";
 import { toast, ToastContainer } from "react-toastify";
@@ -86,7 +86,7 @@ export default function YarnsPage() {
         colorTag: (data.colorTag as string) || "",
         company: (data.company as string) || "",
         materials: (data.materials as Record<string, number>) || {},
-        image: (data.image as IYarnImage) || null,
+        image: (data.image as IImageScheme) || null,
         userId: user?.userId || "",
       };
 
@@ -126,7 +126,7 @@ export default function YarnsPage() {
         colorTag: (data.colorTag as string) || "",
         company: (data.company as string) || "",
         materials: (data.materials as Record<string, number>) || {},
-        image: (data.image as IYarnImage) || null,
+        image: (data.image as IImageScheme) || null,
       };
 
       await updateYarnMutation.mutateAsync({ yarnId, yarnData });

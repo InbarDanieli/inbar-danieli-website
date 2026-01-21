@@ -1,4 +1,4 @@
-export interface IYarnImage {
+export interface IImageScheme {
   src: string;
   imageId: string;
 }
@@ -10,7 +10,7 @@ export interface IYarnSchema {
   colorTag: string;
   company: string;
   materials: Record<string, number>; // {cotton: 50%, wool: 50%}
-  image: IYarnImage | null;
+  image: IImageScheme | null;
   userId?: string;
 
   // future - add hook size && washer instructions

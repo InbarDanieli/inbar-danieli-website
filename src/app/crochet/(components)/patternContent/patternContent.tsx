@@ -2,6 +2,9 @@ import { IPatternContentFieldProps } from "@/types/field.types";
 import styles from "./patternContent.module.scss";
 import PatternFields from "./patternFields/patternFields";
 import SelectTypeButton from "./selectTypeButton/selectTypeButton";
+import Button from "../button/button";
+import { getDefaultPostPerType } from "../../(helpers)/post-default-field.helper";
+import { FaPlus } from "react-icons/fa";
 
 export default function PatternContentField({
   value,
@@ -9,7 +12,6 @@ export default function PatternContentField({
   onBlur,
   formTitle,
 }: IPatternContentFieldProps) {
-  
   return (
     <div className={styles["content-field"]}>
       <div className={styles["content-header"]}>
@@ -20,6 +22,14 @@ export default function PatternContentField({
       </div>
 
       <PatternFields value={value} onChange={onChange} />
+
+      <Button
+        className={styles["add-row-button"]}
+        onclick={() => onChange([...value, getDefaultPostPerType("row")])}
+        variant="secondary"
+      >
+        <FaPlus size={10} /> Add Row
+      </Button>
     </div>
   );
 }

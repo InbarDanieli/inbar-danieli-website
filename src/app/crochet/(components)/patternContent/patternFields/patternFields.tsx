@@ -4,6 +4,7 @@ import SelectTypeButton from "../selectTypeButton/selectTypeButton";
 import styles from "./patternFields.module.scss";
 import { HiPencil } from "react-icons/hi";
 import TextareaField from "../../textareaField/textareaField";
+import MultiFileField from "../../multiFileField/multiFileField";
 
 export default function PatternFields({
   value,
@@ -59,6 +60,19 @@ export default function PatternFields({
 
       case "space":
         return <div className={styles["space-line"]}></div>;
+
+      case "images":
+        return (
+          <MultiFileField
+            maxImages={3}
+            id={field.id}
+            name={field.type}
+            value={field.images}
+            onChange={(val) =>
+              handleChange(field.id, { ...field, images: val })
+            }
+          />
+        );
 
       default:
         return <div>Editor not found</div>;

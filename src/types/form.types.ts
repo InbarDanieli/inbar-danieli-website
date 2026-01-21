@@ -1,6 +1,6 @@
 import { IFieldProps, TFieldType } from "./field.types";
 import { IPatternPost } from "./pattern.types";
-import { IYarnImage } from "./yarn.types";
+import { IImageScheme } from "./yarn.types";
 
 export type FormFieldValue =
   | string
@@ -10,7 +10,7 @@ export type FormFieldValue =
   | IPatternPost[]
   | Record<string, number>
   | Record<string, string>
-  | IYarnImage;
+  | IImageScheme;
 
 export interface IFormFieldConfig
   extends Omit<IFieldProps, "error" | "onBlur"> {

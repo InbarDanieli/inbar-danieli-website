@@ -1,3 +1,5 @@
+import { IImageScheme } from "./yarn.types";
+
 export interface IPattern extends Document, IPatternProps {}
 
 export type TPatternPostType =
@@ -12,7 +14,7 @@ export interface IPatternPost {
   type: TPatternPostType;
   content: string;
   rowNumber?: number;
-  images: string[];
+  images: IImageScheme[] | null;
   id: string;
 }
 

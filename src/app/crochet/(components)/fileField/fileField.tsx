@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import styles from "./fileField.module.scss";
-import { IYarnImage } from "@/types/yarn.types";
+import { IImageScheme } from "@/types/yarn.types";
 import Image from "next/image";
 
 interface FileFieldProps {
@@ -10,8 +10,8 @@ interface FileFieldProps {
   name: string;
   accept?: string;
   required?: boolean;
-  value?: IYarnImage | null;
-  onChange?: (value: IYarnImage | null) => void;
+  value?: IImageScheme | null;
+  onChange?: (value: IImageScheme | null) => void;
   onBlur?: () => void;
 }
 
