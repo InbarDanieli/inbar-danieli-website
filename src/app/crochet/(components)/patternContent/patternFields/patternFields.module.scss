@@ -72,7 +72,7 @@
       top: 8px;
       right: 8px;
       font-size: 0.8rem;
-      
+
       &.separator,
       &.space {
         z-index: 1;
@@ -83,5 +83,39 @@
         padding: 0 1rem;
       }
     }
+  }
+}
+
+.images-grid {
+  padding-top: 1.8rem;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  .row-number-container {
+    .row-name {
+      font-weight: 600;
+    }
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+
+    .row-number {
+      width: 80px;
+      input {
+        padding: 0.4rem 0.2rem;
+        border: none;
+        border-bottom: 1px solid var(--crochet-card-border);
+        border-radius: 0;
+      }
+    }
+  }
+
+  .row-instructions {
+    border-color: var(--crochet-card-border);
   }
 }

@@ -14,6 +14,7 @@ interface MultiFileFieldProps {
   onChange?: (value: IImageScheme[] | null) => void;
   onBlur?: () => void;
   maxImages?: number;
+  gridClassName?: string;
 }
 
 export default function MultiFileField({
@@ -25,6 +26,7 @@ export default function MultiFileField({
   onChange,
   onBlur,
   maxImages,
+  gridClassName
 }: MultiFileFieldProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadingCount, setUploadingCount] = useState(0);
@@ -129,7 +131,7 @@ export default function MultiFileField({
     <div className={styles["file-upload"]}>
       {/* Images grid */}
       {hasImages && (
-        <div className={styles["images-grid"]}>
+        <div className={`${styles["images-grid"]} ${gridClassName}`}>
           {currentImages.map((image, index) => (
             <div key={image.src || index} className={styles["preview-container"]}>
               <Image

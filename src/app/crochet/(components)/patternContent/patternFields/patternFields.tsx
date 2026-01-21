@@ -64,6 +64,7 @@ export default function PatternFields({
       case "images":
         return (
           <MultiFileField
+            gridClassName={styles["images-grid"]}
             maxImages={3}
             id={field.id}
             name={field.type}
@@ -72,6 +73,42 @@ export default function PatternFields({
               handleChange(field.id, { ...field, images: val })
             }
           />
+        );
+
+      case "row":
+        return (
+          <div className={styles["row-container"]}>
+            <div className={styles["row-number-container"]}>
+              <span className={styles["row-name"]}>R</span>
+              <InputField
+                className={styles["row-number"]}
+                id={field.id}
+                name={"row-number"}
+                type="number"
+                value={field.rowNumber || 0}
+                onChange={(e) =>
+                  handleChange(field.id, {
+                    ...field,
+                    rowNumber: Number(e.target.value),
+                  })
+                }
+              />
+            </div>
+            <TextareaField
+              rows={4}
+              placeholder={"Instructions for this row..."}
+              className={styles["row-instructions"]}
+              id={field.id}
+              name={"row-instructions"}
+              onChange={(e) =>
+                handleChange(field.id, {
+                  ...field,
+                  content: e.target.value as string,
+                })
+              }
+              value={field.content}
+            />
+          </div>
         );
 
       default:
