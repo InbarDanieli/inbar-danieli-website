@@ -12,7 +12,7 @@
   .block-type {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: space-between;
     padding: 0.5rem 1rem;
     color: var(--text-color);
     transition: all 0.2s ease;
@@ -26,10 +26,16 @@
       color: var(--header-link-color);
     }
 
-    .block-type-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+    .block-type-content {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .block-type-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
     }
   }
 }

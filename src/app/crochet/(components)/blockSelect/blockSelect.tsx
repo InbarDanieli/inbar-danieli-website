@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { TPatternPostType } from "@/types/pattern.types";
+import { useEffect, useRef } from "react";
+import { FaCheck } from "react-icons/fa6";
 import styles from "./blockSelect.module.scss";
 
 export default function BlockSelect({
@@ -9,6 +10,7 @@ export default function BlockSelect({
   selectedType,
   blockTypes,
   onClose,
+  onTypeSelect,
 }: {
   onSelect: (
     e: React.MouseEvent<HTMLDivElement>,
@@ -21,6 +23,7 @@ export default function BlockSelect({
     icon: React.ReactNode;
   }[];
   onClose: () => void;
+  onTypeSelect: (e: React.MouseEvent<HTMLDivElement>, type: TPatternPostType) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -44,10 +47,21 @@ export default function BlockSelect({
         <div
           className={styles["block-type"]}
           key={blockType.type}
-          onClick={(e) => onSelect(e, blockType.type)}
+          onClick={(e) => {
+            if (selectedType) {
+              onTypeSelect(e, blockType.type);
+              return;
+            }
+            onSelect(e, blockType.type);
+          }}
         >
-          {blockType.icon}
-          <span className={styles["block-type-label"]}>{blockType.label}</span>
+          <div className={styles["block-type-content"]}>
+            {blockType.icon}
+            <span className={styles["block-type-label"]}>
+              {blockType.label}
+            </span>
+          </div>
+          {selectedType === blockType.type && <FaCheck size={10} />}
         </div>
       ))}
     </div>

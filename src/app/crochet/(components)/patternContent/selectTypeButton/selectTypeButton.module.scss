@@ -16,3 +16,16 @@
   height: 1.5px;
   background-color: currentColor;
 }
+
+.validate-popup-content {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+
+  span {
+    font-size: 0.9rem;
+    color: var(--subtitle-text-color);
+  }
+}

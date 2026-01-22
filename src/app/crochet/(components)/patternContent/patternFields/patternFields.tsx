@@ -13,26 +13,26 @@ export default function PatternFields({
   value: IPatternPost[];
   onChange: (value: IPatternPost[]) => void;
 }) {
-  function handleChange(id: string, updatedField: IPatternPost) {
-    const updatedValue = value.map((field) =>
-      field.id === id ? updatedField : field
+  function handleChange(id: string, updatedPost: IPatternPost) {
+    const updatedValue = value.map((post) =>
+      post.id === id ? updatedPost : post
     );
     onChange(updatedValue);
   }
 
-  function renderEditorType(type: TPatternPostType, field: IPatternPost) {
+  function renderEditorType(type: TPatternPostType, post: IPatternPost) {
     switch (type) {
       case "title":
         return (
           <InputField
             placeholder="Section Header (e.g. Body)"
             className={styles["pattern-field-input"]}
-            id={field.id}
-            name={field.type}
-            value={field.content}
+            id={post.id}
+            name={post.type}
+            value={post.content}
             onChange={(e) =>
-              handleChange(field.id, {
-                ...field,
+              handleChange(post.id, {
+                ...post,
                 content: e.target.value as string,
               })
             }
@@ -44,15 +44,15 @@ export default function PatternFields({
             rows={4}
             placeholder={"Add a note here..."}
             className={styles["general-note-textarea"]}
-            id={field.id}
-            name={field.type}
+            id={post.id}
+            name={post.type}
             onChange={(e) =>
-              handleChange(field.id, {
-                ...field,
+              handleChange(post.id, {
+                ...post,
                 content: e.target.value as string,
               })
             }
-            value={field.content}
+            value={post.content}
           />
         );
       case "separator":
@@ -66,12 +66,10 @@ export default function PatternFields({
           <MultiFileField
             gridClassName={styles["images-grid"]}
             maxImages={3}
-            id={field.id}
-            name={field.type}
-            value={field.images}
-            onChange={(val) =>
-              handleChange(field.id, { ...field, images: val })
-            }
+            id={post.id}
+            name={post.type}
+            value={post.images}
+            onChange={(val) => handleChange(post.id, { ...post, images: val })}
           />
         );
 
@@ -82,13 +80,13 @@ export default function PatternFields({
               <span className={styles["row-name"]}>R</span>
               <InputField
                 className={styles["row-number"]}
-                id={field.id}
+                id={post.id}
                 name={"row-number"}
                 type="number"
-                value={field.rowNumber || 0}
+                value={post.rowNumber || 0}
                 onChange={(e) =>
-                  handleChange(field.id, {
-                    ...field,
+                  handleChange(post.id, {
+                    ...post,
                     rowNumber: Number(e.target.value),
                   })
                 }
@@ -98,15 +96,15 @@ export default function PatternFields({
               rows={4}
               placeholder={"Instructions for this row..."}
               className={styles["row-instructions"]}
-              id={field.id}
+              id={post.id}
               name={"row-instructions"}
               onChange={(e) =>
-                handleChange(field.id, {
-                  ...field,
+                handleChange(post.id, {
+                  ...post,
                   content: e.target.value as string,
                 })
               }
-              value={field.content}
+              value={post.content}
             />
           </div>
         );
@@ -118,14 +116,16 @@ export default function PatternFields({
 
   return (
     <div className={styles["pattern-fields-container"]}>
-      {value.map((field) => (
-        <div key={field.id} className={styles["pattern-field"]}>
-          {renderEditorType(field.type, field)}
+      {value.map((post) => (
+        <div key={post.id} className={styles["pattern-field"]}>
+          {renderEditorType(post.type, post)}
           <SelectTypeButton
-            className={`${styles[field.type]} ${styles["edit-button"]}`}
+            pattern={value}
+            post={post}
+            className={`${styles[post.type]} ${styles["edit-button"]}`}
             icon={<HiPencil size={16} />}
-            label={field.type}
-            onChange={(newPost) => handleChange(field.id, newPost)}
+            label={post.type}
+            onChange={(newPost) => handleChange(post.id, newPost)}
           />
         </div>
       ))}
